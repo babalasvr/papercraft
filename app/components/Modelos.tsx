@@ -1,0 +1,50 @@
+const moduloImages = [
+  "https://i.ibb.co/hxycsjjP/MODULO-01-VAI-RECEBER-P.webp",
+  "https://i.ibb.co/vxRjrGrk/MODULO-02-VAI-RECEBER-P.webp",
+  "https://i.ibb.co/TB4fV8h2/MODULO-03-VAI-RECEBER-P.webp",
+];
+
+export default function Modelos() {
+  return (
+    <section
+      className="relative py-20 px-4 overflow-hidden"
+      id="modelos"
+      style={{
+        backgroundImage:
+          "linear-gradient(to right, #e2e8f0 1px, transparent 1px), linear-gradient(#e2e8f0 1px, transparent 1px)",
+        backgroundSize: "30px 30px",
+        backgroundColor: "#f8fafc",
+      }}
+    >
+      <div className="max-w-6xl mx-auto">
+        {/* Header */}
+        <div className="text-center mb-12">
+          <p
+            className="text-[#0188FA] font-semibold text-lg mb-3 italic"
+          >
+            Alguns exemplos reais dos +3500 moldes!
+          </p>
+          <h2
+            className="text-4xl md:text-5xl font-bold text-[#0F172A]"
+            style={{ fontFamily: '"Permanent Marker", cursive' }}
+          >
+            Veja Um Pouco Por Dentro Como São Os Modelos Que Você Irá Receber!
+          </h2>
+        </div>
+
+        {/* Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {moduloImages.map((src, i) => (
+            <div key={i} className="overflow-hidden rounded-xl shadow-lg">
+              <img
+                src={src}
+                alt={`Módulo ${i + 1}`}
+                className="rounded-xl shadow-lg w-full"
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}

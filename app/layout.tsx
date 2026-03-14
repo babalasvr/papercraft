@@ -226,6 +226,20 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
+        {/* Utmify Pixel */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `window.pixelId = "69b5aabc33d88c5b56307756";var a=document.createElement("script");a.setAttribute("async","");a.setAttribute("defer","");a.setAttribute("src","https://cdn.utmify.com.br/scripts/pixel/pixel.js");document.head.appendChild(a);`,
+          }}
+        />
+        {/* Utmify UTMs */}
+        <script
+          src="https://cdn.utmify.com.br/scripts/utms/latest.js"
+          data-utmify-prevent-xcod-sck=""
+          data-utmify-prevent-subids=""
+          async
+          defer
+        />
       </head>
       <body className={`${inter.variable} antialiased`}>{children}</body>
     </html>

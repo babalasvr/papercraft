@@ -7,7 +7,7 @@ interface UpsellModalProps {
   onClose: () => void;
 }
 
-const UPSELL_URL = "https://www.ggcheckout.com/checkout/v4/2mLxvXet6aDg93bgZkOu"; // ← troque pelo link do Kit Mestre R$17,90
+const UPSELL_URL = "https://www.ggcheckout.com/checkout/v4/h7JvWtkZwpmVHbusw4u6";
 const INICIANTE_URL = "https://www.ggcheckout.com/checkout/v4/WrN9zpJBasFtfyQqR9vs";
 const TIMER_SECONDS = 4 * 60 + 18; // 4:18
 

@@ -131,7 +131,7 @@ export default function Pricing() {
 
             <button
               onClick={() => setShowUpsell(true)}
-              className="block w-full text-center bg-[#0F172A] text-white font-bold py-4 rounded-2xl border-2 border-gray-600 hover:bg-gray-800 transition-all duration-100 cursor-pointer uppercase tracking-wide"
+              className="btn-initcheck block w-full text-center bg-[#0F172A] text-white font-bold py-4 rounded-2xl border-2 border-gray-600 hover:bg-gray-800 transition-all duration-100 cursor-pointer uppercase tracking-wide"
               style={{ fontFamily: '"Permanent Marker", cursive' }}
             >
               QUERO SÓ O BÁSICO
@@ -203,7 +203,7 @@ export default function Pricing() {
               href="https://www.ggcheckout.com/checkout/v4/2mLxvXet6aDg93bgZkOu"
               target="_blank"
               rel="noopener noreferrer"
-              className="cta-button block w-full text-center text-white text-lg font-bold py-5 rounded-2xl cursor-pointer no-underline uppercase tracking-wide"
+              className="btn-initcheck cta-button block w-full text-center text-white text-lg font-bold py-5 rounded-2xl cursor-pointer no-underline uppercase tracking-wide"
               style={{ fontFamily: '"Permanent Marker", cursive' }}
             >
               SIM! EU QUERO TUDO

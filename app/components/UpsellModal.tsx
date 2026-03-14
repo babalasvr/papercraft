@@ -113,7 +113,7 @@ export default function UpsellModal({ onClose }: UpsellModalProps) {
           {/* CTA principal */}
           <button
             onClick={goUpsell}
-            className="w-full text-white text-lg font-bold py-4 rounded-2xl mb-3 transition-transform active:scale-95 cursor-pointer"
+            className="btn-initcheck w-full text-white text-lg font-bold py-4 rounded-2xl mb-3 transition-transform active:scale-95 cursor-pointer"
             style={{
               fontFamily: '"Permanent Marker", cursive',
               backgroundColor: "#0188fa",
@@ -126,7 +126,7 @@ export default function UpsellModal({ onClose }: UpsellModalProps) {
           {/* Recusar */}
           <button
             onClick={goIniciante}
-            className="text-gray-400 text-xs underline hover:text-gray-600 transition-colors cursor-pointer bg-transparent border-none"
+            className="btn-initcheck text-gray-400 text-xs underline hover:text-gray-600 transition-colors cursor-pointer bg-transparent border-none"
           >
             Não, obrigado. Quero só o básico por R$10,00
           </button>

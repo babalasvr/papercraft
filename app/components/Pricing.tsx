@@ -122,7 +122,9 @@ export default function Pricing() {
             </ul>
 
             <a
-              href="#"
+              href="https://www.ggcheckout.com/checkout/v4/WrN9zpJBasFtfyQqR9vs"
+              target="_blank"
+              rel="noopener noreferrer"
               className="block w-full text-center bg-[#0F172A] text-white font-bold py-4 rounded-2xl border-2 border-gray-600 hover:bg-gray-800 transition-all duration-100 cursor-pointer uppercase tracking-wide"
               style={{ fontFamily: '"Permanent Marker", cursive' }}
             >

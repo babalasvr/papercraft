@@ -131,7 +131,7 @@ export default function Pricing() {
 
             <button
               onClick={() => setShowUpsell(true)}
-              className="btn-initcheck block w-full text-center bg-[#0F172A] text-white font-bold py-4 rounded-2xl border-2 border-gray-600 hover:bg-gray-800 transition-all duration-100 cursor-pointer uppercase tracking-wide"
+              className="block w-full text-center bg-[#0F172A] text-white font-bold py-4 rounded-2xl border-2 border-gray-600 hover:bg-gray-800 transition-all duration-100 cursor-pointer uppercase tracking-wide"
               style={{ fontFamily: '"Permanent Marker", cursive' }}
             >
               QUERO SÓ O BÁSICO

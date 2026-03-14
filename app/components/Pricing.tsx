@@ -192,7 +192,9 @@ export default function Pricing() {
 
             {/* Main CTA */}
             <a
-              href="#"
+              href="https://www.ggcheckout.com/checkout/v4/2mLxvXet6aDg93bgZkOu"
+              target="_blank"
+              rel="noopener noreferrer"
               className="cta-button block w-full text-center text-white text-lg font-bold py-5 rounded-2xl cursor-pointer no-underline uppercase tracking-wide"
               style={{ fontFamily: '"Permanent Marker", cursive' }}
             >

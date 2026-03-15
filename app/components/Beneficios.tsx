@@ -1,6 +1,6 @@
 const features = [
   {
-    image: "/img/PAPER-02-P.webp",
+    image: "/img/PAPER-02-P.png",
     title: "Desconecte Do Estresse",
     description:
       "Expresse sua arte com centenas de modelos exclusivos. Cada peça é única e feita com suas próprias mãos — um hobby que desenvolve habilidades visuais e motoras.",
@@ -9,7 +9,7 @@ const features = [
     caption: "Arte que você cria!",
   },
   {
-    image: "/img/PAPER-03-P.webp",
+    image: "/img/PAPER-03-P.png",
     title: "Decoração Com Identidade",
     description:
       "Surpreenda amigos e família com presentes personalizados e cheios de carinho. Um boneco de papel feito à mão tem muito mais valor que qualquer presente comprado.",
@@ -18,7 +18,7 @@ const features = [
     caption: "Presente com amor!",
   },
   {
-    image: "/img/PAPER-04-P.webp",
+    image: "/img/PAPER-04-P.png",
     title: "Tempo De Qualidade",
     description:
       "Reúna todo mundo em torno de uma mesa e criem juntos! Atividade ideal para crianças, adolescentes e adultos — sem tela, sem estresse, só alegria.",

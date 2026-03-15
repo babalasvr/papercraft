@@ -1,12 +1,12 @@
 const galleryImages = [
-  "/img/PAPER-05-P.webp",
-  "/img/PAPER-06-P.webp",
-  "/img/PAPER-07-P.webp",
-  "/img/PAPER-08-P.webp",
-  "/img/PAPER-09-P.webp",
-  "/img/PAPER-10-P.webp",
-  "/img/PAPER-11-P.webp",
-  "/img/PAPER-12-P.webp",
+  "/img/PAPER-05-P.png",
+  "/img/PAPER-06-P.png",
+  "/img/PAPER-07-P.png",
+  "/img/PAPER-08-P.png",
+  "/img/PAPER-09-P.png",
+  "/img/PAPER-10-P.png",
+  "/img/PAPER-11-P.png",
+  "/img/PAPER-12-P.png",
 ];
 
 export default function Galeria() {

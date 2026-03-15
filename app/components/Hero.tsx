@@ -81,7 +81,7 @@ export default function Hero() {
             style={{ transform: "rotate(1deg)" }}
           >
             <img
-              src="/img/PAPER-01-3-P.webp"
+              src="/img/PAPER-01-3-P.png"
               alt="Papercraft 3D"
               className="w-full h-72 object-cover"
             />

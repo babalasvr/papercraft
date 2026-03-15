@@ -1,12 +1,12 @@
 const galleryImages = [
-  "https://i.ibb.co/VpMzPqCD/PAPER-05-P.webp",
-  "https://i.ibb.co/r2KDPYQs/PAPER-06-P.webp",
-  "https://i.ibb.co/0yVgwmwv/PAPER-07-P.webp",
-  "https://i.ibb.co/Dfd9Hdtj/PAPER-08-P.webp",
-  "https://i.ibb.co/1f6vSzdv/PAPER-09-P.webp",
-  "https://i.ibb.co/Gv0c1X6J/PAPER-10-P.webp",
-  "https://i.ibb.co/gMZs85JP/PAPER-11-P.webp",
-  "https://i.ibb.co/LXDR6779/PAPER-12-P.webp",
+  "https://i.ibb.co/Vpj2ZpSD/PAPER-05-P.webp",
+  "https://i.ibb.co/tw31Vy78/PAPER-06-P.webp",
+  "https://i.ibb.co/fzBt2BGW/PAPER-07-P.webp",
+  "https://i.ibb.co/spvjSQF5/PAPER-08-P.webp",
+  "https://i.ibb.co/0y00vjdB/PAPER-09-P.webp",
+  "https://i.ibb.co/fdV5XZ4X/PAPER-10-P.webp",
+  "https://i.ibb.co/JwqXpswg/PAPER-11-P.webp",
+  "https://i.ibb.co/MytSzFw1/PAPER-12-P.webp",
 ];
 
 export default function Galeria() {

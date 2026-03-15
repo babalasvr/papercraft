@@ -1,8 +1,8 @@
 const testimonials = [
   {
     name: "Pedro Reis",
-    productImage: "https://i.ibb.co/whPg9DBk/PAPER-13-P.webp",
-    avatarImage: "https://i.ibb.co/HfhmZXcF/PROVA-02-P.webp",
+    productImage: "https://i.ibb.co/VWwSWyvj/PAPER-13-P.webp",
+    avatarImage: "https://i.ibb.co/GvFvz7TK/PROVA-02-P.webp",
     quote:
       "Cara, que produto incrível! Comprei o Kit Mestre e já montei mais de 30 peças. Os moldes são precisos, as instruções são claras. Não tem como errar!",
     stars: 5,
@@ -11,8 +11,8 @@ const testimonials = [
   },
   {
     name: "Ana Prado",
-    productImage: "https://i.ibb.co/xy7Y0q8/PAPER-14-P.webp",
-    avatarImage: "https://i.ibb.co/v4RZ2DFg/PROVA-03-P.webp",
+    productImage: "https://i.ibb.co/ZsgGYhD/PAPER-14-P.webp",
+    avatarImage: "https://i.ibb.co/cK8jbnSJ/PROVA-03-P.webp",
     quote:
       "Uso como terapia! Depois de um dia estressante, fico 1 hora montando e esqueço todos os problemas. Minha casa tá virando um museu de papercraft kk",
     stars: 5,
@@ -21,8 +21,8 @@ const testimonials = [
   },
   {
     name: "Robson Martins",
-    productImage: "https://i.ibb.co/WvfXR2z1/PAPER-15-P.webp",
-    avatarImage: "https://i.ibb.co/4ngSgGCK/PROVA-05-P.webp",
+    productImage: "https://i.ibb.co/jkf9n86M/PAPER-15-P.webp",
+    avatarImage: "https://i.ibb.co/F4MDbzCn/PROVA-05-P.webp",
     quote:
       "Dei de presente pro meu filho de 12 anos e agora ele não larga. Ficou tão viciado que pediu pra ensinar os amigos. Melhor compra que fiz esse ano!",
     stars: 5,

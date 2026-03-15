@@ -1,9 +1,9 @@
 export default function Hero() {
   const avatars = [
-    "https://i.ibb.co/SDyybVhn/PROVA-01-P.webp",
-    "https://i.ibb.co/HfhmZXcF/PROVA-02-P.webp",
-    "https://i.ibb.co/v4RZ2DFg/PROVA-03-P.webp",
-    "https://i.ibb.co/5gRQ9Ymb/PROVA-04-P.webp",
+    "https://i.ibb.co/xqmCD5wF/PROVA-01-P.webp",
+    "https://i.ibb.co/GvFvz7TK/PROVA-02-P.webp",
+    "https://i.ibb.co/cK8jbnSJ/PROVA-03-P.webp",
+    "https://i.ibb.co/DHdtw0pL/PROVA-04-P.webp",
   ];
 
   return (
@@ -81,7 +81,7 @@ export default function Hero() {
             style={{ transform: "rotate(1deg)" }}
           >
             <img
-              src="https://i.ibb.co/KjxzKgKC/PAPER-01-3-P.webp"
+              src="https://i.ibb.co/mVxpSTK2/PAPER-01-3-P.webp"
               alt="Papercraft 3D"
               className="w-full h-72 object-cover"
             />

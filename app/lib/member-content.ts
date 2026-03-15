@@ -6,150 +6,83 @@ export type CategoryCard = {
   isBonus?: boolean;
 };
 
+const BASE_URL = "https://drive.google.com/drive/folders/";
+
+// Root folders – included in both plans
+const rootCards: CategoryCard[] = [
+  {
+    title: "Personagens",
+    description: "Personagens variados para montar em papel 3D",
+    icon: "🧑",
+    driveUrl: BASE_URL + "1H-yBJt_ylyrwDdEeXYsX3qSa8_nZJxJS",
+  },
+  {
+    title: "Decorações",
+    description: "Enfeites e decorações em papercraft para qualquer ocasião",
+    icon: "🎀",
+    driveUrl: BASE_URL + "1W1WzPrmZl8VFoHVqFGa0U0sBY8MkeMKP",
+  },
+  {
+    title: "Desenhos",
+    description: "Moldes de desenhos clássicos e modernos em papel 3D",
+    icon: "✏️",
+    driveUrl: BASE_URL + "1ArK_JMZxIAXMQ8Vld6gtEphZ7QRrpTBF",
+  },
+  {
+    title: "Frutas",
+    description: "Frutas coloridas e realistas em papercraft",
+    icon: "🍎",
+    driveUrl: BASE_URL + "1w8APAZdIlL6HHTqhOdUUl4NtK_DHsiEk",
+  },
+  {
+    title: "Games",
+    description: "Personagens e itens dos seus jogos favoritos",
+    icon: "🎮",
+    driveUrl: BASE_URL + "1q0FhrNcmbWtOa72g85oztanGv60rWXEY",
+  },
+  {
+    title: "Jogos",
+    description: "Moldes temáticos de jogos de tabuleiro e diversão",
+    icon: "🎲",
+    driveUrl: BASE_URL + "1FXB1DL8h4YHDOX3IV52sYc5M66SHYVyh",
+  },
+  {
+    title: "Natal",
+    description: "Papai Noel, renas, enfeites natalinos e muito mais",
+    icon: "🎄",
+    driveUrl: BASE_URL + "17yhWokKSrVxpg2A4lGi8IhaNyl1Gtdhf",
+  },
+  {
+    title: "Séries",
+    description: "Personagens das séries mais populares em papel 3D",
+    icon: "📺",
+    driveUrl: BASE_URL + "17TOunICNNWM3Voq894YpQIDS_Y1gr8id",
+  },
+  {
+    title: "Tutoriais",
+    description: "Passo a passo para montar seus moldes com perfeição",
+    icon: "📚",
+    driveUrl: BASE_URL + "1erTe5fKzhip3Us1tbpqMlhthCCPFuT_D",
+  },
+  {
+    title: "Pasta Completa",
+    description: "Acesso à pasta completa com todos os arquivos organizados",
+    icon: "📁",
+    driveUrl: BASE_URL + "1nrR4pqSqU0mIO_eVBaSYJlgwXu61RnQc",
+  },
+];
+
+// Premium folder – mestre only
+const premiumCard: CategoryCard = {
+  title: "Moldes Premium",
+  description:
+    "Castelos, Coisas Fofas, Alfabeto, Balões, Caixas, Dinossauros e muito mais conteúdo exclusivo",
+  icon: "⭐",
+  driveUrl: BASE_URL + "1PrGsDSeV4X5Hf2HBXf8utXKBsBoiVcuL",
+  isBonus: true,
+};
+
 export const memberContent: Record<"iniciante" | "mestre", CategoryCard[]> = {
-  iniciante: [
-    {
-      title: "Personagens",
-      description: "Moldes de personagens variados para montar em papel 3D",
-      icon: "🧑",
-      driveUrl: "https://drive.google.com/PLACEHOLDER-PERSONAGENS",
-    },
-    {
-      title: "Plantas",
-      description: "Flores, árvores e plantas decorativas em papercraft",
-      icon: "🌱",
-      driveUrl: "https://drive.google.com/PLACEHOLDER-PLANTAS",
-    },
-    {
-      title: "Objetos",
-      description: "Objetos do dia a dia em versão papercraft 3D",
-      icon: "📦",
-      driveUrl: "https://drive.google.com/PLACEHOLDER-OBJETOS",
-    },
-    {
-      title: "Diversos",
-      description: "Moldes variados de diferentes categorias",
-      icon: "🎨",
-      driveUrl: "https://drive.google.com/PLACEHOLDER-DIVERSOS",
-    },
-  ],
-  mestre: [
-    {
-      title: "Personagens",
-      description: "Moldes de personagens variados para montar em papel 3D",
-      icon: "🧑",
-      driveUrl: "https://drive.google.com/PLACEHOLDER-PERSONAGENS",
-    },
-    {
-      title: "Plantas",
-      description: "Flores, árvores e plantas decorativas em papercraft",
-      icon: "🌱",
-      driveUrl: "https://drive.google.com/PLACEHOLDER-PLANTAS",
-    },
-    {
-      title: "Objetos",
-      description: "Objetos do dia a dia em versão papercraft 3D",
-      icon: "📦",
-      driveUrl: "https://drive.google.com/PLACEHOLDER-OBJETOS",
-    },
-    {
-      title: "Diversos",
-      description: "Moldes variados de diferentes categorias",
-      icon: "🎨",
-      driveUrl: "https://drive.google.com/PLACEHOLDER-DIVERSOS",
-    },
-    {
-      title: "Moldes Gigantes 3D",
-      description: "Moldes em tamanho grande para decoração impactante",
-      icon: "🏗️",
-      driveUrl: "https://drive.google.com/PLACEHOLDER-GIGANTES",
-    },
-    {
-      title: "Alfabeto Lowpoly",
-      description: "Letras e números em estilo low poly para personalizar",
-      icon: "🔤",
-      driveUrl: "https://drive.google.com/PLACEHOLDER-ALFABETO",
-    },
-    {
-      title: "Castelos",
-      description: "Castelos medievais e fantásticos em papercraft",
-      icon: "🏰",
-      driveUrl: "https://drive.google.com/PLACEHOLDER-CASTELOS",
-    },
-    {
-      title: "Coisas Fofas",
-      description: "Moldes fofos e kawaii para todas as idades",
-      icon: "🧸",
-      driveUrl: "https://drive.google.com/PLACEHOLDER-FOFAS",
-    },
-    {
-      title: "Dinossauros",
-      description: "Dinossauros realistas e estilizados em papel 3D",
-      icon: "🦕",
-      driveUrl: "https://drive.google.com/PLACEHOLDER-DINOSSAUROS",
-    },
-    {
-      title: "Dragões",
-      description: "Dragões épicos e detalhados para montar",
-      icon: "🐉",
-      driveUrl: "https://drive.google.com/PLACEHOLDER-DRAGOES",
-    },
-    {
-      title: "Espaço – Universo",
-      description: "Naves, planetas e astronautas em papercraft",
-      icon: "🚀",
-      driveUrl: "https://drive.google.com/PLACEHOLDER-ESPACO",
-    },
-    {
-      title: "Esportes",
-      description: "Troféus, bolas e itens esportivos em papel 3D",
-      icon: "⚽",
-      driveUrl: "https://drive.google.com/PLACEHOLDER-ESPORTES",
-    },
-    {
-      title: "Geek",
-      description: "Personagens e itens da cultura geek e gamer",
-      icon: "🎮",
-      driveUrl: "https://drive.google.com/PLACEHOLDER-GEEK",
-    },
-    {
-      title: "Mitologia",
-      description: "Criaturas e deuses mitológicos em papercraft",
-      icon: "⚡",
-      driveUrl: "https://drive.google.com/PLACEHOLDER-MITOLOGIA",
-    },
-    {
-      title: "Músicos",
-      description: "Instrumentos musicais e ícones da música",
-      icon: "🎸",
-      driveUrl: "https://drive.google.com/PLACEHOLDER-MUSICOS",
-    },
-    {
-      title: "Zoológico de Papercraft",
-      description: "Animais selvagens e domésticos em papel 3D",
-      icon: "🦁",
-      driveUrl: "https://drive.google.com/PLACEHOLDER-ZOOLOGICO",
-    },
-    {
-      title: "Heróis",
-      description: "Super-heróis e vilões icônicos em papercraft",
-      icon: "🦸",
-      driveUrl: "https://drive.google.com/PLACEHOLDER-HEROIS",
-      isBonus: true,
-    },
-    {
-      title: "Animes",
-      description: "Personagens de animes populares em papel 3D",
-      icon: "⛩️",
-      driveUrl: "https://drive.google.com/PLACEHOLDER-ANIMES",
-      isBonus: true,
-    },
-    {
-      title: "Garagem de Carros",
-      description: "Carros, motos e veículos detalhados em papercraft",
-      icon: "🏎️",
-      driveUrl: "https://drive.google.com/PLACEHOLDER-CARROS",
-      isBonus: true,
-    },
-  ],
+  iniciante: rootCards,
+  mestre: [...rootCards, premiumCard],
 };

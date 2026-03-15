@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { CheckCircle, AlertTriangle, Printer, Scissors, Star, ArrowRight, Shield } from "lucide-react";
 
-const CHECKOUT_URL = "https://ggcheckout.com.br/checkout/v4/PLACEHOLDER_KIT_IMPRESSAO";
+const CHECKOUT_URL = "https://www.ggcheckout.com/checkout/v4/4cHRv5qxZ0XgrZdQbLFv";
 
 const whatYouGet = [
   {

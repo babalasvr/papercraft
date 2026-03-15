@@ -276,22 +276,30 @@ export default function MembrosPage() {
 
         {/* Upgrade CTA for iniciante */}
         {member.plan === "iniciante" && (
-          <div className="mt-12 bg-gradient-to-r from-yellow-50 to-orange-50 border-2 border-yellow-200 rounded-2xl p-8 text-center">
-            <h3 className="font-marker text-2xl text-foreground mb-2">
-              Quer acesso a +3500 moldes?
-            </h3>
-            <p className="text-muted mb-4">
-              Faça upgrade para o Kit Mestre e desbloqueie todas as categorias +
-              bônus exclusivos!
-            </p>
-            <a
-              href="https://www.ggcheckout.com/checkout/v4/2mLxvXet6aDg93bgZkOu"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="cta-button px-8 py-3 rounded-xl font-bold text-lg"
-            >
-              Fazer Upgrade → Kit Mestre
-            </a>
+          <div className="mt-12 polaroid rounded-2xl overflow-hidden">
+            <div className="bg-gradient-to-br from-yellow-50 via-orange-50 to-yellow-100 p-8 text-center">
+              <div className="text-4xl mb-3">⭐</div>
+              <h3 className="font-marker text-2xl text-foreground mb-2">
+                Faça Upgrade para o Kit Mestre!
+              </h3>
+              <p className="text-muted mb-2">
+                Desbloqueie os <strong className="text-foreground">Moldes Premium</strong> com
+                Castelos, Alfabeto, Dinossauros, Coisas Fofas e muito mais!
+              </p>
+              <p className="text-muted text-sm mb-6">
+                Por apenas{" "}
+                <strong className="text-foreground text-lg">R$ 17</strong> você
+                acessa todo o conteúdo exclusivo do Kit Mestre.
+              </p>
+              <a
+                href="https://ggcheckout.com.br/checkout/v4/h7JvWtkZwpmVHbusw4u6"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="cta-button px-8 py-4 rounded-xl font-bold text-lg inline-block"
+              >
+                Upgrade para Kit Mestre — R$ 17 →
+              </a>
+            </div>
           </div>
         )}
       </main>

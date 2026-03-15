@@ -2,10 +2,14 @@ import { NextRequest, NextResponse } from "next/server";
 import { supabase } from "@/app/lib/supabase";
 
 const PRODUCT_PLAN_MAP: Record<string, "iniciante" | "mestre"> = {
+  // IDs reais do GGCheckout
+  KA96Dlg6MKnkPnP3HEZv: "mestre",   // Mega pack +3500 moldes R$24,90
+  bDk2mvoTRD0ho6gLKqWa: "mestre",   // (cópia) Mega pack +3500 moldes R$17,90
+  vFuC4CfrH3VzK1O0too:  "iniciante", // Pack 1200 moldes R$10
+  // IDs legados (manter por segurança)
   WrN9zpJBasFtfyQqR9vs: "iniciante",
   "2mLxvXet6aDg93bgZkOu": "mestre",
   h7JvWtkZwpmVHbusw4u6: "mestre",
-  KA96Dlg6MKnkPnP3HEZv: "mestre", // Mega pack +3500 moldes R$24,90 (product ID real do GGCheckout)
 };
 
 export async function POST(request: NextRequest) {

@@ -274,6 +274,27 @@ export default function MembrosPage() {
           ))}
         </div>
 
+        {/* Kit Impressao Profissional upsell */}
+        <div className="mt-8 polaroid rounded-2xl overflow-hidden">
+          <div className="bg-gradient-to-br from-blue-50 to-white p-6 flex flex-col sm:flex-row items-center gap-6">
+            <div className="flex-shrink-0 text-5xl">🖨️</div>
+            <div className="flex-1 text-center sm:text-left">
+              <h3 className="font-marker text-xl text-foreground mb-1">
+                Kit Impressão Profissional
+              </h3>
+              <p className="text-muted text-sm mb-3">
+                Configurações exatas de impressora, papéis certos e técnicas de corte para seus moldes ficarem perfeitos na primeira tentativa.
+              </p>
+              <a
+                href="/kit-impressao"
+                className="cta-button px-6 py-2.5 rounded-xl font-bold text-sm inline-block"
+              >
+                Ver Oferta Especial →
+              </a>
+            </div>
+          </div>
+        </div>
+
         {/* Upgrade CTA for iniciante */}
         {member.plan === "iniciante" && (
           <div className="mt-12 polaroid rounded-2xl overflow-hidden">

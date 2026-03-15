@@ -245,7 +245,7 @@ export default function KitImpressaoPage() {
         {/* DECLINE LINK */}
         <div className="text-center pb-8">
           <a
-            href="/membros"
+            href="/obrigado"
             className="text-xs text-gray-400 hover:text-gray-500 underline"
           >
             Não, obrigado — prefiro continuar imprimindo no modo tentativa e erro

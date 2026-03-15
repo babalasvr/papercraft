@@ -43,7 +43,6 @@ export default function Footer() {
                 <li><a href="#faq" className="hover:text-[#0188FA] transition-colors">FAQ</a></li>
                 <li><a href="#garantia" className="hover:text-[#0188FA] transition-colors">Garantia</a></li>
                 <li><a href="#" className="hover:text-[#0188FA] transition-colors">Contato</a></li>
-                <li><a href="#" className="hover:text-[#0188FA] transition-colors">WhatsApp</a></li>
               </ul>
             </div>
             <div>

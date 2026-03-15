@@ -108,10 +108,7 @@ export default function FAQ() {
         {/* Still have questions */}
         <div className="text-center mt-10">
           <p className="text-[#475569]">
-            Ainda tem dúvidas?{" "}
-            <a href="#" className="text-[#0188FA] font-semibold hover:underline">
-              Fale conosco no WhatsApp
-            </a>
+            Ainda tem dúvidas? Entre em contato conosco.
           </p>
         </div>
       </div>

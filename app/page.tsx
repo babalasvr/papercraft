@@ -10,8 +10,6 @@ import Pricing from "@/app/components/Pricing";
 import Garantia from "@/app/components/Garantia";
 import FAQ from "@/app/components/FAQ";
 import Footer from "@/app/components/Footer";
-import WhatsAppButton from "@/app/components/WhatsAppButton";
-
 export default function Home() {
   return (
     <main className="min-h-screen bg-[#FDFDFD]">
@@ -27,7 +25,6 @@ export default function Home() {
       <Garantia />
       <FAQ />
       <Footer />
-      <WhatsAppButton />
     </main>
   );
 }

@@ -5,6 +5,7 @@ const PRODUCT_PLAN_MAP: Record<string, "iniciante" | "mestre"> = {
   WrN9zpJBasFtfyQqR9vs: "iniciante",
   "2mLxvXet6aDg93bgZkOu": "mestre",
   h7JvWtkZwpmVHbusw4u6: "mestre",
+  KA96Dlg6MKnkPnP3HEZv: "mestre", // Mega pack +3500 moldes R$24,90 (product ID real do GGCheckout)
 };
 
 export async function POST(request: NextRequest) {

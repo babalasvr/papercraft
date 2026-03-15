@@ -1,7 +1,7 @@
 const moduloImages = [
-  "https://i.ibb.co/Rp81wNXQ/MODULO-01-VAI-RECEBER-P.webp",
-  "https://i.ibb.co/3yMYXDrt/MODULO-02-VAI-RECEBER-P.webp",
-  "https://i.ibb.co/JwpNSJ9T/MODULO-03-VAI-RECEBER-P.webp",
+  "/img/MODULO-01-VAI-RECEBER-P.webp",
+  "/img/MODULO-02-VAI-RECEBER-P.webp",
+  "/img/MODULO-03-VAI-RECEBER-P.webp",
 ];
 
 export default function Modelos() {

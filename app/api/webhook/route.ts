@@ -100,24 +100,39 @@ export async function POST(request: NextRequest) {
     const upsellProductId = UPSELL_PRODUCT_MAP[offerId];
 
     if (upsellProductId) {
-      // É um produto de upsell — gravar em member_products
-      const { error: upsellError } = await supabase
-        .from("member_products")
-        .upsert(
-          {
-            email: normalizedEmail,
-            product_id: upsellProductId,
-            purchased_at: new Date().toISOString(),
-          },
-          { onConflict: "email,product_id" }
-        );
+      // É um produto de upsell — adicionar ao array purchased_products do membro
+      // Usa uma função RPC para append atômico sem duplicatas
+      const { error: upsellError } = await supabase.rpc(
+        "append_purchased_product",
+        {
+          p_email: normalizedEmail,
+          p_product: upsellProductId,
+        }
+      );
 
       if (upsellError) {
-        console.error("Supabase upsell insert error:", upsellError);
-        return NextResponse.json(
-          { error: "Erro ao registrar produto" },
-          { status: 500 }
-        );
+        // Fallback: atualizar via SELECT + UPDATE manual
+        const { data: member } = await supabase
+          .from("members")
+          .select("purchased_products")
+          .eq("email", normalizedEmail)
+          .single();
+
+        const current: string[] = member?.purchased_products ?? [];
+        if (!current.includes(upsellProductId)) {
+          const { error: updateError } = await supabase
+            .from("members")
+            .update({ purchased_products: [...current, upsellProductId] })
+            .eq("email", normalizedEmail);
+
+          if (updateError) {
+            console.error("Supabase upsell update error:", updateError);
+            return NextResponse.json(
+              { error: "Erro ao registrar produto" },
+              { status: 500 }
+            );
+          }
+        }
       }
 
       console.log(`Upsell registrado: ${normalizedEmail} → ${upsellProductId}`);

@@ -16,19 +16,19 @@ export default function Modelos() {
       id="modelos"
       style={{
         backgroundImage:
-          "linear-gradient(to right, #e2e8f0 1px, transparent 1px), linear-gradient(#e2e8f0 1px, transparent 1px)",
+          "linear-gradient(to right, #E8D5C0 1px, transparent 1px), linear-gradient(#E8D5C0 1px, transparent 1px)",
         backgroundSize: "30px 30px",
-        backgroundColor: "#f8fafc",
+        backgroundColor: "#FFF8F0",
       }}
     >
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="text-center mb-12">
-          <p className="text-[#0188FA] font-semibold text-lg mb-3 italic">
+          <p className="text-[#C1440E] font-semibold text-lg mb-3 italic">
             Moldes reais do kit!
           </p>
           <h2
-            className="text-4xl md:text-5xl font-bold text-[#0F172A]"
+            className="text-4xl md:text-5xl font-bold text-[#3D2B1F]"
             style={{ fontFamily: '"Permanent Marker", cursive' }}
           >
             Veja por dentro o que<br className="hidden md:block" /> você vai receber

@@ -53,16 +53,16 @@ export default function FAQ() {
     <section
       className="py-20 px-4"
       id="faq"
-      style={{ backgroundColor: "#f8fafc" }}
+      style={{ backgroundColor: "#FFF8F0" }}
     >
       <div className="max-w-3xl mx-auto">
         {/* Header */}
         <div className="text-center mb-12">
-          <p className="text-[#0188FA] font-semibold uppercase tracking-widest text-sm mb-2">
+          <p className="text-[#C1440E] font-semibold uppercase tracking-widest text-sm mb-2">
             Dúvidas?
           </p>
           <h2
-            className="text-4xl md:text-5xl font-bold text-[#0F172A]"
+            className="text-4xl md:text-5xl font-bold text-[#3D2B1F]"
             style={{ fontFamily: '"Permanent Marker", cursive' }}
           >
             Perguntas Frequentes
@@ -80,12 +80,12 @@ export default function FAQ() {
                 className="w-full flex items-center justify-between px-6 py-5 text-left hover:bg-gray-50 transition-colors"
                 onClick={() => setOpenIndex(openIndex === i ? null : i)}
               >
-                <span className="font-semibold text-[#0F172A] text-base pr-4">
+                <span className="font-semibold text-[#3D2B1F] text-base pr-4">
                   {faq.question}
                 </span>
                 <ChevronDown
                   size={20}
-                  className={`flex-shrink-0 text-[#0188FA] transition-transform duration-300 ${
+                  className={`flex-shrink-0 text-[#C1440E] transition-transform duration-300 ${
                     openIndex === i ? "rotate-180" : ""
                   }`}
                 />
@@ -98,7 +98,7 @@ export default function FAQ() {
               >
                 <div className="px-6 pb-5">
                   <div className="h-px bg-gray-100 mb-4" />
-                  <p className="text-[#475569] leading-relaxed">{faq.answer}</p>
+                  <p className="text-[#6B5B4F] leading-relaxed">{faq.answer}</p>
                 </div>
               </div>
             </div>
@@ -108,33 +108,33 @@ export default function FAQ() {
         {/* CTA Final - ultimo empurrao */}
         <div className="text-center mt-14 bg-white rounded-3xl border-2 border-gray-100 shadow-lg p-10">
           <h3
-            className="text-2xl md:text-3xl font-bold text-[#0F172A] mb-3"
+            className="text-2xl md:text-3xl font-bold text-[#3D2B1F] mb-3"
             style={{ fontFamily: '"Permanent Marker", cursive' }}
           >
             Pronto pra começar?
           </h3>
-          <p className="text-[#475569] text-base mb-6 max-w-md mx-auto">
-            Comece por apenas <strong className="text-[#0188FA]">R$10</strong> ou leve o kit completo com +3500 moldes e 7 bônus por <strong className="text-[#0188FA]">R$24,90</strong>.
+          <p className="text-[#6B5B4F] text-base mb-6 max-w-md mx-auto">
+            Comece por apenas <strong className="text-[#C1440E]">R$10</strong> ou leve o kit completo com +3500 moldes e 7 bônus por <strong className="text-[#C1440E]">R$24,90</strong>.
           </p>
           <a
             href="#pricing"
-            className="inline-block text-white text-lg font-bold px-14 py-4 rounded-2xl cursor-pointer no-underline border-2 border-[#16A34A] active:translate-y-1 transition-transform mb-3"
+            className="inline-block text-white text-lg font-bold px-14 py-4 rounded-2xl cursor-pointer no-underline border-2 border-[#1B4332] active:translate-y-1 transition-transform mb-3"
             style={{
               fontFamily: '"Permanent Marker", cursive',
-              backgroundColor: "#22C55E",
-              boxShadow: "0 6px 0 0 #16A34A",
+              backgroundColor: "#2D6A4F",
+              boxShadow: "0 6px 0 0 #1B4332",
             }}
           >
             VER PLANOS E COMEÇAR
           </a>
-          <p className="text-[#475569] text-sm">
+          <p className="text-[#6B5B4F] text-sm">
             Garantia de 7 dias — se não gostar, devolvemos 100%.
           </p>
         </div>
 
         {/* Still have questions */}
         <div className="text-center mt-8">
-          <p className="text-[#475569]">
+          <p className="text-[#6B5B4F]">
             Ainda tem dúvidas? Entre em contato conosco.
           </p>
         </div>

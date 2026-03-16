@@ -5,9 +5,9 @@ const steps = [
     title: "Escolha seu Modelo",
     description:
       "Acesse o acervo com mais de 1200 moldes e escolha o boneco que você quer montar — do mais simples ao mais elaborado.",
-    badgeColor: "bg-orange-400",
-    bgColor: "bg-yellow-50",
-    borderColor: "border-yellow-300",
+    badgeColor: "bg-[#C1440E]",
+    bgColor: "bg-orange-50",
+    borderColor: "border-orange-200",
     rotation: "-rotate-1",
   },
   {
@@ -16,9 +16,9 @@ const steps = [
     title: "Imprima em Casa",
     description:
       "Basta imprimir as páginas do modelo em qualquer impressora comum. Sem equipamentos especiais — papel A4 serve perfeitamente!",
-    badgeColor: "bg-[#0188FA]",
-    bgColor: "bg-blue-50",
-    borderColor: "border-blue-200",
+    badgeColor: "bg-[#D4A574]",
+    bgColor: "bg-amber-50",
+    borderColor: "border-amber-200",
     rotation: "rotate-1",
   },
   {
@@ -27,9 +27,9 @@ const steps = [
     title: "Monte e Apresente",
     description:
       "Com tesoura, cola e paciência, siga o guia passo a passo e veja seu boneco 3D ganhar vida. Depois, mostre para todo mundo!",
-    badgeColor: "bg-green-500",
-    bgColor: "bg-green-50",
-    borderColor: "border-green-200",
+    badgeColor: "bg-[#2D6A4F]",
+    bgColor: "bg-emerald-50",
+    borderColor: "border-emerald-200",
     rotation: "-rotate-1",
   },
 ];
@@ -39,21 +39,21 @@ export default function ComoFunciona() {
     <section
       className="py-20 px-4"
       id="como-funciona"
-      style={{ backgroundColor: "#f8fafc" }}
+      style={{ backgroundColor: "#FFF8F0" }}
     >
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="text-center mb-14">
-          <p className="text-[#0188FA] font-semibold uppercase tracking-widest text-sm mb-2">
+          <p className="text-[#C1440E] font-semibold uppercase tracking-widest text-sm mb-2">
             Simples assim
           </p>
           <h2
-            className="text-4xl md:text-5xl font-bold text-[#0F172A]"
+            className="text-4xl md:text-5xl font-bold text-[#3D2B1F]"
             style={{ fontFamily: '"Permanent Marker", cursive' }}
           >
             Como Funciona?
           </h2>
-          <p className="text-[#475569] mt-3 text-lg max-w-xl mx-auto">
+          <p className="text-[#6B5B4F] mt-3 text-lg max-w-xl mx-auto">
             Em 3 passos simples você já está criando seus bonecos de papel 3D
           </p>
         </div>
@@ -86,14 +86,14 @@ export default function ComoFunciona() {
 
                 {/* Title */}
                 <h3
-                  className="text-xl font-bold text-[#0F172A] mb-3 text-center"
+                  className="text-xl font-bold text-[#3D2B1F] mb-3 text-center"
                   style={{ fontFamily: '"Permanent Marker", cursive' }}
                 >
                   {step.title}
                 </h3>
 
                 {/* Description */}
-                <p className="text-[#475569] text-sm leading-relaxed text-center">
+                <p className="text-[#6B5B4F] text-sm leading-relaxed text-center">
                   {step.description}
                 </p>
               </div>
@@ -103,16 +103,16 @@ export default function ComoFunciona() {
 
         {/* CTA depois dos passos */}
         <div className="text-center mt-14">
-          <p className="text-[#475569] text-base mb-4">
+          <p className="text-[#6B5B4F] text-base mb-4">
             Simples assim. Em minutos você já tem seu primeiro boneco 3D.
           </p>
           <a
             href="#pricing"
-            className="inline-block text-white text-lg font-bold px-12 py-4 rounded-2xl cursor-pointer no-underline border-2 border-[#16A34A] active:translate-y-1 transition-transform"
+            className="inline-block text-white text-lg font-bold px-12 py-4 rounded-2xl cursor-pointer no-underline border-2 border-[#1B4332] active:translate-y-1 transition-transform"
             style={{
               fontFamily: '"Permanent Marker", cursive',
-              backgroundColor: "#22C55E",
-              boxShadow: "0 6px 0 0 #16A34A",
+              backgroundColor: "#2D6A4F",
+              boxShadow: "0 6px 0 0 #1B4332",
             }}
           >
             QUERO COMEÇAR AGORA

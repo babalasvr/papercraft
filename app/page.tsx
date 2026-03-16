@@ -13,7 +13,7 @@ import Footer from "@/app/components/Footer";
 import BackRedirect from "@/app/components/BackRedirect";
 export default function Home() {
   return (
-    <main className="min-h-screen bg-[#FDFDFD]">
+    <main className="min-h-screen bg-[#FFF8F0]">
       <BannerTopo />
       <Hero />
       <Galeria />

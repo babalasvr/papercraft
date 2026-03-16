@@ -34,7 +34,7 @@ export default function BannerTopo() {
     <div
       className="w-full py-2.5 px-4 text-white text-center text-sm font-medium"
       style={{
-        background: "linear-gradient(90deg, #005BB5 0%, #0188FA 50%, #005BB5 100%)",
+        background: "linear-gradient(90deg, #8B2E06 0%, #C1440E 50%, #8B2E06 100%)",
       }}
     >
       <div className="flex items-center justify-center gap-2 flex-wrap">
@@ -53,7 +53,7 @@ export default function BannerTopo() {
           {date && `Hoje, ${date}`} &nbsp;|&nbsp; {time}
         </span>
         <span className="hidden sm:inline">•</span>
-        <span className="bg-yellow-400 text-black text-xs font-bold px-2 py-0.5 rounded-full">
+        <span className="bg-[#D4A574] text-[#3D2B1F] text-xs font-bold px-2 py-0.5 rounded-full">
           ACESSO IMEDIATO
         </span>
       </div>

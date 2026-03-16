@@ -7,18 +7,18 @@ export default function Hero() {
   ];
 
   return (
-    <section className="relative bg-[#FDFDFD] overflow-hidden py-12 px-4">
+    <section className="relative bg-[#FFF8F0] overflow-hidden py-12 px-4">
       <div className="max-w-lg mx-auto flex flex-col items-center text-center">
 
         {/* Badge */}
-        <div className="inline-flex items-center gap-2 border-2 border-green-400 text-green-600 bg-white px-4 py-1.5 rounded-full text-xs font-bold mb-6 shadow-sm">
-          <span className="text-green-500">✓</span>
+        <div className="inline-flex items-center gap-2 border-2 border-[#C1440E] text-[#C1440E] bg-white px-4 py-1.5 rounded-full text-xs font-bold mb-6 shadow-sm">
+          <span className="text-[#C1440E]">✓</span>
           <span>+3500 MOLDES PRONTOS PRA IMPRIMIR</span>
         </div>
 
         {/* H1 */}
         <h1
-          className="text-5xl md:text-6xl font-bold text-[#0F172A] leading-tight mb-2 uppercase"
+          className="text-5xl md:text-6xl font-bold text-[#3D2B1F] leading-tight mb-2 uppercase"
           style={{ fontFamily: '"Permanent Marker", cursive' }}
         >
           Transforme Papel<br />em Arte
@@ -28,7 +28,7 @@ export default function Hero() {
             className="text-5xl md:text-6xl font-bold uppercase"
             style={{
               fontFamily: '"Permanent Marker", cursive',
-              color: "#0188FA",
+              color: "#C1440E",
             }}
           >
             3D Incrível
@@ -44,7 +44,7 @@ export default function Hero() {
             <path
               d="M0,5 Q75,0 150,5 Q225,10 300,5"
               fill="none"
-              stroke="#0188FA"
+              stroke="#C1440E"
               strokeWidth="3"
               strokeLinecap="round"
             />
@@ -52,18 +52,18 @@ export default function Hero() {
         </div>
 
         {/* Subtitle - sem aspas, foco em beneficio */}
-        <p className="text-base text-[#475569] mb-5 max-w-sm leading-relaxed">
-          Com apenas tesoura e cola, crie bonecos 3D impressionantes para decorar, presentear e relaxar — <strong className="text-[#0F172A]">mesmo sem experiência nenhuma</strong>.
+        <p className="text-base text-[#6B5B4F] mb-5 max-w-sm leading-relaxed">
+          Com apenas tesoura e cola, crie bonecos 3D impressionantes para decorar, presentear e relaxar — <strong className="text-[#3D2B1F]">mesmo sem experiência nenhuma</strong>.
         </p>
 
         {/* CTA Button ACIMA DA DOBRA */}
         <a
           href="#pricing"
-          className="inline-block text-white text-xl font-bold px-14 py-4 rounded-2xl mb-5 cursor-pointer no-underline border-2 border-[#16A34A] active:translate-y-1 transition-transform"
+          className="inline-block text-white text-xl font-bold px-14 py-4 rounded-2xl mb-5 cursor-pointer no-underline border-2 border-[#1B4332] active:translate-y-1 transition-transform"
           style={{
             fontFamily: '"Permanent Marker", cursive',
-            backgroundColor: "#22C55E",
-            boxShadow: "0 6px 0 0 #16A34A",
+            backgroundColor: "#2D6A4F",
+            boxShadow: "0 6px 0 0 #1B4332",
           }}
         >
           QUERO COMEÇAR AGORA
@@ -82,9 +82,9 @@ export default function Hero() {
             ))}
           </div>
           <div className="text-left">
-            <div className="flex text-yellow-400 text-sm">{"★★★★★"}</div>
-            <p className="text-[#475569] text-xs">
-              <strong className="text-[#0F172A]">+3000 alunos felizes</strong>
+            <div className="flex text-amber-600 text-sm">{"★★★★★"}</div>
+            <p className="text-[#6B5B4F] text-xs">
+              <strong className="text-[#3D2B1F]">+3000 alunos felizes</strong>
             </p>
           </div>
         </div>
@@ -93,13 +93,13 @@ export default function Hero() {
         <div className="relative w-full max-w-xs mb-4">
           {/* Yellow tape at top */}
           <div
-            className="absolute -top-3 left-1/2 -translate-x-1/2 z-20 w-16 h-6 bg-yellow-200 opacity-80"
+            className="absolute -top-3 left-1/2 -translate-x-1/2 z-20 w-16 h-6 bg-[#D4A574] opacity-80"
             style={{ boxShadow: "0 1px 3px rgba(0,0,0,0.15)" }}
           />
 
           {/* Floating label LEFT */}
           <div
-            className="absolute -left-8 bottom-16 z-20 bg-[#0188FA] text-white font-bold px-3 py-2 rounded-xl shadow-lg text-xs leading-tight text-center"
+            className="absolute -left-8 bottom-16 z-20 bg-[#C1440E] text-white font-bold px-3 py-2 rounded-xl shadow-lg text-xs leading-tight text-center"
             style={{
               fontFamily: '"Permanent Marker", cursive',
               transform: "rotate(-8deg)",

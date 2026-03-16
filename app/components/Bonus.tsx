@@ -30,7 +30,7 @@ export default function Bonus() {
     <section
       className="relative py-20 px-4 overflow-hidden"
       id="bonus"
-      style={{ backgroundColor: "#0A3622" }}
+      style={{ backgroundColor: "#3D2B1F" }}
     >
       {/* SVG Wave Top */}
       <div className="absolute top-0 left-0 right-0 overflow-hidden leading-none">
@@ -41,7 +41,7 @@ export default function Bonus() {
           style={{ display: "block" }}
           preserveAspectRatio="none"
         >
-          <path d="M0,40 C360,80 1080,0 1440,40 L1440,0 L0,0 Z" fill="#f8fafc" />
+          <path d="M0,40 C360,80 1080,0 1440,40 L1440,0 L0,0 Z" fill="#FFF8F0" />
         </svg>
       </div>
 
@@ -54,7 +54,7 @@ export default function Bonus() {
           style={{ display: "block" }}
           preserveAspectRatio="none"
         >
-          <path d="M0,40 C360,0 1080,80 1440,40 L1440,80 L0,80 Z" fill="#FDFDFD" />
+          <path d="M0,40 C360,0 1080,80 1440,40 L1440,80 L0,80 Z" fill="#FFF8F0" />
         </svg>
       </div>
 
@@ -62,7 +62,7 @@ export default function Bonus() {
         {/* Header */}
         <div className="text-center mb-12">
           <span
-            className="inline-block bg-[#FDC700] text-black font-bold px-5 py-2 rounded-full text-sm mb-4 shadow-lg"
+            className="inline-block bg-[#D4A574] text-black font-bold px-5 py-2 rounded-full text-sm mb-4 shadow-lg"
             style={{ fontFamily: '"Permanent Marker", cursive' }}
           >
             Presentes pra você
@@ -73,9 +73,9 @@ export default function Bonus() {
           >
             BÔNUS EXCLUSIVOS GRÁTIS
           </h2>
-          <p className="text-green-300 mt-3 text-lg">
+          <p className="text-[#D4A574] mt-3 text-lg">
             Incluídos no Kit Mestre — valor total de{" "}
-            <span className="font-bold text-[#FDC700]">R$ 130</span> em bônus
+            <span className="font-bold text-[#D4A574]">R$ 130</span> em bônus
           </p>
         </div>
 
@@ -95,11 +95,11 @@ export default function Bonus() {
 
               {/* Text right */}
               <div className="flex-1">
-                <span className="inline-block bg-[#22C55E] text-white text-xs font-bold px-3 py-1 rounded-full mb-2">
+                <span className="inline-block bg-[#2D6A4F] text-white text-xs font-bold px-3 py-1 rounded-full mb-2">
                   BONUS KIT MESTRE
                 </span>
                 <h3
-                  className="text-[#0F172A] font-bold text-lg mb-1"
+                  className="text-[#3D2B1F] font-bold text-lg mb-1"
                   style={{ fontFamily: '"Permanent Marker", cursive' }}
                 >
                   {bonus.title}
@@ -119,7 +119,7 @@ export default function Bonus() {
             Total em bônus:{" "}
             <span className="line-through text-gray-400">R$ 130</span>{" "}
             <span
-              className="text-[#FDC700] text-2xl font-bold"
+              className="text-[#D4A574] text-2xl font-bold"
               style={{ fontFamily: '"Permanent Marker", cursive' }}
             >
               GRÁTIS pra você!

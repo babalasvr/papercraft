@@ -70,17 +70,17 @@ export default function UpsellModal({ onClose }: UpsellModalProps) {
 
           {/* Título */}
           <h2
-            className="text-[#0F172A] text-2xl font-bold leading-snug mt-4 mb-3"
+            className="text-[#3D2B1F] text-2xl font-bold leading-snug mt-4 mb-3"
             style={{ fontFamily: '"Permanent Marker", cursive' }}
           >
             ESPERE UM POUCO<br />
             VOCÊ ACABOU DE GANHAR<br />
             UM{" "}
-            <span className="text-[#0188FA]">SUPER DESCONTO!</span>
+            <span className="text-[#C1440E]">SUPER DESCONTO!</span>
           </h2>
 
           {/* Texto */}
-          <p className="text-[#475569] text-sm mb-5 leading-relaxed">
+          <p className="text-[#6B5B4F] text-sm mb-5 leading-relaxed">
             Você mostrou interesse no Papercraft, então queremos te ajudar.
             Leve o <strong>PACOTE COMPLETO (Mestre)</strong> com um preço exclusivo agora.
           </p>
@@ -93,7 +93,7 @@ export default function UpsellModal({ onClose }: UpsellModalProps) {
             <div className="flex items-center justify-center gap-3 mb-2">
               <span className="text-gray-400 line-through text-base font-semibold">R$24,90</span>
               <span
-                className="text-green-600 text-4xl font-bold"
+                className="text-[#2D6A4F] text-4xl font-bold"
                 style={{ fontFamily: '"Permanent Marker", cursive' }}
               >
                 R$ 17,90
@@ -116,8 +116,8 @@ export default function UpsellModal({ onClose }: UpsellModalProps) {
             className="btn-initcheck w-full text-white text-lg font-bold py-4 rounded-2xl mb-3 transition-transform active:scale-95 cursor-pointer"
             style={{
               fontFamily: '"Permanent Marker", cursive',
-              backgroundColor: "#22C55E",
-              boxShadow: "0 5px 0 0 #16A34A",
+              backgroundColor: "#2D6A4F",
+              boxShadow: "0 5px 0 0 #1B4332",
             }}
           >
             QUERO APROVEITAR AGORA →

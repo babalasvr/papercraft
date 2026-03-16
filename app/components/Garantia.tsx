@@ -2,17 +2,17 @@ import { ShieldCheck } from "lucide-react";
 
 export default function Garantia() {
   return (
-    <section className="py-20 px-4 bg-[#FDFDFD]" id="garantia">
+    <section className="py-20 px-4 bg-[#FFF8F0]" id="garantia">
       <div className="max-w-4xl mx-auto">
         <div
           className="relative rounded-3xl overflow-hidden p-10 md:p-14 text-white text-center shadow-2xl"
           style={{
-            background: "linear-gradient(135deg, #0188FA 0%, #005BB5 100%)",
+            background: "linear-gradient(135deg, #C1440E 0%, #8B2E06 100%)",
           }}
         >
           {/* Floating circular badge */}
           <div
-            className="absolute -top-6 -right-6 w-28 h-28 rounded-full bg-[#FDC700] flex flex-col items-center justify-center shadow-xl border-4 border-white animate-bounce-slow"
+            className="absolute -top-6 -right-6 w-28 h-28 rounded-full bg-[#D4A574] flex flex-col items-center justify-center shadow-xl border-4 border-white animate-bounce-slow"
           >
             <span className="text-2xl font-black text-black leading-tight"
               style={{ fontFamily: '"Permanent Marker", cursive' }}>7</span>
@@ -36,7 +36,7 @@ export default function Garantia() {
           </h2>
 
           {/* Description */}
-          <p className="text-blue-100 text-lg max-w-2xl mx-auto leading-relaxed mb-6">
+          <p className="text-orange-100 text-lg max-w-2xl mx-auto leading-relaxed mb-6">
             Você tem <strong className="text-white">7 dias</strong> pra testar o kit inteiro. Se não amar o conteúdo — por qualquer motivo — devolvemos{" "}
             <strong className="text-white">100% do seu dinheiro</strong>. Um e-mail e pronto. Sem perguntas, sem burocracia.</p>
 
@@ -55,7 +55,7 @@ export default function Garantia() {
           <div className="mt-8">
             <a
               href="#pricing"
-              className="inline-block bg-[#FDC700] text-black font-bold px-10 py-4 rounded-2xl text-xl border-2 border-black shadow-[0_6px_0_0_rgba(0,0,0,0.2)] hover:shadow-[0_3px_0_0_rgba(0,0,0,0.2)] hover:translate-y-[3px] transition-all duration-100 cursor-pointer"
+              className="inline-block bg-[#D4A574] text-black font-bold px-10 py-4 rounded-2xl text-xl border-2 border-black shadow-[0_6px_0_0_rgba(0,0,0,0.2)] hover:shadow-[0_3px_0_0_rgba(0,0,0,0.2)] hover:translate-y-[3px] transition-all duration-100 cursor-pointer"
               style={{ fontFamily: '"Permanent Marker", cursive' }}
             >
               Quero testar sem risco! 🛡️

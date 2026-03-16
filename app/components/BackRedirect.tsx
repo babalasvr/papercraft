@@ -99,16 +99,16 @@ export default function BackRedirect() {
           </div>
 
           <h2
-            className="text-[#0F172A] text-2xl font-bold leading-snug mt-4 mb-3"
+            className="text-[#3D2B1F] text-2xl font-bold leading-snug mt-4 mb-3"
             style={{ fontFamily: '"Permanent Marker", cursive' }}
           >
             ESPERE!<br />
             NÃO VÁ EMBORA<br />
             SEM ESSE{" "}
-            <span className="text-[#0188FA]">DESCONTO ESPECIAL!</span>
+            <span className="text-[#C1440E]">DESCONTO ESPECIAL!</span>
           </h2>
 
-          <p className="text-[#475569] text-sm mb-5 leading-relaxed">
+          <p className="text-[#6B5B4F] text-sm mb-5 leading-relaxed">
             Antes de sair, queremos te dar uma <strong>última oportunidade</strong>.
             Leve o <strong>PACOTE COMPLETO (Mestre)</strong> por um preço
             que você <strong>não vai encontrar em outro lugar</strong>.
@@ -122,7 +122,7 @@ export default function BackRedirect() {
             <div className="flex items-center justify-center gap-3 mb-2">
               <span className="text-gray-400 line-through text-base font-semibold">R$24,90</span>
               <span
-                className="text-green-600 text-4xl font-bold"
+                className="text-[#2D6A4F] text-4xl font-bold"
                 style={{ fontFamily: '"Permanent Marker", cursive' }}
               >
                 R$ 17,90
@@ -144,8 +144,8 @@ export default function BackRedirect() {
             className="btn-initcheck w-full text-white text-lg font-bold py-4 rounded-2xl mb-3 transition-transform active:scale-95 cursor-pointer"
             style={{
               fontFamily: '"Permanent Marker", cursive',
-              backgroundColor: "#22C55E",
-              boxShadow: "0 5px 0 0 #16A34A",
+              backgroundColor: "#2D6A4F",
+              boxShadow: "0 5px 0 0 #1B4332",
             }}
           >
             QUERO POR R$17,90 AGORA →

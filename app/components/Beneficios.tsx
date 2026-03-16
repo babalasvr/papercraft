@@ -4,7 +4,7 @@ const features = [
     title: "Seu Cantinho Anti-Estresse",
     description:
       "Depois de um dia puxado, separe 30 minutinhos, coloque uma música e monte sua próxima peça. É o tipo de hobby que acalma a mente e ainda deixa um resultado lindo na prateleira.",
-    tape: "bg-pink-300",
+    tape: "bg-[#D4A574]",
     rotate: "-rotate-2",
     caption: "Terapia de papel!",
   },
@@ -13,7 +13,7 @@ const features = [
     title: "Presente Que Ninguém Esquece",
     description:
       "Imagina entregar um boneco 3D feito por você. A pessoa não vai acreditar que saiu de uma folha de papel. É o tipo de presente que fica guardado pra sempre.",
-    tape: "bg-yellow-300",
+    tape: "bg-[#E8D5C0]",
     rotate: "rotate-1",
     caption: "Feito com as mãos!",
   },
@@ -22,7 +22,7 @@ const features = [
     title: "Programa Perfeito Em Família",
     description:
       "Chama as crianças, desliga a TV e bota todo mundo pra montar junto. Em poucos minutos já tem risada, concentração e aquele orgulho de ver o boneco pronto.",
-    tape: "bg-blue-300",
+    tape: "bg-[#C1440E]/30",
     rotate: "-rotate-1",
     caption: "Memórias pra vida!",
   },
@@ -35,18 +35,18 @@ export default function Beneficios() {
       id="beneficios"
       style={{
         backgroundImage:
-          "linear-gradient(to right, #e2e8f0 1px, transparent 1px), linear-gradient(#e2e8f0 1px, transparent 1px)",
+          "linear-gradient(to right, #E8D5C0 1px, transparent 1px), linear-gradient(#E8D5C0 1px, transparent 1px)",
         backgroundSize: "30px 30px",
-        backgroundColor: "#f8fafc",
+        backgroundColor: "#FFF8F0",
       }}
     >
       {/* Section header */}
       <div className="max-w-6xl mx-auto text-center mb-14">
-        <p className="text-[#0188FA] font-semibold text-lg mb-2 uppercase tracking-widest">
+        <p className="text-[#C1440E] font-semibold text-lg mb-2 uppercase tracking-widest">
           Mais que um hobby...
         </p>
         <h2
-          className="text-4xl md:text-5xl font-bold text-[#0F172A]"
+          className="text-4xl md:text-5xl font-bold text-[#3D2B1F]"
           style={{ fontFamily: '"Permanent Marker", cursive' }}
         >
           3 motivos pra começar<br className="hidden md:block" />
@@ -77,12 +77,12 @@ export default function Beneficios() {
               {/* Content */}
               <div className="pt-4 pb-2">
                 <h3
-                  className="text-xl font-bold text-[#0F172A] mb-2"
+                  className="text-xl font-bold text-[#3D2B1F] mb-2"
                   style={{ fontFamily: '"Permanent Marker", cursive' }}
                 >
                   {f.title}
                 </h3>
-                <p className="text-[#475569] text-sm leading-relaxed">
+                <p className="text-[#6B5B4F] text-sm leading-relaxed">
                   {f.description}
                 </p>
               </div>

@@ -49,20 +49,20 @@ export default function Pricing() {
   return (
     <>
     {showUpsell && <UpsellModal onClose={() => setShowUpsell(false)} />}
-    <section className="py-20 px-4 bg-white" id="pricing">
+    <section className="py-20 px-4 bg-[#FFF8F0]" id="pricing">
       <div className="max-w-5xl mx-auto">
         {/* Header */}
         <div className="text-center mb-14">
-          <p className="text-[#0188FA] font-semibold uppercase tracking-widest text-sm mb-2">
+          <p className="text-[#C1440E] font-semibold uppercase tracking-widest text-sm mb-2">
             Comece agora
           </p>
           <h2
-            className="text-4xl md:text-5xl font-bold text-[#0F172A]"
+            className="text-4xl md:text-5xl font-bold text-[#3D2B1F]"
             style={{ fontFamily: '"Permanent Marker", cursive' }}
           >
             Escolha seu kit e comece hoje
           </h2>
-          <p className="text-[#475569] mt-3 text-lg max-w-xl mx-auto">
+          <p className="text-[#6B5B4F] mt-3 text-lg max-w-xl mx-auto">
             Acesso imediato — comece a criar em menos de 5 minutos
           </p>
         </div>
@@ -73,7 +73,7 @@ export default function Pricing() {
           <div className="w-full max-w-sm bg-white rounded-3xl p-8 flex flex-col border-2 border-gray-200">
             <div className="text-center mb-6">
               <p
-                className="text-[#0F172A] text-2xl font-bold mb-3"
+                className="text-[#3D2B1F] text-2xl font-bold mb-3"
                 style={{ fontFamily: '"Permanent Marker", cursive' }}
               >
                 KIT INICIANTE
@@ -82,21 +82,21 @@ export default function Pricing() {
                 De: R$78,90
               </p>
               <div className="flex items-baseline justify-center gap-1 mb-2">
-                <span className="text-[#0F172A] text-lg font-bold">R$</span>
+                <span className="text-[#3D2B1F] text-lg font-bold">R$</span>
                 <span
-                  className="text-5xl font-bold text-[#0F172A]"
+                  className="text-5xl font-bold text-[#3D2B1F]"
                   style={{ fontFamily: '"Permanent Marker", cursive' }}
                 >
                   10,00
                 </span>
               </div>
-              <p className="text-[#475569] text-sm">Perfeito pra quem está começando</p>
+              <p className="text-[#6B5B4F] text-sm">Perfeito pra quem está começando</p>
             </div>
 
             <ul className="space-y-2.5 mb-8 flex-1">
               {inicianteItems.map((item, i) => (
-                <li key={i} className="flex items-center gap-3 text-sm text-[#0F172A]">
-                  <Check size={16} className="text-[#22C55E] flex-shrink-0" />
+                <li key={i} className="flex items-center gap-3 text-sm text-[#3D2B1F]">
+                  <Check size={16} className="text-[#2D6A4F] flex-shrink-0" />
                   {item}
                 </li>
               ))}
@@ -104,21 +104,21 @@ export default function Pricing() {
 
             <button
               onClick={() => setShowUpsell(true)}
-              className="block w-full text-center bg-[#0F172A] text-white font-bold py-4 rounded-2xl border-2 border-[#0F172A] hover:bg-gray-800 transition-all duration-100 cursor-pointer uppercase tracking-wide"
+              className="block w-full text-center bg-[#3D2B1F] text-white font-bold py-4 rounded-2xl border-2 border-[#3D2B1F] hover:bg-[#2A1F15] transition-all duration-100 cursor-pointer uppercase tracking-wide"
               style={{ fontFamily: '"Permanent Marker", cursive' }}
             >
               COMEÇAR COM O INICIANTE
             </button>
-            <p className="text-center text-xs text-green-600 font-semibold mt-3">
+            <p className="text-center text-xs text-[#2D6A4F] font-semibold mt-3">
               ✅ Garantia de 7 dias
             </p>
           </div>
 
           {/* Kit Mestre */}
-          <div className="w-full max-w-sm rounded-3xl p-8 bg-white border-4 border-[#0188FA] relative flex flex-col">
+          <div className="w-full max-w-sm rounded-3xl p-8 bg-white border-4 border-[#C1440E] relative flex flex-col">
             {/* "Mais escolhido" badge */}
             <div
-              className="absolute -top-4 -right-4 bg-[#FDC700] text-black font-bold px-4 py-2 rounded-2xl text-xs shadow-lg rotate-6"
+              className="absolute -top-4 -right-4 bg-[#D4A574] text-black font-bold px-4 py-2 rounded-2xl text-xs shadow-lg rotate-6"
               style={{ fontFamily: '"Permanent Marker", cursive' }}
             >
               Mais escolhido!
@@ -126,7 +126,7 @@ export default function Pricing() {
 
             <div className="text-center mb-6 pt-2">
               <p
-                className="text-[#0188FA] text-2xl font-bold mb-3"
+                className="text-[#C1440E] text-2xl font-bold mb-3"
                 style={{ fontFamily: '"Permanent Marker", cursive' }}
               >
                 KIT MESTRE
@@ -135,9 +135,9 @@ export default function Pricing() {
                 De: R$149,80
               </p>
               <div className="flex items-baseline justify-center gap-1 mb-2">
-                <span className="text-[#0188FA] text-2xl font-bold">R$</span>
+                <span className="text-[#C1440E] text-2xl font-bold">R$</span>
                 <span
-                  className="text-6xl font-bold text-[#0F172A]"
+                  className="text-6xl font-bold text-[#3D2B1F]"
                   style={{ fontFamily: '"Permanent Marker", cursive' }}
                 >
                   24,90
@@ -150,8 +150,8 @@ export default function Pricing() {
 
             <ul className="space-y-2 mb-4">
               {mestreItems.map((item, i) => (
-                <li key={i} className="flex items-center gap-3 text-sm text-[#0F172A] font-medium">
-                  <Check size={16} className="text-[#22C55E] flex-shrink-0" />
+                <li key={i} className="flex items-center gap-3 text-sm text-[#3D2B1F] font-medium">
+                  <Check size={16} className="text-[#2D6A4F] flex-shrink-0" />
                   {item}
                 </li>
               ))}
@@ -160,13 +160,13 @@ export default function Pricing() {
             {/* Bonus box */}
             <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-4 mb-6">
               <div className="text-center mb-3">
-                <span className="bg-[#FDC700] text-black text-xs font-bold px-3 py-1 rounded-full">
+                <span className="bg-[#D4A574] text-black text-xs font-bold px-3 py-1 rounded-full">
                   + 7 BÔNUS GRÁTIS (R$130)
                 </span>
               </div>
               <ul className="space-y-2">
                 {mestreBonus.map((item, i) => (
-                  <li key={i} className="flex items-center gap-3 text-sm text-[#0F172A] font-medium">
+                  <li key={i} className="flex items-center gap-3 text-sm text-[#3D2B1F] font-medium">
                     <span>🎁</span>
                     {item}
                   </li>
@@ -185,7 +185,7 @@ export default function Pricing() {
               QUERO O KIT COMPLETO
             </a>
 
-            <p className="text-center text-xs text-green-600 font-semibold mt-3">
+            <p className="text-center text-xs text-[#2D6A4F] font-semibold mt-3">
               ✅ Garantia de 7 dias — risco zero
             </p>
           </div>

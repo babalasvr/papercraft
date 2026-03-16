@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Template Instruções Papercraft</title>
+  <style>
+    /* ================================================
+       CONFIGURAÇÕES GERAIS
+    ================================================ */
+    @import url('https://fonts.googleapis.com/css2?family=Arial+Narrow&display=swap');
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 9px;
+      color: #111;
+      background: #fff;
+    }
+
+    .page {
+      width: 794px;          /* A4 largura */
+      margin: 0 auto;
+      background: #fff;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* ================================================
+       WATERMARK
+    ================================================ */
+    .watermark {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .watermark span {
+      position: absolute;
+      font-size: 22px;
+      font-weight: 900;
+      color: rgba(0, 0, 0, 0.045);
+      white-space: nowrap;
+      letter-spacing: 3px;
+      transform: rotate(-25deg);
+      text-transform: uppercase;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .page-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ================================================
+       SEÇÃO 1 — PRIMEIROS PASSOS
+    ================================================ */
+    .section-top {
+      display: flex;
+      border-bottom: 1px solid #999;
+    }
+
+    .col-instructions {
+      flex: 1;
+      padding: 14px 16px;
+      border-right: 1px solid #999;
+    }
+
+    .col-image-hero {
+      width: 280px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px;
+      min-height: 240px;
+    }
+
+    .col-image-hero img {
+      max-width: 100%;
+      max-height: 230px;
+      object-fit: contain;
+    }
+
+    .col-image-hero .img-placeholder {
+      width: 250px;
+      height: 210px;
+      background: #f0f0f0;
+      border: 2px dashed #ccc;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      color: #999;
+      font-size: 10px;
+      text-align: center;
+      gap: 6px;
+    }
+
+    .section-title {
+      font-size: 11px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: 8px;
+      border-bottom: 2px solid #111;
+      padding-bottom: 3px;
+      display: inline-block;
+    }
+
+    .text-block p {
+      font-size: 8.5px;
+      line-height: 1.55;
+      margin-bottom: 6px;
+    }
+
+    .text-block strong {
+      font-weight: 900;
+    }
+
+    /* Subtítulo tipo PREPARAÇÃO */
+    .sub-title {
+      font-size: 9.5px;
+      font-weight: 900;
+      text-transform: uppercase;
+      margin: 10px 0 5px;
+      letter-spacing: 0.8px;
+    }
+
+    .steps-list {
+      padding-left: 12px;
+    }
+
+    .steps-list li {
+      font-size: 8.5px;
+      line-height: 1.6;
+      margin-bottom: 2px;
+    }
+
+    /* Diagrama de dobra (valle / montaña) */
+    .fold-diagram {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      margin: 8px 0;
+    }
+
+    .fold-diagram .fold-img-placeholder {
+      width: 100px;
+      height: 90px;
+      background: #f5f5f5;
+      border: 1px dashed #bbb;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #aaa;
+      font-size: 8px;
+      text-align: center;
+    }
+
+    .fold-labels {
+      font-size: 8px;
+      line-height: 1.8;
+    }
+
+    .fold-labels .dobra-dentro { color: #e53935; font-weight: 700; }
+    .fold-labels .dobra-fora   { color: #e53935; font-weight: 700; }
+    .fold-labels .label-valley { font-weight: 900; font-size: 9px; }
+    .fold-labels .label-monta  { font-weight: 900; font-size: 9px; }
+
+    /* Dimensões finais */
+    .dimensoes-box {
+      margin-top: 10px;
+      border-top: 1px solid #bbb;
+      padding-top: 8px;
+    }
+
+    .dimensoes-box p {
+      font-size: 8.5px;
+      line-height: 1.7;
+    }
+
+    /* ================================================
+       SEÇÃO 2 — AVISOS IMPORTANTES
+    ================================================ */
+    .section-avisos {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 6px 16px;
+      border-bottom: 1px solid #999;
+      background: #fafafa;
+    }
+
+    .aviso-item {
+      font-size: 8.5px;
+      color: #111;
+    }
+
+    .aviso-item.destaque {
+      font-size: 9px;
+      font-weight: 900;
+      text-align: center;
+    }
+
+    .aviso-item.destaque .red {
+      color: #e53935;
+    }
+
+    /* ================================================
+       SEÇÃO 3 — DIMENSÕES / DESENHO TÉCNICO
+    ================================================ */
+    .section-dimensoes {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 30px;
+      padding: 18px 16px;
+      border-bottom: 1px solid #999;
+    }
+
+    .dim-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .dim-img-placeholder {
+      width: 230px;
+      height: 200px;
+      background: #f5f5f5;
+      border: 1px dashed #ccc;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #bbb;
+      font-size: 9px;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    /* Setas de dimensão estilo técnico */
+    .dim-arrow-v {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 9px;
+      font-weight: 900;
+    }
+
+    .dim-arrow-h {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 9px;
+      font-weight: 900;
+      margin-top: 4px;
+    }
+
+    .arrow-line-v {
+      width: 2px;
+      height: 100px;
+      background: #111;
+      position: relative;
+    }
+
+    .arrow-line-h {
+      height: 2px;
+      width: 100px;
+      background: #111;
+    }
+
+    .dim-label-v {
+      writing-mode: vertical-rl;
+      text-orientation: mixed;
+      transform: rotate(180deg);
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: 2px;
+    }
+
+    .dim-box {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .dim-h-row {
+      display: flex;
+      justify-content: space-around;
+      width: 100%;
+      font-size: 10px;
+      font-weight: 900;
+      letter-spacing: 1px;
+    }
+
+    .dim-h-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* ================================================
+       SEÇÃO 4 — PASSO A PASSO
+    ================================================ */
+    .section-passo-title {
+      text-align: center;
+      font-size: 15px;
+      font-weight: 900;
+      letter-spacing: 6px;
+      text-transform: uppercase;
+      padding: 10px 0 6px;
+      border-bottom: 1px solid #999;
+    }
+
+    .section-passos {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      border-bottom: 1px solid #999;
+    }
+
+    /* Primeira célula — "O que você precisa saber" */
+    .cell-intro {
+      padding: 12px;
+      border-right: 1px solid #999;
+      border-bottom: 1px solid #999;
+      font-size: 8px;
+      line-height: 1.65;
+    }
+
+    .cell-intro .intro-title {
+      font-size: 9px;
+      font-weight: 900;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+      letter-spacing: 0.5px;
+    }
+
+    /* Células de passo */
+    .cell-passo {
+      padding: 10px 10px 8px;
+      border-right: 1px solid #999;
+      border-bottom: 1px solid #999;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .cell-passo:nth-child(3n) {
+      border-right: none;
+    }
+
+    .cell-passo:last-child,
+    .cell-passo:nth-last-child(2),
+    .cell-passo:nth-last-child(3) {
+      /* remove bottom border do último row — opcional */
+    }
+
+    .passo-header {
+      font-size: 9px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .passo-header span {
+      font-size: 8px;
+      font-weight: 400;
+      display: block;
+      margin-top: 2px;
+      line-height: 1.5;
+      font-weight: normal;
+    }
+
+    .passo-img-placeholder {
+      width: 100%;
+      height: 130px;
+      background: #f0f0f0;
+      border: 1px dashed #ccc;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #bbb;
+      font-size: 8px;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .passo-img-placeholder img {
+      max-width: 100%;
+      max-height: 130px;
+      object-fit: contain;
+    }
+
+    /* Célula final (passo 9) — ocupa toda a largura ou fica no centro */
+    .cell-passo-final {
+      grid-column: 1 / 2;
+      border-right: 1px solid #999;
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .cell-passo-final-img {
+      grid-column: 2 / 4;
+      padding: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* ================================================
+       UTILITY
+    ================================================ */
+    .text-red   { color: #e53935; }
+    .text-bold  { font-weight: 900; }
+    .mt4        { margin-top: 4px; }
+    .mt8        { margin-top: 8px; }
+
+    /* ================================================
+       PRINT
+    ================================================ */
+    @media print {
+      body { margin: 0; }
+      .page { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="page">
+
+
+  <div class="page-content">
+
+    <!-- ============================================================
+         SEÇÃO 1 — PRIMEIROS PASSOS + IMAGEM DO PERSONAGEM
+    ============================================================ -->
+    <div class="section-top">
+
+      <!-- Coluna esquerda: instruções -->
+      <div class="col-instructions">
+
+        <div class="section-title">Primeiros Passos</div>
+
+        <div class="text-block mt4">
+          <p>Imprima o molde na cor indicada pela folha.</p>
+          <p>Para a <strong>PREPARAÇÃO</strong> você precisará de: régua, estilete ou tesoura, cola e uma ferramenta de vinco ou similar.</p>
+        </div>
+
+        <div class="sub-title">Preparação</div>
+
+        <ol class="steps-list">
+          <li>Corte ao longo de todas as linhas contínuas.</li>
+          <li>Marque todas as linhas pontilhadas com um perfurador ou ferramenta de vinco.</li>
+          <li>
+            Faça as dobras das linhas marcadas com base no seguinte diagrama, de acordo com o tipo de pontilhado:
+          </li>
+        </ol>
+
+        <!-- Diagrama de dobras -->
+        <div class="fold-diagram">
+          <div class="fold-img-placeholder">
+            Diagrama<br/>Valle / Montaña<br/><em>(substitua pela imagem)</em>
+          </div>
+          <div class="fold-labels">
+            <p><span class="dobra-dentro">Dobra para dentro</span></p>
+            <p class="label-valley">VALLEY</p>
+            <br/>
+            <p><span class="dobra-fora">Dobra para fora</span></p>
+            <p class="label-monta">MOUNTAIN</p>
+          </div>
+        </div>
+
+        <ol class="steps-list" start="4">
+          <li>Cole as abas juntas com seus respectivos números correspondentes.</li>
+        </ol>
+
+        <div class="text-block mt4">
+          <p>O modelo foi projetado para que toda a impressão fique do lado de dentro.</p>
+        </div>
+
+        <!-- Dimensões finais -->
+        <div class="dimensoes-box">
+          <div class="section-title">Dimensões do Modelo Final</div>
+          <p>Altura: <strong>XX cm</strong></p>
+          <p>Largura: <strong>XX cm</strong></p>
+          <p>Profundidade: <strong>XX cm</strong></p>
+        </div>
+
+      </div>
+
+      <!-- Coluna direita: imagem hero -->
+      <div class="col-image-hero">
+        <div class="img-placeholder">
+          <!--
+            SUBSTITUA por:
+            <img src="caminho/para/imagem-personagem.png" alt="Personagem" />
+          -->
+          <svg width="40" height="40" fill="none" stroke="#ccc" stroke-width="1.5" viewBox="0 0 24 24">
+            <rect x="3" y="3" width="18" height="18" rx="2"/>
+            <circle cx="8.5" cy="8.5" r="1.5"/>
+            <path d="M21 15l-5-5L5 21"/>
+          </svg>
+          <span>Imagem do Personagem<br/><em>(300 × 260 px)</em></span>
+        </div>
+      </div>
+
+    </div><!-- /section-top -->
+
+
+    <!-- ============================================================
+         SEÇÃO 2 — AVISOS IMPORTANTES
+    ============================================================ -->
+    <div class="section-avisos">
+      <div class="aviso-item">
+        El modelo fue diseñado para que toda impresión quede adentro.
+      </div>
+      <div class="aviso-item destaque">
+        <strong>AVISOS IMPORTANTES</strong><br/>
+        <span class="red">Imprima este molde em folhas de 180g a 300g</span>
+      </div>
+      <div class="aviso-item">
+        dentro.
+      </div>
+    </div>
+
+
+    <!-- ============================================================
+         SEÇÃO 3 — DESENHO TÉCNICO / DIMENSÕES
+    ============================================================ -->
+    <div class="section-dimensoes">
+
+      <!-- Coluna: seta de altura + imagens técnicas -->
+      <div class="dim-box">
+
+        <!-- Seta vertical (altura) -->
+        <div style="display:flex; flex-direction:column; align-items:center; gap:2px;">
+          <div style="font-size:8px;">▲</div>
+          <div style="width:2px; height:180px; background:#111;"></div>
+          <div style="font-size:8px;">▼</div>
+        </div>
+        <div class="dim-label-v">XX CM</div>
+
+        <!-- Duas vistas do modelo (frente e lado) -->
+        <div style="display:flex; flex-direction:column; gap:6px;">
+          <div style="display:flex; gap:10px;">
+
+            <div class="dim-img-placeholder">
+              <!-- <img src="vista-frontal.png" alt="Vista Frontal"/> -->
+              <svg width="28" height="28" fill="none" stroke="#ccc" stroke-width="1.5" viewBox="0 0 24 24">
+                <rect x="3" y="3" width="18" height="18" rx="2"/>
+                <path d="M3 9h18M9 3v18"/>
+              </svg>
+              <span>Vista Frontal<br/><em>(wireframe)</em></span>
+            </div>
+
+            <div class="dim-img-placeholder">
+              <!-- <img src="vista-lateral.png" alt="Vista Lateral"/> -->
+              <svg width="28" height="28" fill="none" stroke="#ccc" stroke-width="1.5" viewBox="0 0 24 24">
+                <rect x="3" y="3" width="18" height="18" rx="2"/>
+                <path d="M3 9h18M15 3v18"/>
+              </svg>
+              <span>Vista Lateral<br/><em>(wireframe)</em></span>
+            </div>
+
+          </div>
+
+          <!-- Setas horizontais de largura e profundidade -->
+          <div class="dim-h-row">
+            <div class="dim-h-item">
+              <span>◄</span>
+              <div style="height:2px; width:80px; background:#111;"></div>
+              <span>►</span>
+              <strong style="margin-left:6px; font-size:10px;">XX CM</strong>
+            </div>
+            <div class="dim-h-item">
+              <span>◄</span>
+              <div style="height:2px; width:80px; background:#111;"></div>
+              <span>►</span>
+              <strong style="margin-left:6px; font-size:10px;">XX CM</strong>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div><!-- /section-dimensoes -->
+
+
+    <!-- ============================================================
+         SEÇÃO 4 — PASSO A PASSO
+    ============================================================ -->
+    <div class="section-passo-title">Passo a Passo</div>
+
+    <div class="section-passos">
+
+      <!-- CÉLULA 0: O que você precisa saber -->
+      <div class="cell-intro">
+        <div class="intro-title">O que você precisa saber</div>
+        <p>Imprima o molde na cor indicada em cada uma das folhas ou imprima em uma folha branca e cole sobre um papel cartão da cor de escrita.</p>
+        <br/>
+        <p>Cada peça tem seu próprio número; siga-os em ordem para obter um resultado melhor.</p>
+        <br/>
+        <p>As peças possuem números nos quais você deve encontrar o par correspondente para colá-los.</p>
+        <br/>
+        <p>Você pode imprimir o molde em formato A3 para ter uma escultura 37% maior.</p>
+      </div>
+
+      <!-- PASSO 1 -->
+      <div class="cell-passo">
+        <div class="passo-header">
+          PASSO 1
+          <span>Cole as peças 1 a XX que pertencem à primeira parte do personagem.</span>
+        </div>
+        <div class="passo-img-placeholder">
+          <!-- <img src="passo-1.png" alt="Passo 1"/> -->
+          <svg width="22" height="22" fill="none" stroke="#ccc" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+          <span>Imagem Passo 1</span>
+        </div>
+      </div>
+
+      <!-- PASSO 2 -->
+      <div class="cell-passo" style="border-right:none;">
+        <div class="passo-header">
+          PASSO 2
+          <span>Cole as peças Xa a Xe separadamente, pertencentes às orelhas do personagem, e depois cole-as no rosto.</span>
+        </div>
+        <div class="passo-img-placeholder">
+          <!-- <img src="passo-2.png" alt="Passo 2"/> -->
+          <svg width="22" height="22" fill="none" stroke="#ccc" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+          <span>Imagem Passo 2</span>
+        </div>
+      </div>
+
+      <!-- PASSO 3 -->
+      <div class="cell-passo">
+        <div class="passo-header">
+          PASSO 3
+          <span>Cole as peças XX a XX para fechar a cabeça e continuar com o corpo.</span>
+        </div>
+        <div class="passo-img-placeholder">
+          <!-- <img src="passo-3.png" alt="Passo 3"/> -->
+          <svg width="22" height="22" fill="none" stroke="#ccc" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+          <span>Imagem Passo 3</span>
+        </div>
+      </div>
+
+      <!-- PASSO 4 -->
+      <div class="cell-passo">
+        <div class="passo-header">
+          PASSO 4
+          <span>Cole as peças XXa a XXf e XXa a XXf separadamente e depois junte-as ao corpo do personagem.</span>
+        </div>
+        <div class="passo-img-placeholder">
+          <!-- <img src="passo-4.png" alt="Passo 4"/> -->
+          <svg width="22" height="22" fill="none" stroke="#ccc" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+          <span>Imagem Passo 4</span>
+        </div>
+      </div>
+
+      <!-- PASSO 5 -->
+      <div class="cell-passo" style="border-right:none;">
+        <div class="passo-header">
+          PASSO 5
+          <span>Cole as peças XX a XX continuando com o corpo do personagem.</span>
+        </div>
+        <div class="passo-img-placeholder">
+          <!-- <img src="passo-5.png" alt="Passo 5"/> -->
+          <svg width="22" height="22" fill="none" stroke="#ccc" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+          <span>Imagem Passo 5</span>
+        </div>
+      </div>
+
+      <!-- PASSO 6 -->
+      <div class="cell-passo">
+        <div class="passo-header">
+          PASSO 6
+          <span>Cole as peças XXa a XXd e XXa a XXd separadamente e depois junte-as ao corpo do personagem.</span>
+        </div>
+        <div class="passo-img-placeholder">
+          <!-- <img src="passo-6.png" alt="Passo 6"/> -->
+          <svg width="22" height="22" fill="none" stroke="#ccc" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+          <span>Imagem Passo 6</span>
+        </div>
+      </div>
+
+      <!-- PASSO 7 -->
+      <div class="cell-passo">
+        <div class="passo-header">
+          PASSO 7
+          <span>Cole as peças XX a XX para terminar o corpo do personagem.</span>
+        </div>
+        <div class="passo-img-placeholder">
+          <!-- <img src="passo-7.png" alt="Passo 7"/> -->
+          <svg width="22" height="22" fill="none" stroke="#ccc" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+          <span>Imagem Passo 7</span>
+        </div>
+      </div>
+
+      <!-- PASSO 8 -->
+      <div class="cell-passo" style="border-right:none;">
+        <div class="passo-header">
+          PASSO 8
+          <span>Cole os detalhes do personagem como mostrado nas imagens.</span>
+        </div>
+        <div class="passo-img-placeholder">
+          <!-- <img src="passo-8.png" alt="Passo 8"/> -->
+          <svg width="22" height="22" fill="none" stroke="#ccc" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+          <span>Imagem Passo 8</span>
+        </div>
+      </div>
+
+      <!-- PASSO 9 (final) — texto à esquerda, imagem grande à direita -->
+      <div class="cell-passo-final">
+        <div class="passo-header">
+          PASSO 9
+          <span>
+            AO TERMINAR: Tire uma foto do seu trabalho e junte-se à comunidade que mais cresce no país
+          </span>
+        </div>
+      </div>
+
+      <div class="cell-passo-final-img">
+        <div class="passo-img-placeholder" style="width:280px; height:150px;">
+          <!-- <img src="resultado-final.png" alt="Resultado Final"/> -->
+          <svg width="28" height="28" fill="none" stroke="#ccc" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+          <span>Imagem Final do Personagem Montado</span>
+        </div>
+      </div>
+
+    </div><!-- /section-passos -->
+
+  </div><!-- /page-content -->
+</div><!-- /page -->
+
+</body>
+</html>

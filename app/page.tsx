@@ -16,11 +16,11 @@ export default function Home() {
     <main className="min-h-screen bg-[#FDFDFD]">
       <BannerTopo />
       <Hero />
-      <Beneficios />
       <Galeria />
-      <Modelos />
-      <ComoFunciona />
+      <Beneficios />
       <Testemunhos />
+      <ComoFunciona />
+      <Modelos />
       <Bonus />
       <Pricing />
       <Garantia />

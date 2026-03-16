@@ -32,15 +32,13 @@ export default function Garantia() {
             className="text-3xl md:text-4xl font-bold mb-4"
             style={{ fontFamily: '"Permanent Marker", cursive' }}
           >
-            RISCO ZERO: TESTE POR 7 DIAS
+            Não gostou? Devolvemos tudo.
           </h2>
 
           {/* Description */}
           <p className="text-blue-100 text-lg max-w-2xl mx-auto leading-relaxed mb-6">
-            Se em até <strong className="text-white">7 dias</strong> você não ficar satisfeito com o
-            conteúdo — por qualquer motivo — basta entrar em contato e devolvemos{" "}
-            <strong className="text-white">100% do seu dinheiro</strong>. Sem perguntas, sem burocracia.
-          </p>
+            Você tem <strong className="text-white">7 dias</strong> pra testar o kit inteiro. Se não amar o conteúdo — por qualquer motivo — devolvemos{" "}
+            <strong className="text-white">100% do seu dinheiro</strong>. Um e-mail e pronto. Sem perguntas, sem burocracia.</p>
 
           {/* Bullets */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 text-sm">

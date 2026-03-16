@@ -25,7 +25,7 @@ export default function Galeria() {
             O Que Você Pode Criar
           </h2>
           <p className="text-[#475569] mt-3 text-lg max-w-xl mx-auto">
-            Mais de 1200 modelos à sua espera — de iniciante a mestre do papercraft
+            Mais de 3500 modelos à sua espera — de iniciante a mestre do papercraft
           </p>
         </div>
 
@@ -47,10 +47,21 @@ export default function Galeria() {
 
         {/* Bottom CTA */}
         <div className="text-center mt-10">
-          <p className="text-[#475569] text-sm">
+          <p className="text-[#475569] text-sm mb-5">
             E muito mais...{" "}
-            <strong className="text-[#0188FA]">+1200 modelos</strong> no kit completo!
+            <strong className="text-[#0188FA]">+3500 modelos</strong> esperando por você!
           </p>
+          <a
+            href="#pricing"
+            className="inline-block text-white text-lg font-bold px-12 py-4 rounded-2xl cursor-pointer no-underline border-2 border-[#16A34A] active:translate-y-1 transition-transform"
+            style={{
+              fontFamily: '"Permanent Marker", cursive',
+              backgroundColor: "#22C55E",
+              boxShadow: "0 6px 0 0 #16A34A",
+            }}
+          >
+            QUERO CRIAR OS MEUS
+          </a>
         </div>
       </div>
     </section>

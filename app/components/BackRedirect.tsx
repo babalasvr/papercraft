@@ -143,8 +143,8 @@ export default function BackRedirect() {
             className="btn-initcheck w-full text-white text-lg font-bold py-4 rounded-2xl mb-3 transition-transform active:scale-95 cursor-pointer"
             style={{
               fontFamily: '"Permanent Marker", cursive',
-              backgroundColor: "#0188fa",
-              boxShadow: "0 5px 0 0 #005BB5",
+              backgroundColor: "#22C55E",
+              boxShadow: "0 5px 0 0 #16A34A",
             }}
           >
             QUERO POR R$17,90 AGORA →

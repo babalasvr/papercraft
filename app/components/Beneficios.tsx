@@ -1,30 +1,30 @@
 const features = [
   {
     image: "/img/PAPER-02-P.png",
-    title: "Desconecte Do Estresse",
+    title: "Seu Cantinho Anti-Estresse",
     description:
-      "Expresse sua arte com centenas de modelos exclusivos. Cada peça é única e feita com suas próprias mãos — um hobby que desenvolve habilidades visuais e motoras.",
+      "Depois de um dia puxado, separe 30 minutinhos, coloque uma música e monte sua próxima peça. É o tipo de hobby que acalma a mente e ainda deixa um resultado lindo na prateleira.",
     tape: "bg-pink-300",
     rotate: "-rotate-2",
-    caption: "Arte que você cria!",
+    caption: "Terapia de papel!",
   },
   {
     image: "/img/PAPER-03-P.png",
-    title: "Decoração Com Identidade",
+    title: "Presente Que Ninguém Esquece",
     description:
-      "Surpreenda amigos e família com presentes personalizados e cheios de carinho. Um boneco de papel feito à mão tem muito mais valor que qualquer presente comprado.",
+      "Imagina entregar um boneco 3D feito por você. A pessoa não vai acreditar que saiu de uma folha de papel. É o tipo de presente que fica guardado pra sempre.",
     tape: "bg-yellow-300",
     rotate: "rotate-1",
-    caption: "Presente com amor!",
+    caption: "Feito com as mãos!",
   },
   {
     image: "/img/PAPER-04-P.png",
-    title: "Tempo De Qualidade",
+    title: "Programa Perfeito Em Família",
     description:
-      "Reúna todo mundo em torno de uma mesa e criem juntos! Atividade ideal para crianças, adolescentes e adultos — sem tela, sem estresse, só alegria.",
+      "Chama as crianças, desliga a TV e bota todo mundo pra montar junto. Em poucos minutos já tem risada, concentração e aquele orgulho de ver o boneco pronto.",
     tape: "bg-blue-300",
     rotate: "-rotate-1",
-    caption: "Momento especial!",
+    caption: "Memórias pra vida!",
   },
 ];
 
@@ -49,8 +49,8 @@ export default function Beneficios() {
           className="text-4xl md:text-5xl font-bold text-[#0F172A]"
           style={{ fontFamily: '"Permanent Marker", cursive' }}
         >
-          Por que o Papercraft <br className="hidden md:block" />
-          vai mudar sua vida?
+          3 motivos pra começar<br className="hidden md:block" />
+          ainda hoje
         </h2>
       </div>
 

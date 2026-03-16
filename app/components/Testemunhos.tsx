@@ -4,7 +4,7 @@ const testimonials = [
     productImage: "/img/PAPER-13-P.webp",
     avatarImage: "/img/PROVA-02-P.webp",
     quote:
-      "Cara, que produto incrível! Comprei o Kit Mestre e já montei mais de 30 peças. Os moldes são precisos, as instruções são claras. Não tem como errar!",
+      "Já montei mais de 30 peças e cada uma fica melhor que a anterior. Os moldes encaixam certinho e o passo a passo é tão claro que até minha sogra conseguiu montar um sozinha!",
     stars: 5,
     rotate: "-rotate-2",
     tape: "bg-pink-300",
@@ -14,7 +14,7 @@ const testimonials = [
     productImage: "/img/PAPER-14-P.webp",
     avatarImage: "/img/PROVA-03-P.webp",
     quote:
-      "Uso como terapia! Depois de um dia estressante, fico 1 hora montando e esqueço todos os problemas. Minha casa tá virando um museu de papercraft kk",
+      "Virou minha terapia do fim do dia. Chego do trabalho, pego um molde novo e em 1 hora já esqueço de tudo. Minha estante tá cheia e todo mundo que visita quer saber onde comprei!",
     stars: 5,
     rotate: "rotate-1",
     tape: "bg-yellow-300",
@@ -24,7 +24,7 @@ const testimonials = [
     productImage: "/img/PAPER-15-P.webp",
     avatarImage: "/img/PROVA-05-P.webp",
     quote:
-      "Dei de presente pro meu filho de 12 anos e agora ele não larga. Ficou tão viciado que pediu pra ensinar os amigos. Melhor compra que fiz esse ano!",
+      "Comprei pro meu filho de 12 anos e agora virou programa de família. No fim de semana sentamos juntos e cada um monta o seu. Ele já ensinou até os amigos da escola!",
     stars: 5,
     rotate: "-rotate-1",
     tape: "bg-blue-300",
@@ -47,13 +47,13 @@ export default function Testemunhos() {
         {/* Header */}
         <div className="text-center mb-14">
           <p className="text-[#0188FA] font-semibold uppercase tracking-widest text-sm mb-2">
-            Depoimentos Reais
+            +3000 alunos satisfeitos
           </p>
           <h2
             className="text-4xl md:text-5xl font-bold text-[#0F172A]"
             style={{ fontFamily: '"Permanent Marker", cursive' }}
           >
-            O que nossos alunos dizem
+            Veja quem já começou
           </h2>
         </div>
 
@@ -107,6 +107,22 @@ export default function Testemunhos() {
               </div>
             </div>
           ))}
+        </div>
+
+        {/* CTA depois dos depoimentos */}
+        <div className="text-center mt-14">
+          <a
+            href="#pricing"
+            className="inline-block text-white text-lg font-bold px-12 py-4 rounded-2xl cursor-pointer no-underline border-2 border-[#16A34A] active:translate-y-1 transition-transform"
+            style={{
+              fontFamily: '"Permanent Marker", cursive',
+              backgroundColor: "#22C55E",
+              boxShadow: "0 6px 0 0 #16A34A",
+            }}
+          >
+            QUERO CRIAR OS MEUS TAMBÉM
+          </a>
+          <p className="text-[#475569] text-sm mt-3">Acesso imediato após a compra</p>
         </div>
       </div>
     </section>

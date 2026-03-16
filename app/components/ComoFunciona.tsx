@@ -100,6 +100,24 @@ export default function ComoFunciona() {
             </div>
           ))}
         </div>
+
+        {/* CTA depois dos passos */}
+        <div className="text-center mt-14">
+          <p className="text-[#475569] text-base mb-4">
+            Simples assim. Em minutos você já tem seu primeiro boneco 3D.
+          </p>
+          <a
+            href="#pricing"
+            className="inline-block text-white text-lg font-bold px-12 py-4 rounded-2xl cursor-pointer no-underline border-2 border-[#16A34A] active:translate-y-1 transition-transform"
+            style={{
+              fontFamily: '"Permanent Marker", cursive',
+              backgroundColor: "#22C55E",
+              boxShadow: "0 6px 0 0 #16A34A",
+            }}
+          >
+            QUERO COMEÇAR AGORA
+          </a>
+        </div>
       </div>
     </section>
   );

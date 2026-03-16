@@ -13,7 +13,7 @@ export default function Hero() {
         {/* Badge */}
         <div className="inline-flex items-center gap-2 border-2 border-green-400 text-green-600 bg-white px-4 py-1.5 rounded-full text-xs font-bold mb-6 shadow-sm">
           <span className="text-green-500">✓</span>
-          <span>+1200 MOLDES APROVADOS</span>
+          <span>+3500 MOLDES PRONTOS PRA IMPRIMIR</span>
         </div>
 
         {/* H1 */}
@@ -21,9 +21,9 @@ export default function Hero() {
           className="text-5xl md:text-6xl font-bold text-[#0F172A] leading-tight mb-2 uppercase"
           style={{ fontFamily: '"Permanent Marker", cursive' }}
         >
-          Monte Bonecos<br />Incríveis de
+          Transforme Papel<br />em Arte
         </h1>
-        <div className="relative mb-6">
+        <div className="relative mb-5">
           <span
             className="text-5xl md:text-6xl font-bold uppercase"
             style={{
@@ -31,7 +31,7 @@ export default function Hero() {
               color: "#0188FA",
             }}
           >
-            Papel em 3D
+            3D Incrível
           </span>
           {/* Underline decoration */}
           <svg
@@ -51,13 +51,46 @@ export default function Hero() {
           </svg>
         </div>
 
-        {/* Subtitle */}
-        <p className="text-base text-[#475569] italic mb-8 max-w-xs leading-relaxed">
-          &ldquo;Com apenas tesoura e cola, esse é o hobby ideal para relaxar e impressionar mesmo sem ter experiência.&rdquo;
+        {/* Subtitle - sem aspas, foco em beneficio */}
+        <p className="text-base text-[#475569] mb-5 max-w-sm leading-relaxed">
+          Com apenas tesoura e cola, crie bonecos 3D impressionantes para decorar, presentear e relaxar — <strong className="text-[#0F172A]">mesmo sem experiência nenhuma</strong>.
         </p>
 
+        {/* CTA Button ACIMA DA DOBRA */}
+        <a
+          href="#pricing"
+          className="inline-block text-white text-xl font-bold px-14 py-4 rounded-2xl mb-5 cursor-pointer no-underline border-2 border-[#16A34A] active:translate-y-1 transition-transform"
+          style={{
+            fontFamily: '"Permanent Marker", cursive',
+            backgroundColor: "#22C55E",
+            boxShadow: "0 6px 0 0 #16A34A",
+          }}
+        >
+          QUERO COMEÇAR AGORA
+        </a>
+
+        {/* Social proof */}
+        <div className="flex items-center justify-center gap-3 mb-6">
+          <div className="flex -space-x-2">
+            {avatars.map((src, i) => (
+              <img
+                key={i}
+                src={src}
+                alt={`Aluno ${i + 1}`}
+                className="w-9 h-9 rounded-full border-2 border-white shadow object-cover"
+              />
+            ))}
+          </div>
+          <div className="text-left">
+            <div className="flex text-yellow-400 text-sm">{"★★★★★"}</div>
+            <p className="text-[#475569] text-xs">
+              <strong className="text-[#0F172A]">+3000 alunos felizes</strong>
+            </p>
+          </div>
+        </div>
+
         {/* Polaroid image */}
-        <div className="relative w-full max-w-xs mb-8">
+        <div className="relative w-full max-w-xs mb-4">
           {/* Yellow tape at top */}
           <div
             className="absolute -top-3 left-1/2 -translate-x-1/2 z-20 w-16 h-6 bg-yellow-200 opacity-80"
@@ -91,39 +124,6 @@ export default function Hero() {
               style={{ fontFamily: '"Permanent Marker", cursive' }}
             >
               FEITO POR VOCÊ!
-            </p>
-          </div>
-        </div>
-
-        {/* CTA Button */}
-        <a
-          href="#pricing"
-          className="inline-block text-white text-xl font-bold px-14 py-4 rounded-2xl mb-6 cursor-pointer no-underline border-2 border-[#005BB5] active:translate-y-1 transition-transform"
-          style={{
-            fontFamily: '"Permanent Marker", cursive',
-            backgroundColor: "#0188fa",
-            boxShadow: "0 6px 0 0 #005BB5",
-          }}
-        >
-          QUERO COMEÇAR
-        </a>
-
-        {/* Social proof */}
-        <div className="flex items-center justify-center gap-3">
-          <div className="flex -space-x-2">
-            {avatars.map((src, i) => (
-              <img
-                key={i}
-                src={src}
-                alt={`Aluno ${i + 1}`}
-                className="w-9 h-9 rounded-full border-2 border-white shadow object-cover"
-              />
-            ))}
-          </div>
-          <div className="text-left">
-            <div className="flex text-yellow-400 text-sm">{"★★★★★"}</div>
-            <p className="text-[#475569] text-xs">
-              <strong className="text-[#0F172A]">+3000 alunos felizes</strong>
             </p>
           </div>
         </div>

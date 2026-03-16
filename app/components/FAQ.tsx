@@ -105,8 +105,35 @@ export default function FAQ() {
           ))}
         </div>
 
+        {/* CTA Final - ultimo empurrao */}
+        <div className="text-center mt-14 bg-white rounded-3xl border-2 border-gray-100 shadow-lg p-10">
+          <h3
+            className="text-2xl md:text-3xl font-bold text-[#0F172A] mb-3"
+            style={{ fontFamily: '"Permanent Marker", cursive' }}
+          >
+            Pronto pra começar?
+          </h3>
+          <p className="text-[#475569] text-base mb-6 max-w-md mx-auto">
+            Comece por apenas <strong className="text-[#0188FA]">R$10</strong> ou leve o kit completo com +3500 moldes e 7 bônus por <strong className="text-[#0188FA]">R$24,90</strong>.
+          </p>
+          <a
+            href="#pricing"
+            className="inline-block text-white text-lg font-bold px-14 py-4 rounded-2xl cursor-pointer no-underline border-2 border-[#16A34A] active:translate-y-1 transition-transform mb-3"
+            style={{
+              fontFamily: '"Permanent Marker", cursive',
+              backgroundColor: "#22C55E",
+              boxShadow: "0 6px 0 0 #16A34A",
+            }}
+          >
+            VER PLANOS E COMEÇAR
+          </a>
+          <p className="text-[#475569] text-sm">
+            Garantia de 7 dias — se não gostar, devolvemos 100%.
+          </p>
+        </div>
+
         {/* Still have questions */}
-        <div className="text-center mt-10">
+        <div className="text-center mt-8">
           <p className="text-[#475569]">
             Ainda tem dúvidas? Entre em contato conosco.
           </p>

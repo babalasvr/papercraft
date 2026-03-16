@@ -11,7 +11,7 @@ export default function Footer() {
               className="text-4xl font-bold text-[#0188FA] mb-2"
               style={{ fontFamily: '"Permanent Marker", cursive' }}
             >
-              PAPER PRIME
+              PAPERCRAFT BRASIL
             </div>
             <p className="text-gray-400 text-sm max-w-xs">
               A maior plataforma de papercraft do Brasil. Transformando papel em arte desde 2022.
@@ -64,7 +64,7 @@ export default function Footer() {
         <div className="border-t border-gray-700 mt-10 pt-8">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-center">
             <p className="text-gray-500 text-sm">
-              © 2024 Paper Prime — Papercraft Brasil. Todos os direitos reservados.
+              © 2024 Papercraft Brasil. Todos os direitos reservados.
             </p>
             <div className="flex items-center gap-3">
               <span className="text-xs text-gray-600">Pagamento seguro:</span>

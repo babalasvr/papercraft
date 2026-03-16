@@ -25,13 +25,13 @@ export default function Modelos() {
         {/* Header */}
         <div className="text-center mb-12">
           <p className="text-[#0188FA] font-semibold text-lg mb-3 italic">
-            Alguns exemplos reais dos +3500 moldes!
+            Moldes reais do kit!
           </p>
           <h2
             className="text-4xl md:text-5xl font-bold text-[#0F172A]"
             style={{ fontFamily: '"Permanent Marker", cursive' }}
           >
-            Veja Um Pouco Por Dentro Como São Os Modelos Que Você Irá Receber!
+            Veja por dentro o que<br className="hidden md:block" /> você vai receber
           </h2>
         </div>
 

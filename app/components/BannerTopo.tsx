@@ -46,7 +46,7 @@ export default function BannerTopo() {
           />
         </span>
         <span className="font-marker" style={{ fontFamily: '"Permanent Marker", cursive' }}>
-          OFERTA ESPECIAL
+          +3500 MOLDES POR APENAS R$24,90
         </span>
         <span className="hidden sm:inline">•</span>
         <span>

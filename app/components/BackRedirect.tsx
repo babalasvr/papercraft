@@ -35,8 +35,9 @@ export default function BackRedirect() {
     // Push a dummy state so pressing back triggers popstate instead of navigating away
     window.history.pushState({ backRedirect: true }, "");
 
-    const handlePopState = () => {
-      if (!triggered) {
+    const handlePopState = (e: PopStateEvent) => {
+      // Only trigger when navigating back to our dummy state, not on hash changes
+      if (!triggered && e.state && e.state.backRedirect) {
         setShow(true);
         setTriggered(true);
         // Push again to prevent actual navigation

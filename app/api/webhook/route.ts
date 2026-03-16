@@ -2,18 +2,18 @@ import { NextRequest, NextResponse } from "next/server";
 import { supabase } from "@/app/lib/supabase";
 
 const PRODUCT_PLAN_MAP: Record<string, "iniciante" | "mestre"> = {
-  // IDs Cakto (short_id da URL de checkout)
-  "4ptqmkr_807214": "mestre",    // Kit Mestre R$24,90
-  inwgjhy:          "mestre",    // Kit Mestre R$17,90 (upsell/saída)
-  fdro8ye:          "iniciante", // Kit Iniciante R$10,00
-  bu34t3v_807226:   "mestre",    // Kit Profissional
+  // IDs Cakto → usar offer.id do payload (ex: body.data.offer.id)
+  "4ptqmkr":   "mestre",    // Kit Mestre R$24,90
+  inwgjhy:     "mestre",    // Kit Mestre R$17,90 (upsell/saída)
+  fdro8ye:     "iniciante", // Kit Iniciante R$10,00
+  "bu34t3v":   "mestre",    // Kit Profissional
   // IDs legados GGCheckout (manter por segurança)
-  KA96Dlg6MKnkPnP3HEZv:  "mestre",
-  bDk2mvoTRD0ho6gLKqWa:  "mestre",
-  vFuC4CfrH3VzK1O0too:   "iniciante",
-  WrN9zpJBasFtfyQqR9vs:  "iniciante",
+  KA96Dlg6MKnkPnP3HEZv:   "mestre",
+  bDk2mvoTRD0ho6gLKqWa:   "mestre",
+  vFuC4CfrH3VzK1O0too:    "iniciante",
+  WrN9zpJBasFtfyQqR9vs:   "iniciante",
   "2mLxvXet6aDg93bgZkOu": "mestre",
-  h7JvWtkZwpmVHbusw4u6:  "mestre",
+  h7JvWtkZwpmVHbusw4u6:   "mestre",
 };
 
 const REVOKE_EVENTS = new Set(["refund", "chargeback"]);
@@ -24,10 +24,12 @@ export async function POST(request: NextRequest) {
 
     const event = body.event || body.event_type || "";
 
+    // Cakto envolve tudo em body.data; GGCheckout envia direto em body
+    const d = body.data ?? body;
+
     // ── REEMBOLSO / CHARGEBACK → revogar acesso ──────────────────────
     if (REVOKE_EVENTS.has(event)) {
-      const email =
-        body.customer?.email || body.email || body.buyer?.email;
+      const email = d.customer?.email || d.email || d.buyer?.email;
 
       if (!email) {
         return NextResponse.json(
@@ -59,16 +61,18 @@ export async function POST(request: NextRequest) {
     }
 
     // ── COMPRA APROVADA → liberar acesso ─────────────────────────────
-    const email =
-      body.customer?.email || body.email || body.buyer?.email;
-    const name =
-      body.customer?.name || body.name || body.buyer?.name || "";
+    const email = d.customer?.email || d.email || d.buyer?.email;
+    const name  = d.customer?.name  || d.name  || d.buyer?.name || "";
+    // Cakto: usar offer.id (ex: "4ptqmkr") — NÃO product.short_id
     const productId =
-      body.product?.short_id ||
-      body.product?.id ||
-      body.product_id ||
-      body.productId ||
+      d.offer?.id      ||
+      d.product?.short_id ||
+      d.product?.id    ||
+      d.product_id     ||
+      d.productId      ||
       "";
+
+    const plan = PRODUCT_PLAN_MAP[productId] || "iniciante";
 
     if (!email) {
       return NextResponse.json(
@@ -76,8 +80,6 @@ export async function POST(request: NextRequest) {
         { status: 400 }
       );
     }
-
-    const plan = PRODUCT_PLAN_MAP[productId] || "iniciante";
 
     // Verificar se membro já existe
     const { data: existing } = await supabase

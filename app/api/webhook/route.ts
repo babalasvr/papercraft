@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { supabase } from "@/app/lib/supabase";
 
+// ── Produtos principais → plano da área de membros ───────────────────────────
 const PRODUCT_PLAN_MAP: Record<string, "iniciante" | "mestre"> = {
   // IDs Cakto → usar offer.id do payload (ex: body.data.offer.id)
   "4ptqmkr":   "mestre",    // Kit Mestre R$24,90
@@ -14,6 +15,19 @@ const PRODUCT_PLAN_MAP: Record<string, "iniciante" | "mestre"> = {
   WrN9zpJBasFtfyQqR9vs:   "iniciante",
   "2mLxvXet6aDg93bgZkOu": "mestre",
   h7JvWtkZwpmVHbusw4u6:   "mestre",
+};
+
+// ── Upsells/order bumps → product_id interno (tabela member_products) ─────────
+// TODO: substituir as chaves pelos offer.id reais da Cakto após criar as ofertas
+const UPSELL_PRODUCT_MAP: Record<string, string> = {
+  // "CAKTO_OFFER_ID": "product_id_interno"
+  // "": "pack-eva",           // Pack EVA Premium R$19,90
+  // "": "metodo-lucrar",      // Método Lucrar R$47,00
+  // "": "metodo-lucrar",      // Downsell Método R$19,90 (mesmo produto)
+  // "": "calculadora-precificacao", // Calculadora R$27,00
+  // "": "calculadora-precificacao", // Downsell Calculadora R$14,90 (mesmo produto)
+  // "": "pack-animais",       // Pack Animais Low Poly R$9,90
+  // "": "kit-impressao",      // Kit Impressão Profissional R$7,90 (order bump)
 };
 
 const REVOKE_EVENTS = new Set(["refund", "chargeback"]);
@@ -64,15 +78,13 @@ export async function POST(request: NextRequest) {
     const email = d.customer?.email || d.email || d.buyer?.email;
     const name  = d.customer?.name  || d.name  || d.buyer?.name || "";
     // Cakto: usar offer.id (ex: "4ptqmkr") — NÃO product.short_id
-    const productId =
-      d.offer?.id      ||
+    const offerId =
+      d.offer?.id         ||
       d.product?.short_id ||
-      d.product?.id    ||
-      d.product_id     ||
-      d.productId      ||
+      d.product?.id       ||
+      d.product_id        ||
+      d.productId         ||
       "";
-
-    const plan = PRODUCT_PLAN_MAP[productId] || "iniciante";
 
     if (!email) {
       return NextResponse.json(
@@ -81,11 +93,47 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    const normalizedEmail = email.toLowerCase().trim();
+    const actions: string[] = [];
+
+    // ── 1. Verificar se é upsell/order bump ──────────────────────────────────
+    const upsellProductId = UPSELL_PRODUCT_MAP[offerId];
+
+    if (upsellProductId) {
+      // É um produto de upsell — gravar em member_products
+      const { error: upsellError } = await supabase
+        .from("member_products")
+        .upsert(
+          {
+            email: normalizedEmail,
+            product_id: upsellProductId,
+            purchased_at: new Date().toISOString(),
+          },
+          { onConflict: "email,product_id" }
+        );
+
+      if (upsellError) {
+        console.error("Supabase upsell insert error:", upsellError);
+        return NextResponse.json(
+          { error: "Erro ao registrar produto" },
+          { status: 500 }
+        );
+      }
+
+      console.log(`Upsell registrado: ${normalizedEmail} → ${upsellProductId}`);
+      actions.push(`upsell:${upsellProductId}`);
+
+      return NextResponse.json({ success: true, action: actions.join(",") });
+    }
+
+    // ── 2. É produto principal → liberar área de membros ─────────────────────
+    const plan = PRODUCT_PLAN_MAP[offerId] || "iniciante";
+
     // Verificar se membro já existe
     const { data: existing } = await supabase
       .from("members")
       .select("id, plan")
-      .eq("email", email.toLowerCase())
+      .eq("email", normalizedEmail)
       .single();
 
     if (existing) {
@@ -93,22 +141,23 @@ export async function POST(request: NextRequest) {
       const updates: Record<string, unknown> = { active: true };
       if (existing.plan === "iniciante" && plan === "mestre") {
         updates.plan = "mestre";
-        updates.product_id = productId;
+        updates.product_id = offerId;
       }
       await supabase
         .from("members")
         .update(updates)
         .eq("id", existing.id);
 
-      return NextResponse.json({ success: true, action: "updated" });
+      actions.push("updated");
+      return NextResponse.json({ success: true, action: actions.join(",") });
     }
 
     // Inserir novo membro
     const { error } = await supabase.from("members").insert({
-      email: email.toLowerCase(),
+      email: normalizedEmail,
       name,
       plan,
-      product_id: productId,
+      product_id: offerId,
       active: true,
     });
 
@@ -120,7 +169,8 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    return NextResponse.json({ success: true, action: "created" });
+    actions.push("created");
+    return NextResponse.json({ success: true, action: actions.join(",") });
   } catch {
     return NextResponse.json(
       { error: "Payload inválido" },

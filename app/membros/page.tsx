@@ -1,12 +1,14 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { LogOut, ExternalLink, Lock, Mail, Scissors } from "lucide-react";
+import { LogOut, ExternalLink, Lock, Mail, Scissors, ShoppingCart } from "lucide-react";
 import { memberContent, type CategoryCard } from "@/app/lib/member-content";
+import { UPSELL_PRODUCTS, type UpsellProduct } from "@/app/lib/upsell-products";
 
 type MemberData = {
   name: string;
   plan: "iniciante" | "mestre";
+  email?: string;
 };
 
 export default function MembrosPage() {
@@ -15,6 +17,7 @@ export default function MembrosPage() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [member, setMember] = useState<MemberData | null>(null);
+  const [ownedProducts, setOwnedProducts] = useState<string[]>([]);
   const [checkingStorage, setCheckingStorage] = useState(true);
 
   // Check localStorage on mount
@@ -63,11 +66,24 @@ export default function MembrosPage() {
         return;
       }
 
-      setMember({ name: data.name, plan: data.plan });
+      setMember({ name: data.name, plan: data.plan, email: useEmail });
       localStorage.setItem(
         "papercraft_member",
         JSON.stringify({ email: useEmail })
       );
+
+      // Fetch owned upsell products
+      try {
+        const prodRes = await fetch(
+          `/api/member-products?email=${encodeURIComponent(useEmail)}`
+        );
+        if (prodRes.ok) {
+          const prodData = await prodRes.json();
+          setOwnedProducts(prodData.products || []);
+        }
+      } catch {
+        // silently fail - products section will just show buy options
+      }
     } catch {
       setError("Erro de conexão. Tente novamente.");
     }
@@ -274,24 +290,73 @@ export default function MembrosPage() {
           ))}
         </div>
 
-        {/* Kit Impressao Profissional upsell */}
-        <div className="mt-8 polaroid rounded-2xl overflow-hidden">
-          <div className="bg-gradient-to-br from-blue-50 to-white p-6 flex flex-col sm:flex-row items-center gap-6">
-            <div className="flex-shrink-0 text-5xl">🖨️</div>
-            <div className="flex-1 text-center sm:text-left">
-              <h3 className="font-marker text-xl text-foreground mb-1">
-                Kit Impressão Profissional
-              </h3>
-              <p className="text-muted text-sm mb-3">
-                Configurações exatas de impressora, papéis certos e técnicas de corte para seus moldes ficarem perfeitos na primeira tentativa.
-              </p>
-              <a
-                href="/kit-impressao"
-                className="cta-button px-6 py-2.5 rounded-xl font-bold text-sm inline-block"
-              >
-                Ver Oferta Especial →
-              </a>
-            </div>
+        {/* Upsell Products Section */}
+        <div className="mt-10">
+          <div className="mb-6">
+            <h2 className="font-marker text-2xl text-foreground mb-2">
+              Produtos Extras
+            </h2>
+            <p className="text-muted">
+              Expanda seu kit com conteúdos exclusivos
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {UPSELL_PRODUCTS.map((product: UpsellProduct) => {
+              const isOwned = ownedProducts.includes(product.id);
+
+              return (
+                <div
+                  key={product.id}
+                  className="polaroid rounded-2xl relative"
+                >
+                  {isOwned && (
+                    <div className="absolute -top-2 -right-2 bg-green-500 text-white text-xs font-bold px-2.5 py-1 rounded-full border-2 border-green-600 z-10">
+                      ✓ LIBERADO
+                    </div>
+                  )}
+
+                  <div
+                    className={`rounded-xl p-6 h-full flex flex-col ${
+                      isOwned
+                        ? "bg-gradient-to-br from-green-50 to-white"
+                        : "bg-gradient-to-br from-gray-50 to-white"
+                    }`}
+                  >
+                    <div className="text-4xl mb-3">{product.icon}</div>
+                    <h3 className="font-marker text-lg text-foreground mb-2">
+                      {product.name}
+                    </h3>
+                    <p className="text-muted text-sm mb-4 flex-1">
+                      {product.description}
+                    </p>
+
+                    {isOwned ? (
+                      <a
+                        href={product.driveUrl || "#"}
+                        target={product.driveUrl?.startsWith("http") ? "_blank" : undefined}
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-2 text-green-600 font-semibold text-sm hover:text-green-700 transition-colors"
+                      >
+                        <ExternalLink className="w-4 h-4" />
+                        Acessar Conteúdo
+                      </a>
+                    ) : (
+                      <a
+                        href={product.checkoutUrl || "#"}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-2 text-primary font-semibold text-sm hover:underline"
+                      >
+                        <ShoppingCart className="w-4 h-4" />
+                        Adquirir — R${" "}
+                        {product.price.toFixed(2).replace(".", ",")}
+                      </a>
+                    )}
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
 

@@ -16,17 +16,49 @@ const PRODUCT_PLAN_MAP: Record<string, "iniciante" | "mestre"> = {
   h7JvWtkZwpmVHbusw4u6:  "mestre",
 };
 
+const REVOKE_EVENTS = new Set(["refund", "chargeback"]);
+
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
 
-    // Ignorar eventos que não sejam compra aprovada
     const event = body.event || body.event_type || "";
+
+    // ── REEMBOLSO / CHARGEBACK → revogar acesso ──────────────────────
+    if (REVOKE_EVENTS.has(event)) {
+      const email =
+        body.customer?.email || body.email || body.buyer?.email;
+
+      if (!email) {
+        return NextResponse.json(
+          { error: "Email é obrigatório" },
+          { status: 400 }
+        );
+      }
+
+      const { error } = await supabase
+        .from("members")
+        .update({ active: false })
+        .eq("email", email.toLowerCase());
+
+      if (error) {
+        console.error("Supabase revoke error:", error);
+        return NextResponse.json(
+          { error: "Erro ao revogar acesso" },
+          { status: 500 }
+        );
+      }
+
+      console.log(`Acesso revogado (${event}): ${email}`);
+      return NextResponse.json({ success: true, action: "revoked" });
+    }
+
+    // ── Ignorar outros eventos que não sejam compra aprovada ──────────
     if (event && event !== "purchase_approved") {
       return NextResponse.json({ success: true, action: "ignored" });
     }
 
-    // Cakto: customer.email / customer.name / product.short_id ou product.id
+    // ── COMPRA APROVADA → liberar acesso ─────────────────────────────
     const email =
       body.customer?.email || body.email || body.buyer?.email;
     const name =
@@ -47,7 +79,7 @@ export async function POST(request: NextRequest) {
 
     const plan = PRODUCT_PLAN_MAP[productId] || "iniciante";
 
-    // Check if member already exists
+    // Verificar se membro já existe
     const { data: existing } = await supabase
       .from("members")
       .select("id, plan")
@@ -55,22 +87,27 @@ export async function POST(request: NextRequest) {
       .single();
 
     if (existing) {
-      // Upgrade to mestre if they had iniciante
+      // Reativar caso estivesse revogado + upgrade de plano se necessário
+      const updates: Record<string, unknown> = { active: true };
       if (existing.plan === "iniciante" && plan === "mestre") {
-        await supabase
-          .from("members")
-          .update({ plan: "mestre", product_id: productId })
-          .eq("id", existing.id);
+        updates.plan = "mestre";
+        updates.product_id = productId;
       }
+      await supabase
+        .from("members")
+        .update(updates)
+        .eq("id", existing.id);
+
       return NextResponse.json({ success: true, action: "updated" });
     }
 
-    // Insert new member
+    // Inserir novo membro
     const { error } = await supabase.from("members").insert({
       email: email.toLowerCase(),
       name,
       plan,
       product_id: productId,
+      active: true,
     });
 
     if (error) {

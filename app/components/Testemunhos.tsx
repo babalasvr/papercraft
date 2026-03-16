@@ -1,7 +1,7 @@
 const testimonials = [
   {
     name: "Pedro Reis",
-    productImage: "/img/PAPER-13-P.webp",
+    productImage: "/img/PAPER-13-P.png",
     avatarImage: "/img/PROVA-02-P.webp",
     quote:
       "Já montei mais de 30 peças e cada uma fica melhor que a anterior. Os moldes encaixam certinho e o passo a passo é tão claro que até minha sogra conseguiu montar um sozinha!",
@@ -11,7 +11,7 @@ const testimonials = [
   },
   {
     name: "Ana Prado",
-    productImage: "/img/PAPER-14-P.webp",
+    productImage: "/img/PAPER-14-P.png",
     avatarImage: "/img/PROVA-03-P.webp",
     quote:
       "Virou minha terapia do fim do dia. Chego do trabalho, pego um molde novo e em 1 hora já esqueço de tudo. Minha estante tá cheia e todo mundo que visita quer saber onde comprei!",
@@ -21,7 +21,7 @@ const testimonials = [
   },
   {
     name: "Robson Martins",
-    productImage: "/img/PAPER-15-P.webp",
+    productImage: "/img/PAPER-15-P.png",
     avatarImage: "/img/PROVA-05-P.webp",
     quote:
       "Comprei pro meu filho de 12 anos e agora virou programa de família. No fim de semana sentamos juntos e cada um monta o seu. Ele já ensinou até os amigos da escola!",

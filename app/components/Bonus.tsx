@@ -1,24 +1,24 @@
 const bonuses = [
   {
-    image: "/img/PAPER-16-P.webp",
+    image: "/img/PAPER-16-P.png",
     title: "Zoológico de Papercraft",
     value: "R$47",
     rotate: "-rotate-1",
   },
   {
-    image: "/img/PAPER-17-P.webp",
+    image: "/img/PAPER-17-P.png",
     title: "Heróis de Papercraft",
     value: "R$37",
     rotate: "rotate-1",
   },
   {
-    image: "/img/PAPER-18-P.webp",
+    image: "/img/PAPER-18-P.png",
     title: "Animes e Mangás",
     value: "R$27",
     rotate: "-rotate-1",
   },
   {
-    image: "/img/PAPER-19-P.webp",
+    image: "/img/PAPER-19-P.png",
     title: "Garagem de Carros",
     value: "R$19",
     rotate: "rotate-1",

@@ -2,24 +2,41 @@ import { NextRequest, NextResponse } from "next/server";
 import { supabase } from "@/app/lib/supabase";
 
 const PRODUCT_PLAN_MAP: Record<string, "iniciante" | "mestre"> = {
-  // IDs reais do GGCheckout
-  KA96Dlg6MKnkPnP3HEZv: "mestre",   // Mega pack +3500 moldes R$24,90
-  bDk2mvoTRD0ho6gLKqWa: "mestre",   // (cópia) Mega pack +3500 moldes R$17,90
-  vFuC4CfrH3VzK1O0too:  "iniciante", // Pack 1200 moldes R$10
-  // IDs legados (manter por segurança)
-  WrN9zpJBasFtfyQqR9vs: "iniciante",
+  // IDs Cakto (short_id da URL de checkout)
+  "4ptqmkr_807214": "mestre",    // Kit Mestre R$24,90
+  inwgjhy:          "mestre",    // Kit Mestre R$17,90 (upsell/saída)
+  fdro8ye:          "iniciante", // Kit Iniciante R$10,00
+  bu34t3v_807226:   "mestre",    // Kit Profissional
+  // IDs legados GGCheckout (manter por segurança)
+  KA96Dlg6MKnkPnP3HEZv:  "mestre",
+  bDk2mvoTRD0ho6gLKqWa:  "mestre",
+  vFuC4CfrH3VzK1O0too:   "iniciante",
+  WrN9zpJBasFtfyQqR9vs:  "iniciante",
   "2mLxvXet6aDg93bgZkOu": "mestre",
-  h7JvWtkZwpmVHbusw4u6: "mestre",
+  h7JvWtkZwpmVHbusw4u6:  "mestre",
 };
 
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
 
-    const email = body.email || body.customer?.email || body.buyer?.email;
-    const name = body.name || body.customer?.name || body.buyer?.name || "";
+    // Ignorar eventos que não sejam compra aprovada
+    const event = body.event || body.event_type || "";
+    if (event && event !== "purchase_approved") {
+      return NextResponse.json({ success: true, action: "ignored" });
+    }
+
+    // Cakto: customer.email / customer.name / product.short_id ou product.id
+    const email =
+      body.customer?.email || body.email || body.buyer?.email;
+    const name =
+      body.customer?.name || body.name || body.buyer?.name || "";
     const productId =
-      body.product_id || body.productId || body.product?.id || "";
+      body.product?.short_id ||
+      body.product?.id ||
+      body.product_id ||
+      body.productId ||
+      "";
 
     if (!email) {
       return NextResponse.json(

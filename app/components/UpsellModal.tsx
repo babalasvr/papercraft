@@ -7,8 +7,8 @@ interface UpsellModalProps {
   onClose: () => void;
 }
 
-const UPSELL_URL = "https://www.ggcheckout.com/checkout/v4/h7JvWtkZwpmVHbusw4u6";
-const INICIANTE_URL = "https://www.ggcheckout.com/checkout/v4/WrN9zpJBasFtfyQqR9vs";
+const UPSELL_URL = "https://pay.cakto.com.br/inwgjhy";
+const INICIANTE_URL = "https://pay.cakto.com.br/fdro8ye";
 const TIMER_SECONDS = 4 * 60 + 18; // 4:18
 
 export default function UpsellModal({ onClose }: UpsellModalProps) {

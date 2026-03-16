@@ -200,7 +200,7 @@ export default function Pricing() {
 
             {/* Main CTA */}
             <a
-              href="https://www.ggcheckout.com/checkout/v4/2mLxvXet6aDg93bgZkOu"
+              href="https://pay.cakto.com.br/4ptqmkr_807214"
               target="_blank"
               rel="noopener noreferrer"
               className="btn-initcheck cta-button block w-full text-center text-white text-lg font-bold py-5 rounded-2xl cursor-pointer no-underline uppercase tracking-wide"

@@ -313,7 +313,7 @@ export default function MembrosPage() {
                 acessa todo o conteúdo exclusivo do Kit Mestre.
               </p>
               <a
-                href="https://ggcheckout.com.br/checkout/v4/h7JvWtkZwpmVHbusw4u6"
+                href="https://pay.cakto.com.br/inwgjhy"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="cta-button px-8 py-4 rounded-xl font-bold text-lg inline-block"

@@ -1,7 +1,12 @@
+import Image from "next/image";
+import modulo01 from "../../public/img/MODULO-01-VAI-RECEBER-P.webp";
+import modulo02 from "../../public/img/MODULO-02-VAI-RECEBER-P.webp";
+import modulo03 from "../../public/img/MODULO-03-VAI-RECEBER-P.webp";
+
 const moduloImages = [
-  "/img/MODULO-01-VAI-RECEBER-P.webp",
-  "/img/MODULO-02-VAI-RECEBER-P.webp",
-  "/img/MODULO-03-VAI-RECEBER-P.webp",
+  { src: modulo01, alt: "Módulo 1" },
+  { src: modulo02, alt: "Módulo 2" },
+  { src: modulo03, alt: "Módulo 3" },
 ];
 
 export default function Modelos() {
@@ -19,9 +24,7 @@ export default function Modelos() {
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="text-center mb-12">
-          <p
-            className="text-[#0188FA] font-semibold text-lg mb-3 italic"
-          >
+          <p className="text-[#0188FA] font-semibold text-lg mb-3 italic">
             Alguns exemplos reais dos +3500 moldes!
           </p>
           <h2
@@ -34,12 +37,12 @@ export default function Modelos() {
 
         {/* Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {moduloImages.map((src, i) => (
+          {moduloImages.map((img, i) => (
             <div key={i} className="overflow-hidden rounded-xl shadow-lg">
-              <img
-                src={src}
-                alt={`Módulo ${i + 1}`}
-                className="rounded-xl shadow-lg w-full"
+              <Image
+                src={img.src}
+                alt={img.alt}
+                className="rounded-xl shadow-lg w-full h-auto"
               />
             </div>
           ))}

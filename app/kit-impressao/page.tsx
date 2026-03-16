@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { CheckCircle, AlertTriangle, Printer, Scissors, Star, ArrowRight, Shield } from "lucide-react";
 
-const CHECKOUT_URL = "https://pay.cakto.com.br/4ptqmkr_807214";
+const CHECKOUT_URL = "https://pay.cakto.com.br/bu34t3v_807226";
 
 const whatYouGet = [
   {

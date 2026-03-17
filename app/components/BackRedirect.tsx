@@ -1,19 +1,28 @@
 "use client";
 
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, useRef } from "react";
 import { X } from "lucide-react";
 
 const CHECKOUT_URL = "https://pay.cakto.com.br/3dxby95";
 const TIMER_SECONDS = 4 * 60 + 18; // 4:18
+// Tempo mínimo na página antes de permitir disparo (ms)
+const MIN_TIME_MS = 8000;
 
 export default function BackRedirect() {
   const [show, setShow] = useState(false);
   const [seconds, setSeconds] = useState(TIMER_SECONDS);
   const [triggered, setTriggered] = useState(false);
+  // Controla se já passou tempo mínimo na página
+  const readyRef = useRef(false);
+
+  useEffect(() => {
+    const t = setTimeout(() => { readyRef.current = true; }, MIN_TIME_MS);
+    return () => clearTimeout(t);
+  }, []);
 
   const handleMouseLeave = useCallback(
     (e: MouseEvent) => {
-      if (triggered) return;
+      if (triggered || !readyRef.current) return;
       // Only trigger when mouse leaves from the top of the viewport
       if (e.clientY <= 0) {
         setShow(true);
@@ -28,19 +37,22 @@ export default function BackRedirect() {
     return () => document.removeEventListener("mouseout", handleMouseLeave);
   }, [handleMouseLeave]);
 
-  // Also handle back button via popstate
+  // Handle back button via popstate (mobile)
   useEffect(() => {
     if (triggered) return;
 
     // Push a dummy state so pressing back triggers popstate instead of navigating away
     window.history.pushState({ backRedirect: true }, "");
 
-    const handlePopState = (e: PopStateEvent) => {
-      // Only trigger when navigating back to our dummy state, not on hash changes
-      if (!triggered && e.state && e.state.backRedirect) {
+    const handlePopState = () => {
+      // Só dispara se o usuário já ficou o tempo mínimo na página
+      if (!triggered && readyRef.current) {
         setShow(true);
         setTriggered(true);
         // Push again to prevent actual navigation
+        window.history.pushState({ backRedirect: true }, "");
+      } else if (!readyRef.current) {
+        // Usuário saiu rápido demais — não mostrar modal, mas re-push para não navegar
         window.history.pushState({ backRedirect: true }, "");
       }
     };

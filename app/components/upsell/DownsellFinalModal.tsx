@@ -19,8 +19,7 @@ export default function DownsellFinalModal({
   };
 
   const handleAccept = () => {
-    // TODO: Integrate with Cakto payment link for Pack Animais R$9,90
-    router.push(buildUrl("/obrigado"));
+    window.location.href = "https://pay.cakto.com.br/327nejh_808633";
   };
 
   const handleDecline = () => {

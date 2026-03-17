@@ -19,8 +19,7 @@ export default function DownsellMetodoModal({
   };
 
   const handleAccept = () => {
-    // TODO: Integrate with Cakto payment link for Método R$19,90
-    router.push(buildUrl("/upsell-calculadora"));
+    window.location.href = "https://pay.cakto.com.br/3bp79t3";
   };
 
   const handleDecline = () => {

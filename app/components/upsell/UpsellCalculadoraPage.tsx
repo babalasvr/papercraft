@@ -20,8 +20,7 @@ function UpsellCalculadoraContent() {
   };
 
   const handleAccept = () => {
-    // TODO: Integrate with Cakto payment link for Calculadora R$27
-    router.push(buildUrl("/obrigado"));
+    window.location.href = "https://pay.cakto.com.br/u674tsp_808628";
   };
 
   const handleDecline = () => {

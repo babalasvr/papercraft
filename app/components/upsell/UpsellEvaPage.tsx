@@ -15,8 +15,7 @@ function UpsellEvaContent() {
   };
 
   const handleAccept = () => {
-    // TODO: Integrate with Cakto payment link for EVA pack
-    router.push(buildUrl("/upsell-metodo"));
+    window.location.href = "https://pay.cakto.com.br/jcpwaev_808467";
   };
 
   const handleDecline = () => {

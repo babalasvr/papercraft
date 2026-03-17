@@ -21,8 +21,7 @@ export default function DownsellCalculadoraModal({
   };
 
   const handleAccept = () => {
-    // TODO: Integrate with Cakto payment link for Calculadora R$14,90
-    router.push(buildUrl("/obrigado"));
+    window.location.href = "https://pay.cakto.com.br/n83mahn";
   };
 
   const handleDecline = () => {

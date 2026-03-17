@@ -17,8 +17,7 @@ function UpsellMetodoContent() {
   };
 
   const handleAccept = () => {
-    // TODO: Integrate with Cakto payment link for Método R$47
-    router.push(buildUrl("/upsell-calculadora"));
+    window.location.href = "https://pay.cakto.com.br/qwygrrc_808617";
   };
 
   const handleDecline = () => {

@@ -16,7 +16,7 @@ export const UPSELL_PRODUCTS: UpsellProduct[] = [
     icon: "🎨",
     price: 19.9,
     driveUrl: "/membros/pack-eva",
-    checkoutUrl: "https://pay.cakto.com.br/jcpwaev",
+    checkoutUrl: "https://pay.cakto.com.br/jcpwaev_808467",
   },
   {
     id: "metodo-lucrar",
@@ -26,7 +26,7 @@ export const UPSELL_PRODUCTS: UpsellProduct[] = [
     icon: "💼",
     price: 47.0,
     driveUrl: "/membros/metodo-lucrar",
-    checkoutUrl: "https://pay.cakto.com.br/qwygrrc",
+    checkoutUrl: "https://pay.cakto.com.br/qwygrrc_808617",
   },
   {
     id: "calculadora-precificacao",
@@ -36,7 +36,7 @@ export const UPSELL_PRODUCTS: UpsellProduct[] = [
     icon: "🧮",
     price: 27.0,
     driveUrl: "/membros/calculadora",
-    checkoutUrl: "https://pay.cakto.com.br/u674tsp",
+    checkoutUrl: "https://pay.cakto.com.br/u674tsp_808628",
   },
   {
     id: "pack-animais",
@@ -45,7 +45,7 @@ export const UPSELL_PRODUCTS: UpsellProduct[] = [
     icon: "🦁",
     price: 9.9,
     driveUrl: "/membros/pack-animais",
-    checkoutUrl: "https://pay.cakto.com.br/327nejh",
+    checkoutUrl: "https://pay.cakto.com.br/327nejh_808633",
   },
   {
     id: "kit-impressao",

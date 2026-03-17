@@ -35,7 +35,7 @@ export const UPSELL_PRODUCTS: UpsellProduct[] = [
       "Ferramenta profissional para calcular preços de venda de papercraft e EVA",
     icon: "🧮",
     price: 27.0,
-    driveUrl: "", // TODO: Add Google Drive link
+    driveUrl: "/membros/calculadora",
     checkoutUrl: "https://pay.cakto.com.br/u674tsp",
   },
   {

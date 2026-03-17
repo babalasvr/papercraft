@@ -28,7 +28,7 @@ function UpsellEvaContent() {
     "Acabamento profissional",
     "Mesmo processo: corta, dobra, cola",
     "Peças que vendem por R$80–R$300 no mercado",
-    "200 moldes incluídos",
+    "2.500 moldes incluídos",
   ];
 
   const characters = [

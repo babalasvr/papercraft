@@ -12,7 +12,7 @@ export const UPSELL_PRODUCTS: UpsellProduct[] = [
   {
     id: "pack-eva",
     name: "Pack EVA Premium",
-    description: "200 moldes adaptados para EVA — personagens completos",
+    description: "2.500 moldes adaptados para EVA — personagens completos",
     icon: "🎨",
     price: 19.9,
     driveUrl: "/membros/pack-eva",

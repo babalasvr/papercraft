@@ -2,13 +2,13 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { ExternalLink, ArrowLeft, Scissors, Clock } from "lucide-react";
+import { ExternalLink, ArrowLeft, Scissors } from "lucide-react";
 
 type MetodoItem = {
   title: string;
   icon: string;
   description: string;
-  url: string | null; // null = em breve
+  url: string;
 };
 
 const METODO_ITEMS: MetodoItem[] = [
@@ -34,31 +34,31 @@ const METODO_ITEMS: MetodoItem[] = [
     title: "Checklist do Plano R$2.000/mês com EVA",
     icon: "✅",
     description: "Passo a passo do zero até os primeiros R$2.000 vendendo peças em EVA",
-    url: null,
+    url: "https://drive.google.com/drive/folders/1BYsJi1hFVxEYCvTse13DXjVGUJs-KPxh",
   },
   {
     title: "Artesanato em E.V.A — Passo a Passo",
     icon: "🎨",
     description: "Tutoriais completos de produção em EVA do iniciante ao avançado",
-    url: null,
+    url: "https://drive.google.com/drive/folders/12Wm5L3XAxGvBBMSAy30iMM2zbpmtY6Xo",
   },
   {
     title: 'E-book "11 Ideias para Lucrar com Artesanato"',
     icon: "📖",
     description: "11 formas práticas e testadas de transformar seu artesanato em renda",
-    url: null,
+    url: "https://drive.google.com/drive/folders/1N1l9p5IcnUecB8MlzEPvbAg1oY1JHLGA",
   },
   {
     title: "Guia de Materiais de Feltro",
     icon: "🧶",
     description: "Tudo sobre feltro: tipos, onde comprar, como usar e combinações de cores",
-    url: null,
+    url: "https://drive.google.com/drive/folders/1Hb9j7sPzKKL-zpBMrATrQa3ugIO7tk4u",
   },
   {
     title: "Etiquetas Editáveis Profissionais",
     icon: "🏷️",
     description: "Modelos de etiquetas prontos para editar e usar nos seus produtos",
-    url: null,
+    url: "https://drive.google.com/drive/folders/10RdmsZsWmuUR3VSZnH-V5kp8vTQZ1xBQ",
   },
 ];
 
@@ -121,9 +121,6 @@ export default function MetodoLucrarPage() {
 
   if (!authorized) return null;
 
-  const available = METODO_ITEMS.filter((i) => i.url !== null);
-  const soon = METODO_ITEMS.filter((i) => i.url === null);
-
   return (
     <div className="min-h-screen grid-paper-bg">
       {/* Header */}
@@ -158,7 +155,7 @@ export default function MetodoLucrarPage() {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {available.map((item) => (
+          {METODO_ITEMS.map((item) => (
             <a
               key={item.title}
               href={item.url!}
@@ -180,28 +177,6 @@ export default function MetodoLucrarPage() {
                 </div>
               </div>
             </a>
-          ))}
-
-          {/* Em breve */}
-          {soon.map((item) => (
-            <div
-              key={item.title}
-              className="polaroid rounded-2xl opacity-70"
-            >
-              <div className="bg-gradient-to-br from-gray-50 to-white rounded-xl p-6 h-full flex flex-col">
-                <div className="text-4xl mb-3 grayscale">{item.icon}</div>
-                <h3 className="font-marker text-lg text-foreground mb-2">
-                  {item.title}
-                </h3>
-                <p className="text-muted text-sm mb-4 flex-1">
-                  {item.description}
-                </p>
-                <div className="flex items-center gap-2 text-muted font-semibold text-sm">
-                  <Clock className="w-4 h-4" />
-                  Em breve
-                </div>
-              </div>
-            </div>
           ))}
         </div>
       </main>

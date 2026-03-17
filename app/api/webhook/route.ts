@@ -17,17 +17,28 @@ const PRODUCT_PLAN_MAP: Record<string, "iniciante" | "mestre"> = {
   h7JvWtkZwpmVHbusw4u6:   "mestre",
 };
 
-// ── Upsells/order bumps → product_id interno (tabela member_products) ─────────
-// TODO: substituir as chaves pelos offer.id reais da Cakto após criar as ofertas
+// ── Upsells/order bumps → product_id interno (coluna purchased_products) ──────
 const UPSELL_PRODUCT_MAP: Record<string, string> = {
-  // "CAKTO_OFFER_ID": "product_id_interno"
-  // "": "pack-eva",           // Pack EVA Premium R$19,90
-  // "": "metodo-lucrar",      // Método Lucrar R$47,00
-  // "": "metodo-lucrar",      // Downsell Método R$19,90 (mesmo produto)
-  // "": "calculadora-precificacao", // Calculadora R$27,00
-  // "": "calculadora-precificacao", // Downsell Calculadora R$14,90 (mesmo produto)
-  // "": "pack-animais",       // Pack Animais Low Poly R$9,90
-  // "": "kit-impressao",      // Kit Impressão Profissional R$7,90 (order bump)
+  // Kit Impressão Profissional R$7,90 (order bump)
+  "bu34t3v_807226": "kit-impressao",
+
+  // Pack EVA Premium R$19,90
+  "jcpwaev_808467": "pack-eva",
+  "jcpwaev":        "pack-eva",
+
+  // Método Lucrar R$47,00 + Downsell Método R$19,90 (mesmo produto)
+  "qwygrrc_808617": "metodo-lucrar",
+  "qwygrrc":        "metodo-lucrar",
+  "3bp79t3":        "metodo-lucrar",
+
+  // Calculadora de Precificação R$27,00 + Downsell R$14,90 (mesmo produto)
+  "u674tsp_808628": "calculadora-precificacao",
+  "u674tsp":        "calculadora-precificacao",
+  "n83mahn":        "calculadora-precificacao",
+
+  // Pack Animais Low Poly R$9,90 (downsell final)
+  "327nejh_808633": "pack-animais",
+  "327nejh":        "pack-animais",
 };
 
 const REVOKE_EVENTS = new Set(["refund", "chargeback"]);

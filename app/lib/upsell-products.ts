@@ -16,7 +16,7 @@ export const UPSELL_PRODUCTS: UpsellProduct[] = [
     icon: "🎨",
     price: 19.9,
     driveUrl: "", // TODO: Add Google Drive link
-    checkoutUrl: "", // TODO: Add Cakto checkout link
+    checkoutUrl: "https://pay.cakto.com.br/jcpwaev",
   },
   {
     id: "metodo-lucrar",
@@ -26,7 +26,7 @@ export const UPSELL_PRODUCTS: UpsellProduct[] = [
     icon: "💼",
     price: 47.0,
     driveUrl: "", // TODO: Add Google Drive link
-    checkoutUrl: "", // TODO: Add Cakto checkout link
+    checkoutUrl: "https://pay.cakto.com.br/qwygrrc",
   },
   {
     id: "calculadora-precificacao",
@@ -36,7 +36,7 @@ export const UPSELL_PRODUCTS: UpsellProduct[] = [
     icon: "🧮",
     price: 27.0,
     driveUrl: "", // TODO: Add Google Drive link
-    checkoutUrl: "", // TODO: Add Cakto checkout link
+    checkoutUrl: "https://pay.cakto.com.br/u674tsp",
   },
   {
     id: "pack-animais",
@@ -45,7 +45,7 @@ export const UPSELL_PRODUCTS: UpsellProduct[] = [
     icon: "🦁",
     price: 9.9,
     driveUrl: "", // TODO: Add Google Drive link
-    checkoutUrl: "", // TODO: Add Cakto checkout link
+    checkoutUrl: "https://pay.cakto.com.br/327nejh",
   },
   {
     id: "kit-impressao",
@@ -55,6 +55,6 @@ export const UPSELL_PRODUCTS: UpsellProduct[] = [
     icon: "🖨️",
     price: 7.9,
     driveUrl: "/kit-impressao-arquivo",
-    checkoutUrl: "", // TODO: Add Cakto checkout link
+    checkoutUrl: "https://pay.cakto.com.br/bu34t3v",
   },
 ];

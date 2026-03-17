@@ -25,7 +25,7 @@ export const UPSELL_PRODUCTS: UpsellProduct[] = [
       "Curso completo para vender papercrafts e peças em EVA e lucrar até R$5.000/mês",
     icon: "💼",
     price: 47.0,
-    driveUrl: "", // TODO: Add Google Drive link
+    driveUrl: "/membros/metodo-lucrar",
     checkoutUrl: "https://pay.cakto.com.br/qwygrrc",
   },
   {

@@ -93,8 +93,12 @@ export async function POST(request: NextRequest) {
     });
 
     if (insertError) {
-      console.error('[Checkout] Insert order error:', insertError);
-      return NextResponse.json({ error: 'Erro ao criar pedido' }, { status: 500 });
+      console.error('[Checkout] Insert order error:', JSON.stringify(insertError));
+      // If orders table doesn't exist yet, give a clear message
+      const msg = insertError.message?.includes('does not exist')
+        ? 'Tabela orders não existe. Rode o SQL de migration no Supabase.'
+        : `Erro ao criar pedido: ${insertError.message}`;
+      return NextResponse.json({ error: msg }, { status: 500 });
     }
 
     // Create PIX via Expfy
@@ -156,7 +160,8 @@ export async function POST(request: NextRequest) {
       },
     });
   } catch (error) {
-    console.error('[Checkout] Error:', error);
-    return NextResponse.json({ error: 'Erro interno do servidor' }, { status: 500 });
+    const msg = error instanceof Error ? error.message : String(error);
+    console.error('[Checkout] Unhandled error:', msg);
+    return NextResponse.json({ error: `Erro interno: ${msg}` }, { status: 500 });
   }
 }

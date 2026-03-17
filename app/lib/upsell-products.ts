@@ -15,7 +15,7 @@ export const UPSELL_PRODUCTS: UpsellProduct[] = [
     description: "200 moldes adaptados para EVA — personagens completos",
     icon: "🎨",
     price: 19.9,
-    driveUrl: "", // TODO: Add Google Drive link
+    driveUrl: "/membros/pack-eva",
     checkoutUrl: "https://pay.cakto.com.br/jcpwaev",
   },
   {

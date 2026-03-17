@@ -3,7 +3,7 @@
 import { useEffect, useState, useCallback, useRef } from "react";
 import { X } from "lucide-react";
 
-const CHECKOUT_URL = "https://pay.cakto.com.br/3dxby95";
+const CHECKOUT_URL = "/checkout?product=kit-mestre-desconto";
 const TIMER_SECONDS = 4 * 60 + 18; // 4:18
 // Tempo mínimo na página antes de permitir disparo (ms)
 const MIN_TIME_MS = 8000;
@@ -74,8 +74,7 @@ export default function BackRedirect() {
   const ss = String(seconds % 60).padStart(2, "0");
 
   function goCheckout() {
-    window.open(CHECKOUT_URL, "_blank", "noopener,noreferrer");
-    setShow(false);
+    window.location.href = CHECKOUT_URL;
   }
 
   return (

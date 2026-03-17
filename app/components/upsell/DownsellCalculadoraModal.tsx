@@ -1,7 +1,9 @@
 "use client";
 
+import { useState, useCallback } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Check, ArrowRight, X } from "lucide-react";
+import UpsellPixModal from "./UpsellPixModal";
 
 interface DownsellCalculadoraModalProps {
   onClose: () => void;
@@ -14,15 +16,21 @@ export default function DownsellCalculadoraModal({
 }: DownsellCalculadoraModalProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const [showPixModal, setShowPixModal] = useState(false);
+  const orderId = searchParams.get("order_id") || "";
 
   const buildUrl = (path: string) => {
-    const orderId = searchParams.get("order_id");
     return orderId ? `${path}?order_id=${orderId}` : path;
   };
 
   const handleAccept = () => {
-    window.location.href = "https://pay.cakto.com.br/n83mahn";
+    if (orderId) setShowPixModal(true);
   };
+
+  const handlePixPaid = useCallback(() => {
+    setShowPixModal(false);
+    router.push(buildUrl("/obrigado"));
+  }, [router, orderId]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleDecline = () => {
     onDecline();
@@ -36,6 +44,16 @@ export default function DownsellCalculadoraModal({
   ];
 
   return (
+    <>
+    {showPixModal && (
+      <UpsellPixModal
+        orderId={orderId}
+        upsellProductId="calculadora-downsell"
+        productName="Calculadora de Precificação (Desconto)"
+        onClose={() => setShowPixModal(false)}
+        onPaid={handlePixPaid}
+      />
+    )}
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
       {/* Backdrop */}
       <div
@@ -105,5 +123,6 @@ export default function DownsellCalculadoraModal({
         </button>
       </div>
     </div>
+    </>
   );
 }

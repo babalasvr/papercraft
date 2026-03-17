@@ -1,7 +1,9 @@
 "use client";
 
+import { useState, useCallback } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { ArrowRight, X } from "lucide-react";
+import UpsellPixModal from "./UpsellPixModal";
 
 interface DownsellFinalModalProps {
   onClose: () => void;
@@ -12,21 +14,37 @@ export default function DownsellFinalModal({
 }: DownsellFinalModalProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const [showPixModal, setShowPixModal] = useState(false);
+  const orderId = searchParams.get("order_id") || "";
 
   const buildUrl = (path: string) => {
-    const orderId = searchParams.get("order_id");
     return orderId ? `${path}?order_id=${orderId}` : path;
   };
 
   const handleAccept = () => {
-    window.location.href = "https://pay.cakto.com.br/327nejh_808633";
+    if (orderId) setShowPixModal(true);
   };
+
+  const handlePixPaid = useCallback(() => {
+    setShowPixModal(false);
+    router.push(buildUrl("/obrigado"));
+  }, [router, orderId]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleDecline = () => {
     router.push(buildUrl("/obrigado"));
   };
 
   return (
+    <>
+    {showPixModal && (
+      <UpsellPixModal
+        orderId={orderId}
+        upsellProductId="pack-animais"
+        productName="Pack Animais Low Poly"
+        onClose={() => setShowPixModal(false)}
+        onPaid={handlePixPaid}
+      />
+    )}
     <div className="fixed inset-0 z-[60] flex items-center justify-center p-4">
       {/* Backdrop */}
       <div
@@ -93,5 +111,6 @@ export default function DownsellFinalModal({
         </button>
       </div>
     </div>
+    </>
   );
 }

@@ -11,9 +11,11 @@ import Garantia from "@/app/components/Garantia";
 import FAQ from "@/app/components/FAQ";
 import Footer from "@/app/components/Footer";
 import BackRedirect from "@/app/components/BackRedirect";
+import UtmCapture from "@/app/components/UtmCapture";
 export default function Home() {
   return (
     <main className="min-h-screen bg-[#FFF8F0]">
+      <UtmCapture />
       <BannerTopo />
       <Hero />
       <Galeria />

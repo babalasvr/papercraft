@@ -1,24 +1,33 @@
 "use client";
 
-import { Suspense, useState } from "react";
+import { Suspense, useState, useCallback } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Check, ArrowRight, Shield, Award } from "lucide-react";
 import CountdownTimer from "./CountdownTimer";
 import DownsellMetodoModal from "./DownsellMetodoModal";
+import UpsellPixModal from "./UpsellPixModal";
 
 function UpsellMetodoContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [showDownsell, setShowDownsell] = useState(false);
+  const [showPixModal, setShowPixModal] = useState(false);
+  const orderId = searchParams.get("order_id") || "";
 
   const buildUrl = (path: string) => {
-    const orderId = searchParams.get("order_id");
     return orderId ? `${path}?order_id=${orderId}` : path;
   };
 
   const handleAccept = () => {
-    window.location.href = "https://pay.cakto.com.br/qwygrrc_808617";
+    if (orderId) {
+      setShowPixModal(true);
+    }
   };
+
+  const handlePixPaid = useCallback(() => {
+    setShowPixModal(false);
+    router.push(buildUrl("/upsell-calculadora"));
+  }, [router, orderId]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleDecline = () => {
     setShowDownsell(true);
@@ -36,6 +45,15 @@ function UpsellMetodoContent() {
 
   return (
     <div className="min-h-screen bg-[#FFF8F0]">
+      {showPixModal && (
+        <UpsellPixModal
+          orderId={orderId}
+          upsellProductId="metodo-lucrar"
+          productName="Método Lucrar com Papercraft"
+          onClose={() => setShowPixModal(false)}
+          onPaid={handlePixPaid}
+        />
+      )}
       {/* Urgency Header */}
       <div className="bg-gradient-to-r from-[#8B2E06] to-[#C1440E] text-white py-3 px-4 text-center">
         <p className="text-sm font-bold">

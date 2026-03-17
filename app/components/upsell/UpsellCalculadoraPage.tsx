@@ -1,27 +1,36 @@
 "use client";
 
-import { Suspense, useState } from "react";
+import { Suspense, useState, useCallback } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Check, ArrowRight, Shield } from "lucide-react";
 import CountdownTimer from "./CountdownTimer";
 import PrecificacaoCalculator from "./PrecificacaoCalculator";
 import DownsellCalculadoraModal from "./DownsellCalculadoraModal";
 import DownsellFinalModal from "./DownsellFinalModal";
+import UpsellPixModal from "./UpsellPixModal";
 
 function UpsellCalculadoraContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [showDownsellCalc, setShowDownsellCalc] = useState(false);
   const [showDownsellFinal, setShowDownsellFinal] = useState(false);
+  const [showPixModal, setShowPixModal] = useState(false);
+  const orderId = searchParams.get("order_id") || "";
 
   const buildUrl = (path: string) => {
-    const orderId = searchParams.get("order_id");
     return orderId ? `${path}?order_id=${orderId}` : path;
   };
 
   const handleAccept = () => {
-    window.location.href = "https://pay.cakto.com.br/u674tsp_808628";
+    if (orderId) {
+      setShowPixModal(true);
+    }
   };
+
+  const handlePixPaid = useCallback(() => {
+    setShowPixModal(false);
+    router.push(buildUrl("/obrigado"));
+  }, [router, orderId]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleDecline = () => {
     setShowDownsellCalc(true);
@@ -44,6 +53,15 @@ function UpsellCalculadoraContent() {
 
   return (
     <div className="min-h-screen bg-[#FFF8F0]">
+      {showPixModal && (
+        <UpsellPixModal
+          orderId={orderId}
+          upsellProductId="calculadora-precificacao"
+          productName="Calculadora de Precificação"
+          onClose={() => setShowPixModal(false)}
+          onPaid={handlePixPaid}
+        />
+      )}
       {/* Urgency Header */}
       <div className="bg-gradient-to-r from-[#8B2E06] to-[#C1440E] text-white py-3 px-4 text-center">
         <p className="text-sm font-bold">

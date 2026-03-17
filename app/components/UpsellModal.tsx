@@ -7,8 +7,8 @@ interface UpsellModalProps {
   onClose: () => void;
 }
 
-const UPSELL_URL = "https://pay.cakto.com.br/3dxby95";
-const INICIANTE_URL = "https://pay.cakto.com.br/fdro8ye";
+const UPSELL_URL = "/checkout?product=kit-mestre-desconto";
+const INICIANTE_URL = "/checkout?product=kit-iniciante";
 const TIMER_SECONDS = 4 * 60 + 18; // 4:18
 
 export default function UpsellModal({ onClose }: UpsellModalProps) {
@@ -24,13 +24,11 @@ export default function UpsellModal({ onClose }: UpsellModalProps) {
   const ss = String(seconds % 60).padStart(2, "0");
 
   function goIniciante() {
-    window.open(INICIANTE_URL, "_blank", "noopener,noreferrer");
-    onClose();
+    window.location.href = INICIANTE_URL;
   }
 
   function goUpsell() {
-    window.open(UPSELL_URL, "_blank", "noopener,noreferrer");
-    onClose();
+    window.location.href = UPSELL_URL;
   }
 
   return (

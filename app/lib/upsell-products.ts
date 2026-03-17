@@ -44,7 +44,7 @@ export const UPSELL_PRODUCTS: UpsellProduct[] = [
     description: "50 moldes dos animais mais pedidos em low poly",
     icon: "🦁",
     price: 9.9,
-    driveUrl: "", // TODO: Add Google Drive link
+    driveUrl: "/membros/pack-animais",
     checkoutUrl: "https://pay.cakto.com.br/327nejh",
   },
   {

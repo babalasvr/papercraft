@@ -45,7 +45,9 @@ export async function createPixPayment(params: {
 
 export function verifyExpfySignature(rawBody: string, signature: string): boolean {
   const { createHmac, timingSafeEqual } = require('crypto');
-  const expected = createHmac('sha256', process.env.EXPFY_WEBHOOK_SECRET!)
+  // Expfy assina o webhook com o mesmo secret_key usado na autenticação da API
+  const secret = process.env.EXPFY_WEBHOOK_SECRET || process.env.EXPFY_SECRET_KEY!;
+  const expected = createHmac('sha256', secret)
     .update(rawBody)
     .digest('hex');
 

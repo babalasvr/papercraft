@@ -20,7 +20,9 @@ const PRODUCT_PLAN_MAP: Record<string, "iniciante" | "mestre"> = {
 // ── Upsells/order bumps → product_id interno (coluna purchased_products) ──────
 const UPSELL_PRODUCT_MAP: Record<string, string> = {
   // Kit Impressão Profissional R$7,90 (order bump)
+  // bu34t3v é o mesmo ID do antigo Kit Profissional — UPSELL_MAP tem prioridade
   "bu34t3v_807226": "kit-impressao",
+  "bu34t3v":        "kit-impressao",
 
   // Pack EVA Premium R$19,90
   "jcpwaev_808467": "pack-eva",
@@ -155,12 +157,14 @@ export async function POST(request: NextRequest) {
     // ── 2. É produto principal → liberar área de membros ─────────────────────
     const plan = PRODUCT_PLAN_MAP[offerId] || "iniciante";
 
-    // Verificar se membro já existe
-    const { data: existing } = await supabase
+    // Verificar se membro já existe — usar limit(1) para não falhar com emails duplicados
+    const { data: rows } = await supabase
       .from("members")
       .select("id, plan")
       .eq("email", normalizedEmail)
-      .single();
+      .limit(1);
+
+    const existing = rows?.[0] ?? null;
 
     if (existing) {
       // Reativar caso estivesse revogado + upgrade de plano se necessário

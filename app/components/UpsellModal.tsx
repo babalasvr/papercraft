@@ -7,7 +7,7 @@ interface UpsellModalProps {
   onClose: () => void;
 }
 
-const UPSELL_URL = "https://pay.cakto.com.br/inwgjhy";
+const UPSELL_URL = "https://pay.cakto.com.br/3dxby95";
 const INICIANTE_URL = "https://pay.cakto.com.br/fdro8ye";
 const TIMER_SECONDS = 4 * 60 + 18; // 4:18
 

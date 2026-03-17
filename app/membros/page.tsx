@@ -378,7 +378,7 @@ export default function MembrosPage() {
                 acessa todo o conteúdo exclusivo do Kit Mestre.
               </p>
               <a
-                href="https://pay.cakto.com.br/inwgjhy"
+                href="https://pay.cakto.com.br/3dxby95"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="cta-button px-8 py-4 rounded-xl font-bold text-lg inline-block"

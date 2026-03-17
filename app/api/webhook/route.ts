@@ -5,7 +5,8 @@ import { supabase } from "@/app/lib/supabase";
 const PRODUCT_PLAN_MAP: Record<string, "iniciante" | "mestre"> = {
   // IDs Cakto → usar offer.id do payload (ex: body.data.offer.id)
   "4ptqmkr":   "mestre",    // Kit Mestre R$24,90
-  inwgjhy:     "mestre",    // Kit Mestre R$17,90 (upsell/saída)
+  inwgjhy:     "mestre",    // Kit Mestre R$17,90 (link antigo)
+  "3dxby95":   "mestre",    // Kit Mestre R$17,90 (link novo)
   fdro8ye:     "iniciante", // Kit Iniciante R$10,00
   "bu34t3v":   "mestre",    // Kit Profissional
   // IDs legados GGCheckout (manter por segurança)

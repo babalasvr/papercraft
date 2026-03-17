@@ -3,7 +3,7 @@
 import { useEffect, useState, useCallback } from "react";
 import { X } from "lucide-react";
 
-const CHECKOUT_URL = "https://pay.cakto.com.br/inwgjhy";
+const CHECKOUT_URL = "https://pay.cakto.com.br/3dxby95";
 const TIMER_SECONDS = 4 * 60 + 18; // 4:18
 
 export default function BackRedirect() {

@@ -144,6 +144,18 @@ const EVA_MOLDS: EvaMold[] = [
     description: "450 moldes em feltro — personagens, animais e muito mais",
     url: "https://drive.google.com/drive/folders/15AzfHSKDAr1mOapN0Tv-GrkrlhBSqh-9",
   },
+  {
+    title: "600 Moldes Atualizados",
+    icon: "⬆️",
+    description: "600 moldes atualizados em EVA — coleção completa e recente",
+    url: "https://drive.google.com/drive/folders/1oBIRQQ7UoouuakBtmXdLokSlNsg4LpZi",
+  },
+  {
+    title: "1.500 Moldes Variados",
+    icon: "🗂️",
+    description: "1.500 moldes variados — a maior coleção do pack em EVA",
+    url: "https://drive.google.com/drive/folders/1DoPDitozvFu9qs7_2A8mtuKn0-r62NuK",
+  },
 ];
 
 export default function PackEvaPage() {

@@ -4,6 +4,7 @@ import { verifyExpfySignature } from '@/app/lib/expfy';
 import { sendMetaEventWithName } from '@/app/lib/meta-conversions';
 import { sendPurchaseEmail } from '@/app/lib/email';
 import { sendPurchaseWhatsApp } from '@/app/lib/whatsapp';
+import { sendUtmifyOrder } from '@/app/lib/utmify';
 import { CHECKOUT_PRODUCTS } from '@/app/lib/checkout-products';
 import { randomUUID } from 'crypto';
 
@@ -183,6 +184,25 @@ async function processOrder(order: Record<string, unknown>, paidAt: string) {
       orderId: order.external_id as string,
     },
   }).catch(err => console.error('[Meta CAPI] Purchase error:', err));
+
+  // UTMify — rastreamento de conversão e ROI
+  sendUtmifyOrder({
+    orderId: order.external_id as string,
+    status: 'paid',
+    email: normalizedEmail,
+    name,
+    phone: order.phone as string,
+    cpf: order.cpf as string,
+    productId,
+    productName,
+    amountInCents: order.amount as number,
+    paidAt,
+    utmSource: order.utm_source as string | null,
+    utmMedium: order.utm_medium as string | null,
+    utmCampaign: order.utm_campaign as string | null,
+    utmTerm: order.utm_term as string | null,
+    utmContent: order.utm_content as string | null,
+  }).catch(err => console.error('[UTMify] Erro ao enviar evento:', err));
 
   console.log(`[Expfy Webhook] Order paid: ${normalizedEmail} → ${productId} (${plan})`);
 

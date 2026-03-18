@@ -37,17 +37,20 @@ export default function BannerTopo() {
         background: "linear-gradient(90deg, #8B2E06 0%, #C1440E 50%, #8B2E06 100%)",
       }}
     >
-      <div className="max-w-7xl mx-auto flex items-center justify-between gap-2">
+      <div className="max-w-7xl mx-auto flex items-center gap-2">
         {/* Conteúdo central */}
-        <div className="flex-1 flex items-center justify-center gap-2 flex-wrap text-sm font-medium">
-          <span className="relative inline-flex">
+        <div className="flex-1 flex items-center justify-center gap-2 flex-wrap text-sm font-medium min-w-0">
+          <span className="relative inline-flex shrink-0">
             <Clock size={16} className="relative z-10" />
             <span
               className="absolute inset-0 rounded-full bg-white opacity-40 animate-pulse-ring"
               style={{ transform: "scale(1.5)" }}
             />
           </span>
-          <span className="font-marker" style={{ fontFamily: '"Permanent Marker", cursive' }}>
+          <span
+            className="font-marker text-center leading-tight"
+            style={{ fontFamily: '"Permanent Marker", cursive', fontSize: "clamp(11px, 3.5vw, 14px)" }}
+          >
             +3500 MOLDES POR APENAS R$24,90
           </span>
           <span className="hidden sm:inline opacity-60">•</span>
@@ -60,13 +63,13 @@ export default function BannerTopo() {
           </span>
         </div>
 
-        {/* Botão "Já sou aluno" */}
+        {/* Botão "Já sou aluno" — só ícone no mobile, texto completo no sm+ */}
         <a
           href="/membros"
-          className="flex items-center gap-1.5 bg-white/15 hover:bg-white/25 transition-colors text-white text-xs font-semibold px-3 py-1.5 rounded-full border border-white/30 shrink-0 whitespace-nowrap"
+          className="flex items-center gap-1.5 bg-white/15 hover:bg-white/25 transition-colors text-white text-xs font-semibold px-2.5 py-1.5 rounded-full border border-white/30 shrink-0"
         >
           <LogIn size={13} />
-          Já sou aluno
+          <span className="hidden sm:inline whitespace-nowrap">Já sou aluno</span>
         </a>
       </div>
     </div>

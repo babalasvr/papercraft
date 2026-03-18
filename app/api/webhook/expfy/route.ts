@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import { supabase } from '@/app/lib/supabase';
 import { verifyExpfySignature } from '@/app/lib/expfy';
 import { sendMetaEventWithName } from '@/app/lib/meta-conversions';
+import { sendPurchaseEmail } from '@/app/lib/email';
+import { sendPurchaseWhatsApp } from '@/app/lib/whatsapp';
 import { CHECKOUT_PRODUCTS } from '@/app/lib/checkout-products';
 import { randomUUID } from 'crypto';
 
@@ -127,6 +129,32 @@ async function processOrder(order: Record<string, unknown>, paidAt: string) {
           .update({ purchased_products: [...current, productToAdd] })
           .eq('email', normalizedEmail);
       }
+    }
+  }
+
+  // Só envia email/WhatsApp em compras principais (produtos do checkout), não em upsells
+  const isMainProduct = !!CHECKOUT_PRODUCTS[productId];
+  const productName = product?.name || productId;
+  const phone = order.phone as string;
+
+  if (isMainProduct) {
+    // Email de boas-vindas
+    sendPurchaseEmail({
+      to: normalizedEmail,
+      name,
+      productName,
+      plan,
+    }).catch(err => console.error('[Email] Erro ao enviar:', err));
+
+    // WhatsApp
+    if (phone) {
+      sendPurchaseWhatsApp({
+        phone,
+        name,
+        productName,
+        plan,
+        email: normalizedEmail,
+      }).catch(err => console.error('[WhatsApp] Erro ao enviar:', err));
     }
   }
 

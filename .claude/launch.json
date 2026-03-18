@@ -2,10 +2,9 @@
   "version": "0.0.1",
   "configurations": [
     {
-      "name": "dev",
-      "runtimeExecutable": "npx.cmd",
-      "runtimeArgs": ["next", "dev"],
-      "port": 3000,
+      "name": "papercraft-brasil",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev"],
       "autoPort": true
     }
   ]

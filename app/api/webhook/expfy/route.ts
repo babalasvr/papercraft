@@ -103,11 +103,13 @@ async function processOrder(order: Record<string, unknown>, paidAt: string) {
     });
   }
 
-  // Append order bumps to purchased_products
-  for (const bump of orderBumps) {
+  // Append main product + order bumps to purchased_products
+  const productsToAppend = [productId, ...orderBumps.map((b) => b.id)];
+
+  for (const productToAdd of productsToAppend) {
     const { error: rpcError } = await supabase.rpc('append_purchased_product', {
       p_email: normalizedEmail,
-      p_product: bump.id,
+      p_product: productToAdd,
     });
 
     if (rpcError) {
@@ -119,10 +121,10 @@ async function processOrder(order: Record<string, unknown>, paidAt: string) {
         .single();
 
       const current: string[] = member?.purchased_products ?? [];
-      if (!current.includes(bump.id)) {
+      if (!current.includes(productToAdd)) {
         await supabase
           .from('members')
-          .update({ purchased_products: [...current, bump.id] })
+          .update({ purchased_products: [...current, productToAdd] })
           .eq('email', normalizedEmail);
       }
     }

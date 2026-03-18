@@ -6,9 +6,12 @@ import { CHECKOUT_PRODUCTS, type CheckoutProduct } from '@/app/lib/checkout-prod
 import { getStoredUtms, getFbc, getFbp } from '@/app/lib/utm';
 import { cleanCPF, cleanPhone } from '@/app/lib/validators';
 import CountdownBanner from './CountdownBanner';
+import TopBanner from './TopBanner';
 import StepIdentificacao, { type CustomerData } from './StepIdentificacao';
 import StepPagamento from './StepPagamento';
 import OrderSummary from './OrderSummary';
+import TrustBadges from './TrustBadges';
+import SocialProofNotification from './SocialProofNotification';
 
 type PixData = {
   qrCode: string;
@@ -31,7 +34,6 @@ export default function CheckoutForm() {
   const [customer, setCustomer] = useState<CustomerData>({
     name: '', email: '', cpf: '', phone: '',
   });
-  const [paymentMethod, setPaymentMethod] = useState<'pix' | 'credit_card'>('pix');
   const [orderBumps, setOrderBumps] = useState<string[]>([]);
   const [pixData, setPixData] = useState<PixData | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -75,7 +77,6 @@ export default function CheckoutForm() {
     if (product) {
       const eventId = generateEventId();
       sendMetaEvent('PageView', eventId);
-      // Also fire browser pixel if fbq exists
       if (typeof window !== 'undefined' && (window as unknown as Record<string, unknown>).fbq) {
         (window as unknown as { fbq: (...args: unknown[]) => void }).fbq('track', 'PageView', {}, { eventID: eventId });
       }
@@ -92,7 +93,6 @@ export default function CheckoutForm() {
         const data = await res.json();
         if (data.status === 'paid') {
           if (pollingRef.current) clearInterval(pollingRef.current);
-          // Redirect to upsell funnel
           router.push(`/upsell-eva?order_id=${pixData.externalId}`);
         }
       } catch {
@@ -107,7 +107,6 @@ export default function CheckoutForm() {
 
   const handleStep1Complete = () => {
     setStep(2);
-    // Fire InitiateCheckout
     const eventId = generateEventId();
     sendMetaEvent('InitiateCheckout', eventId, {
       value: product!.priceInCents / 100,
@@ -118,24 +117,6 @@ export default function CheckoutForm() {
     if (typeof window !== 'undefined' && (window as unknown as Record<string, unknown>).fbq) {
       (window as unknown as { fbq: (...args: unknown[]) => void }).fbq(
         'track', 'InitiateCheckout',
-        { value: product!.priceInCents / 100, currency: 'BRL' },
-        { eventID: eventId }
-      );
-    }
-  };
-
-  const handlePaymentMethodChange = (method: 'pix' | 'credit_card') => {
-    setPaymentMethod(method);
-    // Fire AddPaymentInfo
-    const eventId = generateEventId();
-    sendMetaEvent('AddPaymentInfo', eventId, {
-      value: product!.priceInCents / 100,
-      currency: 'BRL',
-      contentIds: [productSlug],
-    });
-    if (typeof window !== 'undefined' && (window as unknown as Record<string, unknown>).fbq) {
-      (window as unknown as { fbq: (...args: unknown[]) => void }).fbq(
-        'track', 'AddPaymentInfo',
         { value: product!.priceInCents / 100, currency: 'BRL' },
         { eventID: eventId }
       );
@@ -206,6 +187,7 @@ export default function CheckoutForm() {
 
   return (
     <>
+      <TopBanner />
       <CountdownBanner minutes={10} />
 
       <div className="max-w-6xl mx-auto px-4 py-6">
@@ -235,9 +217,9 @@ export default function CheckoutForm() {
 
         {/* Desktop: 3 columns / Mobile: stacked */}
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_1fr_380px] gap-5">
-          {/* Mobile: Summary first */}
+          {/* Mobile: Summary first (sem trust badges) */}
           <div className="lg:hidden order-1">
-            <OrderSummary product={product} orderBumps={orderBumps} paymentMethod={paymentMethod} />
+            <OrderSummary product={product} orderBumps={orderBumps} paymentMethod="pix" hideTrustBadges />
           </div>
 
           {/* Step 1 */}
@@ -254,8 +236,6 @@ export default function CheckoutForm() {
           {/* Step 2 */}
           <div className="order-3 lg:order-2">
             <StepPagamento
-              paymentMethod={paymentMethod}
-              onMethodChange={handlePaymentMethodChange}
               orderBumpChecked={orderBumps.includes('kit-impressao')}
               onOrderBumpChange={handleOrderBumpChange}
               onSubmit={handleSubmit}
@@ -265,10 +245,15 @@ export default function CheckoutForm() {
             />
           </div>
 
-          {/* Desktop: Summary sidebar */}
+          {/* Desktop: Summary sidebar (com trust badges) */}
           <div className="hidden lg:block order-3">
-            <OrderSummary product={product} orderBumps={orderBumps} paymentMethod={paymentMethod} />
+            <OrderSummary product={product} orderBumps={orderBumps} paymentMethod="pix" />
           </div>
+        </div>
+
+        {/* Mobile: Trust badges no final */}
+        <div className="lg:hidden mt-5">
+          <TrustBadges />
         </div>
       </div>
 
@@ -286,6 +271,8 @@ export default function CheckoutForm() {
           <p>&copy; {new Date().getFullYear()} Papercraft Brasil. Todos os direitos reservados.</p>
         </div>
       </footer>
+
+      <SocialProofNotification />
     </>
   );
 }

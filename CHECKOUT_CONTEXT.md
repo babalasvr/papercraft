@@ -1,6 +1,6 @@
 # Checkout Próprio — Papercraft Brasil
 
-## Status: PIX ✅ | Cartão de Crédito ⏳ pendente
+## Status: PIX ✅ | Cartão de Crédito ✅ (Mercado Pago implementado)
 
 ---
 
@@ -20,6 +20,8 @@
 | Rota | O que faz |
 |---|---|
 | `POST /api/checkout/create-pix` | Valida dados, cria order no Supabase, gera QR code PIX via Expfy, dispara Meta CAPI InitiateCheckout |
+| `POST /api/checkout/create-card` | Tokeniza cartão via MP Brick, cria payment na API MP, cria membro se aprovado imediatamente |
+| `POST /api/webhook/mercadopago` | Recebe notificação MP, valida status, atualiza order para `paid`, cria membro, dispara Meta CAPI Purchase |
 | `GET /api/checkout/status?external_id=xxx` | Retorna `{ status: "pending" \| "paid" }` — usado para polling a cada 3s |
 | `POST /api/webhook/expfy` | Recebe confirmação da Expfy (HMAC-SHA256), atualiza order para `paid`, cria membro no Supabase, dispara Meta CAPI Purchase |
 | `POST /api/meta-event` | Proxy server-side para eventos do browser (PageView, InitiateCheckout, AddPaymentInfo) |

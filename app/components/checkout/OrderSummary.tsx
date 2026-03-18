@@ -7,9 +7,10 @@ type Props = {
   product: CheckoutProduct;
   orderBumps: string[];
   paymentMethod: 'pix' | 'credit_card';
+  hideTrustBadges?: boolean;
 };
 
-export default function OrderSummary({ product, orderBumps, paymentMethod }: Props) {
+export default function OrderSummary({ product, orderBumps, paymentMethod, hideTrustBadges }: Props) {
   const hasBump = orderBumps.includes('kit-impressao');
   const total = calculateTotal(product, orderBumps);
   const itemCount = 1 + (hasBump ? 1 : 0);
@@ -63,7 +64,7 @@ export default function OrderSummary({ product, orderBumps, paymentMethod }: Pro
       </div>
 
       {/* Trust Badges */}
-      <TrustBadges />
+      {!hideTrustBadges && <TrustBadges />}
     </div>
   );
 }

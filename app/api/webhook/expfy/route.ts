@@ -165,33 +165,35 @@ async function processOrder(order: Record<string, unknown>, paidAt: string) {
     }
   }
 
-  // Fire Meta CAPI Purchase event
-  const purchaseEventId = randomUUID();
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://papercraftbrasil.com';
+  // Meta CAPI Purchase — apenas produtos principais (não upsells)
+  if (isMainProduct) {
+    const purchaseEventId = randomUUID();
+    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://papercraft-br.shop';
 
-  sendMetaEventWithName(name, {
-    eventName: 'Purchase',
-    eventId: purchaseEventId,
-    sourceUrl: `${baseUrl}/checkout?product=${productId}`,
-    userData: {
-      email: normalizedEmail,
-      phone: order.phone as string,
-      cpf: order.cpf as string,
-      fbc: (order.fbc as string) || null,
-      fbp: (order.fbp as string) || null,
-      clientIpAddress: (order.client_ip as string) || null,
-      clientUserAgent: (order.client_user_agent as string) || null,
-    },
-    customData: {
-      value: (order.amount as number) / 100,
-      currency: 'BRL',
-      contentIds: [productId],
-      contents: [{ id: productId, quantity: 1 }],
-      orderId: order.external_id as string,
-    },
-  }).catch(err => console.error('[Meta CAPI] Purchase error:', err));
+    sendMetaEventWithName(name, {
+      eventName: 'Purchase',
+      eventId: purchaseEventId,
+      sourceUrl: `${baseUrl}/checkout?product=${productId}`,
+      userData: {
+        email: normalizedEmail,
+        phone: order.phone as string,
+        cpf: order.cpf as string,
+        fbc: (order.fbc as string) || null,
+        fbp: (order.fbp as string) || null,
+        clientIpAddress: (order.client_ip as string) || null,
+        clientUserAgent: (order.client_user_agent as string) || null,
+      },
+      customData: {
+        value: (order.amount as number) / 100,
+        currency: 'BRL',
+        contentIds: [productId],
+        contents: [{ id: productId, quantity: 1 }],
+        orderId: order.external_id as string,
+      },
+    }).catch(err => console.error('[Meta CAPI] Purchase error:', err));
+  }
 
-  // UTMify — rastreamento de conversão e ROI
+  // UTMify — rastreamento de conversão e ROI (todos os produtos)
   sendUtmifyOrder({
     orderId: order.external_id as string,
     status: 'paid',

@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { supabase } from '@/app/lib/supabase';
 import { stripe } from '@/app/lib/stripe';
-import { sendMetaEventWithName } from '@/app/lib/meta-conversions';
 import { sendUtmifyOrder } from '@/app/lib/utmify';
 import { CHECKOUT_PRODUCTS } from '@/app/lib/checkout-products';
 import { randomUUID } from 'crypto';
@@ -149,33 +148,7 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    // Meta CAPI Purchase
-    const purchaseEventId = metaEventId || randomUUID();
-    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://papercraft-br.shop';
-
-    sendMetaEventWithName(originalOrder.name as string, {
-      eventName: 'Purchase',
-      eventId: purchaseEventId,
-      sourceUrl: `${baseUrl}/upsell-eva`,
-      userData: {
-        email: normalizedEmail,
-        phone: originalOrder.phone as string,
-        cpf: originalOrder.cpf as string,
-        fbc: (originalOrder.fbc as string) || null,
-        fbp: (originalOrder.fbp as string) || null,
-        clientIpAddress: (originalOrder.client_ip as string) || null,
-        clientUserAgent: (originalOrder.client_user_agent as string) || null,
-      },
-      customData: {
-        value: upsellProduct.priceInCents / 100,
-        currency: 'BRL',
-        contentIds: [upsellProductId],
-        contents: [{ id: upsellProductId, quantity: 1 }],
-        orderId: upsellExternalId,
-      },
-    }).catch(err => console.error('[Meta CAPI] Upsell Purchase error:', err));
-
-    // UTMify
+    // UTMify (upsells rastreados para ROI, sem evento Meta CAPI)
     sendUtmifyOrder({
       orderId: upsellExternalId,
       status: 'paid',

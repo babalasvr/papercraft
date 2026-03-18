@@ -56,8 +56,11 @@ export default function StepPagamento({
     );
   }
 
-  const isPixReady = pixData !== null;
-  const isCardReady = stripeData !== null;
+  // Ao trocar de aba: se estava no cartão com form aberto, reseta
+  const handleTabChange = (tab: 'pix' | 'card') => {
+    if (tab === 'pix' && stripeData) onResetCard();
+    onPaymentTabChange(tab);
+  };
 
   return (
     <div className="bg-[#16213e] rounded-lg p-5 border border-gray-700/50">
@@ -66,18 +69,18 @@ export default function StepPagamento({
         <h2 className="font-semibold text-white text-lg">Pagamento</h2>
       </div>
 
-      {/* Order Bump */}
-      {!isPixReady && !isCardReady && (
+      {/* Order Bump — só aparece antes de gerar qualquer pagamento */}
+      {!pixData && !stripeData && (
         <div className="mb-5">
           <OrderBumpCard checked={orderBumpChecked} onChange={onOrderBumpChange} />
         </div>
       )}
 
-      {/* Abas PIX / Cartão */}
-      {!isPixReady && !isCardReady && (
+      {/* Abas PIX / Cartão — sempre visíveis (exceto após gerar QR do PIX) */}
+      {!pixData && (
         <div className="flex rounded-lg overflow-hidden border border-gray-600 mb-5">
           <button
-            onClick={() => onPaymentTabChange('pix')}
+            onClick={() => handleTabChange('pix')}
             className={`flex-1 py-3 text-sm font-semibold flex items-center justify-center gap-2 transition-colors ${
               paymentTab === 'pix'
                 ? 'bg-orange-500 text-white'
@@ -90,7 +93,7 @@ export default function StepPagamento({
             PIX
           </button>
           <button
-            onClick={() => onPaymentTabChange('card')}
+            onClick={() => handleTabChange('card')}
             className={`flex-1 py-3 text-sm font-semibold flex items-center justify-center gap-2 transition-colors ${
               paymentTab === 'card'
                 ? 'bg-orange-500 text-white'
@@ -106,80 +109,61 @@ export default function StepPagamento({
         </div>
       )}
 
-      {/* Conteúdo da aba PIX */}
+      {/* ── ABA PIX ── */}
       {paymentTab === 'pix' && (
-        <>
-          {isPixReady ? (
-            <PixQrCode
-              qrCode={pixData!.qrCode}
-              qrCodeImage={pixData!.qrCodeImage}
-              displayAmount={pixData!.displayAmount}
-            />
-          ) : (
-            <>
-              <div className="bg-[#0f1729] border border-gray-600 rounded-lg p-4 mb-5">
-                <p className="text-gray-300 text-sm">
-                  A confirmação de pagamento é realizada em poucos minutos. Utilize o aplicativo do seu banco para pagar.
-                </p>
-              </div>
-
-              <button
-                onClick={onSubmitPix}
-                disabled={isLoading}
-                className={`w-full cta-button py-4 rounded-lg font-bold text-lg flex items-center justify-center gap-2 ${
-                  isLoading ? 'opacity-50 cursor-not-allowed' : ''
-                }`}
-              >
-                {isLoading ? (
-                  <>
-                    <Loader2 className="w-5 h-5 animate-spin" />
-                    Gerando PIX...
-                  </>
-                ) : (
-                  'Finalizar compra via PIX'
-                )}
-              </button>
-            </>
-          )}
-        </>
-      )}
-
-      {/* Conteúdo da aba Cartão */}
-      {paymentTab === 'card' && (
-        <>
-          {isCardReady ? (
-            <>
-              <StripePaymentForm
-                clientSecret={stripeData!.clientSecret}
-                displayAmount={stripeData!.displayAmount}
-                onSuccess={onCardSuccess}
-              />
-              <button
-                onClick={onResetCard}
-                className="w-full text-center mt-3 text-gray-500 text-xs hover:text-gray-300 transition-colors cursor-pointer"
-              >
-                ← Voltar e pagar com PIX
-              </button>
-            </>
-          ) : (
+        pixData ? (
+          <PixQrCode
+            qrCode={pixData.qrCode}
+            qrCodeImage={pixData.qrCodeImage}
+            displayAmount={pixData.displayAmount}
+          />
+        ) : (
+          <>
+            <div className="bg-[#0f1729] border border-gray-600 rounded-lg p-4 mb-5">
+              <p className="text-gray-300 text-sm">
+                A confirmação é realizada em poucos minutos. Utilize o app do seu banco para pagar.
+              </p>
+            </div>
             <button
-              onClick={onSubmitCard}
+              onClick={onSubmitPix}
               disabled={isLoading}
               className={`w-full cta-button py-4 rounded-lg font-bold text-lg flex items-center justify-center gap-2 ${
                 isLoading ? 'opacity-50 cursor-not-allowed' : ''
               }`}
             >
               {isLoading ? (
-                <>
-                  <Loader2 className="w-5 h-5 animate-spin" />
-                  Preparando...
-                </>
+                <><Loader2 className="w-5 h-5 animate-spin" />Gerando PIX...</>
               ) : (
-                'Continuar para pagamento'
+                'Finalizar compra via PIX'
               )}
             </button>
-          )}
-        </>
+          </>
+        )
+      )}
+
+      {/* ── ABA CARTÃO ── */}
+      {paymentTab === 'card' && (
+        stripeData ? (
+          <StripePaymentForm
+            clientSecret={stripeData.clientSecret}
+            displayAmount={stripeData.displayAmount}
+            onSuccess={onCardSuccess}
+          />
+        ) : (
+          <button
+            onClick={onSubmitCard}
+            disabled={isLoading}
+            className={`w-full cta-button py-4 rounded-lg font-bold text-lg flex items-center justify-center gap-2 ${
+              isLoading ? 'opacity-50 cursor-not-allowed' : ''
+            }`}
+          >
+            {isLoading ? (
+              <><Loader2 className="w-5 h-5 animate-spin" />Preparando...</>
+            ) : (
+              'Continuar para pagamento'
+            )}
+          </button>
+        )
       )}
     </div>
   );

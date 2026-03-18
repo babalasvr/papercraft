@@ -84,13 +84,13 @@ export async function sendUtmifyOrder(params: UtmifyOrderParams) {
       gatewayFeeInCents,
       userCommissionInCents,
     },
-    // UTM params — passados direto se disponíveis
-    utm: {
-      src: utmSource || null,
-      medium: utmMedium || null,
-      campaign: utmCampaign || null,
-      term: utmTerm || null,
-      content: utmContent || null,
+    // UTM params — campo exigido pela UTMify
+    trackingParameters: {
+      utm_source: utmSource || null,
+      utm_medium: utmMedium || null,
+      utm_campaign: utmCampaign || null,
+      utm_term: utmTerm || null,
+      utm_content: utmContent || null,
     },
   };
 

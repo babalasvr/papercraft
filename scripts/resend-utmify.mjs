@@ -117,12 +117,12 @@ async function sendToUtmify(order) {
       gatewayFeeInCents,
       userCommissionInCents,
     },
-    utm: {
-      src: order.utm_source || null,
-      medium: order.utm_medium || null,
-      campaign: order.utm_campaign || null,
-      term: order.utm_term || null,
-      content: order.utm_content || null,
+    trackingParameters: {
+      utm_source: order.utm_source || null,
+      utm_medium: order.utm_medium || null,
+      utm_campaign: order.utm_campaign || null,
+      utm_term: order.utm_term || null,
+      utm_content: order.utm_content || null,
     },
   };
 

@@ -21,7 +21,7 @@ export async function sendPurchaseEmail(params: SendPurchaseEmailParams) {
   const password = process.env.MEMBER_PASSWORD || 'paper123';
 
   const { data, error } = await resend.emails.send({
-    from: 'Papercraft Brasil <onboarding@resend.dev>',
+    from: 'Papercraft Brasil <noreply@papercraft-br.shop>',
     to,
     subject: '🎉 Sua compra foi confirmada! Acesse seus moldes agora',
     html: buildEmailHtml({ firstName, productName, plan, email: to, password, memberUrl }),

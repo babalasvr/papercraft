@@ -63,9 +63,18 @@ export async function POST(request: NextRequest) {
 }
 
 async function processOrder(order: Record<string, unknown>, paidAt: string) {
-  // Idempotency guard: skip if already processed
-  if (order.status === 'paid') {
-    console.log(`[Expfy Webhook] Order already paid, skipping: ${order.external_id}`);
+  // UPDATE atômico: só atualiza se ainda estiver 'pending'
+  // Resolve race condition quando Expfy chama o webhook 2x simultaneamente
+  const { data: updated } = await supabase
+    .from('orders')
+    .update({ status: 'paid', paid_at: paidAt })
+    .eq('external_id', order.external_id as string)
+    .eq('status', 'pending')  // condição atômica — só 1 chamada consegue atualizar
+    .select('id')
+    .maybeSingle();
+
+  if (!updated) {
+    console.log(`[Expfy Webhook] Pedido já processado, ignorando: ${order.external_id}`);
     return NextResponse.json({ success: true, action: 'already_paid' });
   }
 
@@ -73,12 +82,6 @@ async function processOrder(order: Record<string, unknown>, paidAt: string) {
   const name = order.name as string;
   const productId = order.product_id as string;
   const orderBumps = (order.order_bumps as { id: string }[]) || [];
-
-  // Update order status
-  await supabase
-    .from('orders')
-    .update({ status: 'paid', paid_at: paidAt })
-    .eq('external_id', order.external_id as string);
 
   // Determine plan from product
   const product = CHECKOUT_PRODUCTS[productId];

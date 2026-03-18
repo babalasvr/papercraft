@@ -81,8 +81,8 @@ async function processStripeOrder(
   const orderBumps = (order.order_bumps as { id: string }[]) || [];
   const normalizedEmail = email.toLowerCase().trim();
 
-  // Atualiza status do pedido
-  await supabase
+  // UPDATE atômico — só processa se ainda estiver 'pending'
+  const { data: updated } = await supabase
     .from('orders')
     .update({
       status: 'paid',
@@ -90,7 +90,15 @@ async function processStripeOrder(
       stripe_payment_method_id: paymentMethodId,
       last4,
     })
-    .eq('external_id', order.external_id as string);
+    .eq('external_id', order.external_id as string)
+    .eq('status', 'pending')
+    .select('id')
+    .maybeSingle();
+
+  if (!updated) {
+    console.log(`[Stripe Webhook] Pedido já processado, ignorando: ${order.external_id}`);
+    return NextResponse.json({ success: true, action: 'already_paid' });
+  }
 
   const product = CHECKOUT_PRODUCTS[productId];
   const plan = product?.plan || 'iniciante';

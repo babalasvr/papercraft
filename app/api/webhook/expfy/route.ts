@@ -63,6 +63,12 @@ export async function POST(request: NextRequest) {
 }
 
 async function processOrder(order: Record<string, unknown>, paidAt: string) {
+  // Idempotency guard: skip if already processed
+  if (order.status === 'paid') {
+    console.log(`[Expfy Webhook] Order already paid, skipping: ${order.external_id}`);
+    return NextResponse.json({ success: true, action: 'already_paid' });
+  }
+
   const email = order.email as string;
   const name = order.name as string;
   const productId = order.product_id as string;

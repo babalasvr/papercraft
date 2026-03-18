@@ -1,7 +1,5 @@
 import { Resend } from 'resend';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
-
 export interface SendPurchaseEmailParams {
   to: string;
   name: string;
@@ -10,6 +8,13 @@ export interface SendPurchaseEmailParams {
 }
 
 export async function sendPurchaseEmail(params: SendPurchaseEmailParams) {
+  const apiKey = process.env.RESEND_API_KEY;
+  if (!apiKey) {
+    console.warn('[Resend] API key não configurado — pulando email');
+    return;
+  }
+
+  const resend = new Resend(apiKey);
   const { to, name, productName, plan } = params;
   const firstName = name.split(' ')[0];
   const memberUrl = 'https://papercraft-br.shop/membros';

@@ -20,6 +20,12 @@ type PixData = {
   externalId: string;
 };
 
+type StripeData = {
+  clientSecret: string;
+  displayAmount: string;
+  externalId: string;
+};
+
 function generateEventId() {
   return crypto.randomUUID();
 }
@@ -35,12 +41,13 @@ export default function CheckoutForm() {
     name: '', email: '', cpf: '', phone: '',
   });
   const [orderBumps, setOrderBumps] = useState<string[]>([]);
+  const [paymentTab, setPaymentTab] = useState<'pix' | 'card'>('pix');
   const [pixData, setPixData] = useState<PixData | null>(null);
+  const [stripeData, setStripeData] = useState<StripeData | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const pollingRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
-  // Meta params
   const [fbc, setFbc] = useState<string | null>(null);
   const [fbp, setFbp] = useState<string | null>(null);
 
@@ -49,7 +56,6 @@ export default function CheckoutForm() {
     setFbp(getFbp());
   }, []);
 
-  // Send Meta CAPI event via our API
   const sendMetaEvent = useCallback(async (eventName: string, eventId: string, customData?: Record<string, unknown>) => {
     try {
       await fetch('/api/meta-event', {
@@ -72,7 +78,6 @@ export default function CheckoutForm() {
     }
   }, [customer, fbc, fbp]);
 
-  // Fire PageView on mount
   useEffect(() => {
     if (product) {
       const eventId = generateEventId();
@@ -83,7 +88,7 @@ export default function CheckoutForm() {
     }
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  // Poll for payment status
+  // Poll para pagamento PIX
   useEffect(() => {
     if (!pixData) return;
 
@@ -95,9 +100,7 @@ export default function CheckoutForm() {
           if (pollingRef.current) clearInterval(pollingRef.current);
           router.push(`/upsell-eva?order_id=${pixData.externalId}`);
         }
-      } catch {
-        // Ignore polling errors
-      }
+      } catch { /* ignora */ }
     }, 3000);
 
     return () => {
@@ -127,7 +130,8 @@ export default function CheckoutForm() {
     setOrderBumps(checked ? ['kit-impressao'] : []);
   };
 
-  const handleSubmit = async () => {
+  // Submete pagamento PIX
+  const handleSubmitPix = async () => {
     if (!product || isLoading) return;
     setIsLoading(true);
     setError(null);
@@ -160,7 +164,6 @@ export default function CheckoutForm() {
 
       if (!res.ok) {
         setError(data.error || 'Erro ao processar pagamento');
-        setIsLoading(false);
         return;
       }
 
@@ -174,6 +177,62 @@ export default function CheckoutForm() {
       setError('Erro de conexão. Tente novamente.');
     } finally {
       setIsLoading(false);
+    }
+  };
+
+  // Prepara pagamento com cartão (cria PaymentIntent)
+  const handleSubmitCard = async () => {
+    if (!product || isLoading) return;
+    setIsLoading(true);
+    setError(null);
+
+    const utms = getStoredUtms();
+    const metaEventId = generateEventId();
+
+    try {
+      const res = await fetch('/api/checkout/create-stripe-payment', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: customer.name.trim(),
+          email: customer.email.trim().toLowerCase(),
+          cpf: cleanCPF(customer.cpf),
+          phone: cleanPhone(customer.phone),
+          productId: productSlug,
+          orderBumps,
+          utmSource: utms.utm_source,
+          utmMedium: utms.utm_medium,
+          utmCampaign: utms.utm_campaign,
+          utmTerm: utms.utm_term,
+          utmContent: utms.utm_content,
+          metaEventId,
+          fbc, fbp,
+        }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        setError(data.error || 'Erro ao iniciar pagamento com cartão');
+        return;
+      }
+
+      setStripeData({
+        clientSecret: data.data.clientSecret,
+        displayAmount: data.data.displayAmount,
+        externalId: data.data.externalId,
+      });
+    } catch {
+      setError('Erro de conexão. Tente novamente.');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  // Cartão aprovado pelo Stripe — redireciona para upsell
+  const handleCardSuccess = () => {
+    if (stripeData) {
+      router.push(`/upsell-eva?order_id=${stripeData.externalId}`);
     }
   };
 
@@ -208,16 +267,14 @@ export default function CheckoutForm() {
           </div>
         </div>
 
-        {/* Error message */}
         {error && (
           <div className="bg-red-500/20 border border-red-500/50 rounded-lg p-4 mb-4 text-red-300 text-sm">
             {error}
           </div>
         )}
 
-        {/* Desktop: 3 columns / Mobile: stacked */}
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_1fr_380px] gap-5">
-          {/* Mobile: Summary first (sem trust badges) */}
+          {/* Mobile: Summary primeiro */}
           <div className="lg:hidden order-1">
             <OrderSummary product={product} orderBumps={orderBumps} paymentMethod="pix" hideTrustBadges />
           </div>
@@ -238,36 +295,37 @@ export default function CheckoutForm() {
             <StepPagamento
               orderBumpChecked={orderBumps.includes('kit-impressao')}
               onOrderBumpChange={handleOrderBumpChange}
-              onSubmit={handleSubmit}
+              onSubmitPix={handleSubmitPix}
+              onSubmitCard={handleSubmitCard}
               isLoading={isLoading}
               pixData={pixData}
+              stripeData={stripeData}
               isActive={step >= 2}
+              paymentTab={paymentTab}
+              onPaymentTabChange={setPaymentTab}
+              onCardSuccess={handleCardSuccess}
             />
           </div>
 
-          {/* Desktop: Summary sidebar (com trust badges) */}
+          {/* Desktop: Summary sidebar */}
           <div className="hidden lg:block order-3">
             <OrderSummary product={product} orderBumps={orderBumps} paymentMethod="pix" />
           </div>
         </div>
 
-        {/* Mobile: Trust badges no final */}
         <div className="lg:hidden mt-5">
           <TrustBadges />
         </div>
       </div>
 
-      {/* Footer */}
       <footer className="border-t border-gray-800 mt-8 py-6">
         <div className="max-w-6xl mx-auto px-4 text-center text-xs text-gray-500 space-y-2">
           <div className="flex items-center justify-center gap-4">
             <span className="flex items-center gap-1">🔒 Pagamento 100% seguro</span>
             <span className="flex items-center gap-1">🛡️ Site protegido</span>
-            <span className="flex items-center gap-1">💳 Diversas formas de pagamento</span>
+            <span className="flex items-center gap-1">💳 PIX e Cartão de Crédito</span>
           </div>
-          <p>
-            Você está em uma página de checkout segura. A responsabilidade pela oferta é do vendedor.
-          </p>
+          <p>Você está em uma página de checkout segura.</p>
           <p>&copy; {new Date().getFullYear()} Papercraft Brasil. Todos os direitos reservados.</p>
         </div>
       </footer>

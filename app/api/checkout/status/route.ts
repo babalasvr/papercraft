@@ -10,7 +10,7 @@ export async function GET(request: NextRequest) {
 
   const { data, error } = await supabase
     .from('orders')
-    .select('status')
+    .select('status, stripe_customer_id, last4')
     .eq('external_id', externalId)
     .single();
 
@@ -18,5 +18,9 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ error: 'Pedido não encontrado' }, { status: 404 });
   }
 
-  return NextResponse.json({ status: data.status });
+  return NextResponse.json({
+    status: data.status,
+    stripeCustomerId: data.stripe_customer_id || null,
+    last4: data.last4 || null,
+  });
 }

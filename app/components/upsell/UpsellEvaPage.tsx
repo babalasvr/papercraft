@@ -1,8 +1,8 @@
 "use client";
 
-import { Suspense, useState, useCallback } from "react";
+import { Suspense, useState, useCallback, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Check, ArrowRight, Shield } from "lucide-react";
+import { Check, ArrowRight, Shield, Loader2, CreditCard } from "lucide-react";
 import CountdownTimer from "./CountdownTimer";
 import UpsellPixModal from "./UpsellPixModal";
 
@@ -10,15 +10,61 @@ function UpsellEvaContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [showPixModal, setShowPixModal] = useState(false);
+  const [stripeCustomerId, setStripeCustomerId] = useState<string | null>(null);
+  const [last4, setLast4] = useState<string | null>(null);
+  const [oneClickLoading, setOneClickLoading] = useState(false);
+  const [oneClickError, setOneClickError] = useState<string | null>(null);
   const orderId = searchParams.get("order_id") || "";
 
   const buildUrl = (path: string) => {
     return orderId ? `${path}?order_id=${orderId}` : path;
   };
 
+  // Verifica se o pedido original foi pago com cartão
+  useEffect(() => {
+    if (!orderId) return;
+    fetch(`/api/checkout/status?external_id=${orderId}`)
+      .then(r => r.json())
+      .then(data => {
+        if (data.stripeCustomerId) setStripeCustomerId(data.stripeCustomerId);
+        if (data.last4) setLast4(data.last4);
+      })
+      .catch(() => {});
+  }, [orderId]);
+
   const handleAccept = () => {
-    if (orderId) {
+    if (stripeCustomerId) {
+      handleOneClick();
+    } else {
       setShowPixModal(true);
+    }
+  };
+
+  const handleOneClick = async () => {
+    setOneClickLoading(true);
+    setOneClickError(null);
+    try {
+      const res = await fetch('/api/upsell-stripe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          orderId,
+          upsellProductId: 'pack-eva',
+        }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        // Se cartão precisa de autenticação, cai para PIX
+        setStripeCustomerId(null);
+        setOneClickError(data.error || 'Erro ao processar cartão. Tente via PIX.');
+        setOneClickLoading(false);
+        return;
+      }
+      // Sucesso — vai para próximo upsell
+      router.push(buildUrl("/upsell-metodo"));
+    } catch {
+      setOneClickError('Erro de conexão. Tente novamente.');
+      setOneClickLoading(false);
     }
   };
 
@@ -63,6 +109,7 @@ function UpsellEvaContent() {
           onPaid={handlePaid}
         />
       )}
+
       {/* Urgency Header */}
       <div className="bg-gradient-to-r from-[#8B2E06] to-[#C1440E] text-white py-3 px-4 text-center">
         <p className="text-sm font-bold">
@@ -119,7 +166,7 @@ function UpsellEvaContent() {
           </div>
         </div>
 
-        {/* Price Anchoring */}
+        {/* Price */}
         <div className="bg-gradient-to-br from-[#3D2B1F] to-[#2A1F15] rounded-2xl p-6 mb-6 text-white text-center">
           <p className="text-white/80 text-sm mb-2">
             Uma única peça em EVA vende por R$80–R$200.
@@ -135,13 +182,37 @@ function UpsellEvaContent() {
           <p className="text-white/60 text-xs">Pagamento único • Acesso imediato</p>
         </div>
 
+        {/* Erro one-click */}
+        {oneClickError && (
+          <div className="bg-red-100 border border-red-300 text-red-700 rounded-xl p-3 mb-4 text-sm text-center">
+            {oneClickError}
+          </div>
+        )}
+
         {/* CTA Button */}
         <button
           onClick={handleAccept}
-          className="cta-button w-full py-4 rounded-xl font-bold text-lg text-center flex items-center justify-center gap-2 cursor-pointer text-white"
+          disabled={oneClickLoading}
+          className={`cta-button w-full py-4 rounded-xl font-bold text-lg text-center flex items-center justify-center gap-2 cursor-pointer text-white ${
+            oneClickLoading ? 'opacity-70 cursor-not-allowed' : ''
+          }`}
         >
-          SIM! QUERO O PACK EVA
-          <ArrowRight className="w-5 h-5" />
+          {oneClickLoading ? (
+            <>
+              <Loader2 className="w-5 h-5 animate-spin" />
+              Processando...
+            </>
+          ) : stripeCustomerId ? (
+            <>
+              <CreditCard className="w-5 h-5" />
+              SIM! QUERO — Cobrar no cartão final {last4 || '****'}
+            </>
+          ) : (
+            <>
+              SIM! QUERO O PACK EVA
+              <ArrowRight className="w-5 h-5" />
+            </>
+          )}
         </button>
 
         {/* Security badge */}

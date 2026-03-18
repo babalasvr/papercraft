@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { CheckoutProduct, ORDER_BUMP, formatPrice, calculateTotal } from '@/app/lib/checkout-products';
 import TrustBadges from './TrustBadges';
 
@@ -28,8 +29,14 @@ export default function OrderSummary({ product, orderBumps, paymentMethod, hideT
 
         {/* Product */}
         <div className="flex items-center gap-3 pb-3 border-b border-gray-700/50">
-          <div className="w-12 h-12 bg-orange-500/20 rounded-lg flex items-center justify-center text-lg">
-            🎨
+          <div className="w-12 h-12 rounded-lg overflow-hidden shrink-0">
+            <Image
+              src="/img/imagem%20do%20produto%20no%20checkout.png"
+              alt={product.name}
+              width={48}
+              height={48}
+              className="w-full h-full object-cover"
+            />
           </div>
           <div className="flex-1">
             <p className="text-white text-sm font-medium">{product.name}</p>

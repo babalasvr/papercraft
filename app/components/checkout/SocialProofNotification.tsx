@@ -59,13 +59,19 @@ export default function SocialProofNotification() {
 
   return (
     <div
-      className="fixed bottom-6 left-4 z-50 flex items-center gap-3 bg-white text-gray-800 shadow-2xl rounded-xl px-4 py-3 max-w-[280px] animate-slide-in"
-      style={{ animation: 'slideInLeft 0.4s ease-out' }}
+      className="fixed top-4 right-4 sm:top-auto sm:bottom-6 sm:left-4 sm:right-auto z-50 flex items-center gap-3 bg-white text-gray-800 shadow-2xl rounded-xl px-4 py-3 max-w-[260px]"
+      style={{ animation: 'slideInNotif 0.4s ease-out' }}
     >
       <style>{`
-        @keyframes slideInLeft {
-          from { transform: translateX(-110%); opacity: 0; }
+        @keyframes slideInNotif {
+          from { transform: translateX(110%); opacity: 0; }
           to { transform: translateX(0); opacity: 1; }
+        }
+        @media (min-width: 640px) {
+          @keyframes slideInNotif {
+            from { transform: translateX(-110%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+          }
         }
       `}</style>
       <div className="bg-orange-500 text-white rounded-full p-2 shrink-0">

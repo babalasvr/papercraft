@@ -56,6 +56,11 @@ export async function POST(request: NextRequest) {
         order_bumps: JSON.stringify(orderBumpsData),
       },
       description: `${product.name}${orderBumpsData.length > 0 ? ' + Kit Impressão' : ''}`,
+      payment_method_options: {
+        card: {
+          installments: { enabled: true },
+        },
+      },
     });
 
     // Insere order no Supabase

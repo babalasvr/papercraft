@@ -236,6 +236,13 @@ export default function CheckoutForm() {
     }
   };
 
+  // Volta para PIX descartando o PaymentIntent atual
+  const handleResetCard = () => {
+    setStripeData(null);
+    setPaymentTab('pix');
+    setError(null);
+  };
+
   if (!product) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -304,6 +311,7 @@ export default function CheckoutForm() {
               paymentTab={paymentTab}
               onPaymentTabChange={setPaymentTab}
               onCardSuccess={handleCardSuccess}
+              onResetCard={handleResetCard}
             />
           </div>
 

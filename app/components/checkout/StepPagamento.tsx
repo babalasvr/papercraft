@@ -28,6 +28,7 @@ type Props = {
   paymentTab: 'pix' | 'card';
   onPaymentTabChange: (tab: 'pix' | 'card') => void;
   onCardSuccess: () => void;
+  onResetCard: () => void;
 };
 
 export default function StepPagamento({
@@ -42,6 +43,7 @@ export default function StepPagamento({
   paymentTab,
   onPaymentTabChange,
   onCardSuccess,
+  onResetCard,
 }: Props) {
   if (!isActive) {
     return (
@@ -146,11 +148,19 @@ export default function StepPagamento({
       {paymentTab === 'card' && (
         <>
           {isCardReady ? (
-            <StripePaymentForm
-              clientSecret={stripeData!.clientSecret}
-              displayAmount={stripeData!.displayAmount}
-              onSuccess={onCardSuccess}
-            />
+            <>
+              <StripePaymentForm
+                clientSecret={stripeData!.clientSecret}
+                displayAmount={stripeData!.displayAmount}
+                onSuccess={onCardSuccess}
+              />
+              <button
+                onClick={onResetCard}
+                className="w-full text-center mt-3 text-gray-500 text-xs hover:text-gray-300 transition-colors cursor-pointer"
+              >
+                ← Voltar e pagar com PIX
+              </button>
+            </>
           ) : (
             <button
               onClick={onSubmitCard}

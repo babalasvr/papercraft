@@ -187,8 +187,8 @@ export default function CheckoutForm() {
 
   return (
     <>
-      <TopBanner />
       <CountdownBanner minutes={10} />
+      <TopBanner />
 
       <div className="max-w-6xl mx-auto px-4 py-6">
         {/* Step indicators - mobile */}

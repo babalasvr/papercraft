@@ -37,6 +37,15 @@ export const CHECKOUT_PRODUCTS: Record<string, CheckoutProduct> = {
     plan: 'mestre',
     description: '+3.500 moldes de papercraft + 7 bônus',
   },
+  'kit-mestre-upgrade': {
+    id: 'kit-mestre-upgrade',
+    name: 'Upgrade Kit Mestre Papercraft',
+    slug: 'kit-mestre-upgrade',
+    priceInCents: 1700,
+    originalPriceInCents: 2490,
+    plan: 'mestre',
+    description: 'Upgrade para Kit Mestre — moldes premium desbloqueados',
+  },
 };
 
 export const ORDER_BUMP = {

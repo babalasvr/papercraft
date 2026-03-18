@@ -4,11 +4,18 @@ import { useState, useEffect } from "react";
 import { LogOut, ExternalLink, Lock, Mail, Scissors, ShoppingCart } from "lucide-react";
 import { memberContent, type CategoryCard } from "@/app/lib/member-content";
 import { UPSELL_PRODUCTS, type UpsellProduct } from "@/app/lib/upsell-products";
+import MemberPixModal from "@/app/components/membros/MemberPixModal";
 
 type MemberData = {
   name: string;
   plan: "iniciante" | "mestre";
   email?: string;
+};
+
+type ModalProduct = {
+  id: string;
+  name: string;
+  price: number;
 };
 
 export default function MembrosPage() {
@@ -19,6 +26,7 @@ export default function MembrosPage() {
   const [member, setMember] = useState<MemberData | null>(null);
   const [ownedProducts, setOwnedProducts] = useState<string[]>([]);
   const [checkingStorage, setCheckingStorage] = useState(true);
+  const [modalProduct, setModalProduct] = useState<ModalProduct | null>(null);
 
   // Check localStorage on mount
   useEffect(() => {
@@ -95,6 +103,16 @@ export default function MembrosPage() {
     setEmail("");
     setPassword("");
     localStorage.removeItem("papercraft_member");
+  }
+
+  // Called when PIX modal confirms payment — add product locally and refresh
+  function handleProductPaid(productId: string) {
+    setOwnedProducts((prev) => [...prev, productId]);
+    setModalProduct(null);
+    // If it's a kit-mestre upgrade, update the member's plan locally
+    if (productId === "kit-mestre-upgrade") {
+      setMember((prev) => prev ? { ...prev, plan: "mestre" } : prev);
+    }
   }
 
   if (checkingStorage) {
@@ -209,9 +227,22 @@ export default function MembrosPage() {
   // ── DASHBOARD ──
   const cards = memberContent[member.plan] || [];
   const firstName = member.name?.split(" ")[0] || "Membro";
+  const memberEmail = member.email || email;
 
   return (
     <div className="min-h-screen grid-paper-bg">
+      {/* PIX Modal */}
+      {modalProduct && (
+        <MemberPixModal
+          email={memberEmail}
+          productId={modalProduct.id}
+          productName={modalProduct.name}
+          productPrice={`R$ ${modalProduct.price.toFixed(2).replace(".", ",")}`}
+          onClose={() => setModalProduct(null)}
+          onPaid={handleProductPaid}
+        />
+      )}
+
       {/* Header */}
       <header className="bg-white/80 backdrop-blur-sm border-b border-gray-200 sticky top-0 z-10">
         <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
@@ -342,16 +373,20 @@ export default function MembrosPage() {
                         Acessar Conteúdo
                       </a>
                     ) : (
-                      <a
-                        href={product.checkoutUrl || "#"}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-2 text-primary font-semibold text-sm hover:underline"
+                      <button
+                        onClick={() =>
+                          setModalProduct({
+                            id: product.id,
+                            name: product.name,
+                            price: product.price,
+                          })
+                        }
+                        className="flex items-center gap-2 text-primary font-semibold text-sm hover:underline cursor-pointer"
                       >
                         <ShoppingCart className="w-4 h-4" />
                         Adquirir — R${" "}
                         {product.price.toFixed(2).replace(".", ",")}
-                      </a>
+                      </button>
                     )}
                   </div>
                 </div>
@@ -377,14 +412,18 @@ export default function MembrosPage() {
                 <strong className="text-foreground text-lg">R$ 17</strong> você
                 acessa todo o conteúdo exclusivo do Kit Mestre.
               </p>
-              <a
-                href="https://pay.cakto.com.br/3dxby95"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="cta-button px-8 py-4 rounded-xl font-bold text-lg inline-block"
+              <button
+                onClick={() =>
+                  setModalProduct({
+                    id: "kit-mestre-upgrade",
+                    name: "Upgrade Kit Mestre Papercraft",
+                    price: 17,
+                  })
+                }
+                className="cta-button px-8 py-4 rounded-xl font-bold text-lg inline-block cursor-pointer"
               >
                 Upgrade para Kit Mestre — R$ 17 →
-              </a>
+              </button>
             </div>
           </div>
         )}

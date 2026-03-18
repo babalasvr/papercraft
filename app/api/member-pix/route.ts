@@ -35,65 +35,62 @@ export async function POST(request: NextRequest) {
       .single();
 
     if (memberError || !member) {
+      console.error('[Member PIX] Member not found:', memberError);
       return NextResponse.json({ error: 'Membro não encontrado' }, { status: 404 });
     }
 
-    // Try to get CPF from an existing order (for Expfy API)
+    // Try to get CPF + phone from the most recent order for this email
     const { data: lastOrder } = await supabase
       .from('orders')
       .select('cpf, phone')
       .eq('email', email.toLowerCase().trim())
-      .not('cpf', 'is', null)
       .order('created_at', { ascending: false })
       .limit(1)
-      .single();
+      .maybeSingle();
 
-    const cpf = lastOrder?.cpf || '00000000000';
+    const cpf = lastOrder?.cpf || '';
+    const phone = lastOrder?.phone || '';
 
     const externalId = randomUUID();
-
-    // Create order record
-    const { error: insertError } = await supabase.from('orders').insert({
-      email: member.email,
-      name: member.name,
-      cpf,
-      product_id: productId,
-      product_name: product.name,
-      amount: product.priceInCents,
-      payment_method: 'pix',
-      external_id: externalId,
-      status: 'pending',
-      order_bumps: [],
-    });
-
-    if (insertError) {
-      console.error('[Member PIX] Insert error:', insertError);
-      return NextResponse.json({ error: 'Erro ao criar pedido' }, { status: 500 });
-    }
 
     // Build base URL for webhook callback
     const proto = request.headers.get('x-forwarded-proto') || 'https';
     const host = request.headers.get('host') || '';
     const baseUrl = `${proto}://${host}`;
 
-    // Create PIX via Expfy
+    // Create PIX via Expfy FIRST (before saving to DB, to avoid orphan records on failure)
     const expfyResponse = await createPixPayment({
       amountInCents: product.priceInCents,
       description: product.name,
       customer: {
         name: member.name,
-        document: cpf,
+        document: cpf || '00000000000',
         email: member.email,
       },
       externalId,
       callbackUrl: `${baseUrl}/api/webhook/expfy`,
     });
 
-    // Update order with transaction_id
-    await supabase
-      .from('orders')
-      .update({ transaction_id: expfyResponse.data.transaction_id })
-      .eq('external_id', externalId);
+    // Create order record after PIX is confirmed
+    const { error: insertError } = await supabase.from('orders').insert({
+      email: member.email,
+      name: member.name,
+      cpf: cpf || '',
+      phone: phone || '',
+      product_id: productId,
+      product_name: product.name,
+      amount: product.priceInCents,
+      payment_method: 'pix',
+      external_id: externalId,
+      transaction_id: expfyResponse.data.transaction_id,
+      status: 'pending',
+      order_bumps: [],
+    });
+
+    if (insertError) {
+      console.error('[Member PIX] Insert error:', JSON.stringify(insertError));
+      // Still return PIX data — webhook will handle attribution even without an order record
+    }
 
     console.log(`[Member PIX] PIX gerado: ${member.email} → ${productId}`);
 

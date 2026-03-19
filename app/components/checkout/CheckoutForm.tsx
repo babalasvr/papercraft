@@ -41,6 +41,7 @@ export default function CheckoutForm() {
     name: '', email: '', cpf: '', phone: '',
   });
   const [orderBumps, setOrderBumps] = useState<string[]>([]);
+  const [orderBumpWhatsApp, setOrderBumpWhatsApp] = useState(false);
   const [paymentTab, setPaymentTab] = useState<'pix' | 'card'>('pix');
   const [pixData, setPixData] = useState<PixData | null>(null);
   const [stripeData, setStripeData] = useState<StripeData | null>(null);
@@ -130,6 +131,16 @@ export default function CheckoutForm() {
     setOrderBumps(checked ? ['kit-impressao'] : []);
   };
 
+  const handleOrderBumpWhatsAppChange = (checked: boolean) => {
+    setOrderBumpWhatsApp(checked);
+  };
+
+  // Monta array completo de bumps para enviar à API
+  const allOrderBumps = [
+    ...(orderBumps),
+    ...(orderBumpWhatsApp ? ['kit-whatsapp'] : []),
+  ];
+
   // Submete pagamento PIX
   const handleSubmitPix = async () => {
     if (!product || isLoading) return;
@@ -149,7 +160,7 @@ export default function CheckoutForm() {
           cpf: cleanCPF(customer.cpf),
           phone: cleanPhone(customer.phone),
           productId: productSlug,
-          orderBumps,
+          orderBumps: allOrderBumps,
           utmSource: utms.utm_source,
           utmMedium: utms.utm_medium,
           utmCampaign: utms.utm_campaign,
@@ -199,7 +210,7 @@ export default function CheckoutForm() {
           cpf: cleanCPF(customer.cpf),
           phone: cleanPhone(customer.phone),
           productId: productSlug,
-          orderBumps,
+          orderBumps: allOrderBumps,
           utmSource: utms.utm_source,
           utmMedium: utms.utm_medium,
           utmCampaign: utms.utm_campaign,
@@ -302,11 +313,18 @@ export default function CheckoutForm() {
             <StepPagamento
               orderBumpChecked={orderBumps.includes('kit-impressao')}
               onOrderBumpChange={handleOrderBumpChange}
+              orderBumpWhatsAppChecked={orderBumpWhatsApp}
+              onOrderBumpWhatsAppChange={handleOrderBumpWhatsAppChange}
               onSubmitPix={handleSubmitPix}
               onSubmitCard={handleSubmitCard}
               isLoading={isLoading}
               pixData={pixData}
               stripeData={stripeData}
+              stripeReturnUrl={
+                stripeData
+                  ? `${typeof window !== 'undefined' ? window.location.origin : 'https://papercraft-br.shop'}/upsell-eva?order_id=${stripeData.externalId}`
+                  : ''
+              }
               isActive={step >= 2}
               paymentTab={paymentTab}
               onPaymentTabChange={setPaymentTab}

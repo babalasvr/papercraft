@@ -55,12 +55,20 @@ export const ORDER_BUMP = {
   description: 'Configurações de impressora, papéis e técnicas de corte profissional',
 };
 
+export const ORDER_BUMP_WHATSAPP = {
+  id: 'kit-whatsapp',
+  name: 'Material Exclusivo no WhatsApp',
+  priceInCents: 490,
+  description: 'Receba moldes extras e dicas avançadas direto no seu WhatsApp',
+};
+
 export function calculateTotal(
   product: CheckoutProduct,
   bumps: string[],
 ): number {
   let total = product.priceInCents;
   if (bumps.includes('kit-impressao')) total += ORDER_BUMP.priceInCents;
+  if (bumps.includes('kit-whatsapp')) total += ORDER_BUMP_WHATSAPP.priceInCents;
   return total;
 }
 

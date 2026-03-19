@@ -3,7 +3,7 @@ import { supabase } from '@/app/lib/supabase';
 import { verifyExpfySignature } from '@/app/lib/expfy';
 import { sendMetaEventWithName } from '@/app/lib/meta-conversions';
 import { sendPurchaseEmail } from '@/app/lib/email';
-import { sendPurchaseWhatsApp } from '@/app/lib/whatsapp';
+import { sendPurchaseWhatsApp, sendWhatsAppMaterial } from '@/app/lib/whatsapp';
 import { sendUtmifyOrder } from '@/app/lib/utmify';
 import { CHECKOUT_PRODUCTS } from '@/app/lib/checkout-products';
 import { randomUUID } from 'crypto';
@@ -156,7 +156,7 @@ async function processOrder(order: Record<string, unknown>, paidAt: string) {
       plan,
     }).catch(err => console.error('[Email] Erro ao enviar:', err));
 
-    // WhatsApp
+    // WhatsApp — mensagem de boas-vindas com acesso
     if (phone) {
       sendPurchaseWhatsApp({
         phone,
@@ -166,6 +166,15 @@ async function processOrder(order: Record<string, unknown>, paidAt: string) {
         email: normalizedEmail,
       }).catch(err => console.error('[WhatsApp] Erro ao enviar:', err));
     }
+  }
+
+  // WhatsApp Material — order bump kit-whatsapp
+  const hasWhatsAppBump = orderBumps.some((b: { id: string }) => b.id === 'kit-whatsapp');
+  if (hasWhatsAppBump && phone) {
+    sendWhatsAppMaterial({
+      phone,
+      name,
+    }).catch(err => console.error('[WhatsApp] Erro ao enviar material:', err));
   }
 
   // Meta CAPI Purchase — apenas produtos principais (não upsells)

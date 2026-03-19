@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { supabase } from '@/app/lib/supabase';
 import { createPixPayment } from '@/app/lib/expfy';
 import { sendMetaEventWithName } from '@/app/lib/meta-conversions';
-import { CHECKOUT_PRODUCTS, ORDER_BUMP, calculateTotal } from '@/app/lib/checkout-products';
+import { CHECKOUT_PRODUCTS, ORDER_BUMP, ORDER_BUMP_WHATSAPP, calculateTotal } from '@/app/lib/checkout-products';
 import { validateCPF, validateEmail, validatePhone, validateName, cleanCPF, cleanPhone } from '@/app/lib/validators';
 import { randomUUID } from 'crypto';
 
@@ -48,9 +48,10 @@ export async function POST(request: NextRequest) {
     const clientUserAgent = request.headers.get('user-agent') || null;
 
     // Build order bumps data
-    const orderBumpsData = orderBumps.includes('kit-impressao')
-      ? [{ id: ORDER_BUMP.id, name: ORDER_BUMP.name, amount: ORDER_BUMP.priceInCents }]
-      : [];
+    const orderBumpsData = [
+      ...(orderBumps.includes('kit-impressao') ? [{ id: ORDER_BUMP.id, name: ORDER_BUMP.name, amount: ORDER_BUMP.priceInCents }] : []),
+      ...(orderBumps.includes('kit-whatsapp') ? [{ id: ORDER_BUMP_WHATSAPP.id, name: ORDER_BUMP_WHATSAPP.name, amount: ORDER_BUMP_WHATSAPP.priceInCents }] : []),
+    ];
 
     // Check for existing pending order (idempotency)
     const { data: existingOrder } = await supabase
@@ -62,9 +63,12 @@ export async function POST(request: NextRequest) {
       .gte('created_at', new Date(Date.now() - 30 * 60 * 1000).toISOString())
       .limit(1);
 
-    if (existingOrder && existingOrder.length > 0 && existingOrder[0].transaction_id) {
-      // Return existing PIX data - but we don't have the QR code stored
-      // Better to create a new one
+    if (existingOrder && existingOrder.length > 0) {
+      // Já existe pedido pendente recente para esse email+produto — bloqueia duplicata
+      return NextResponse.json(
+        { error: 'Já existe um pagamento pendente para este produto. Aguarde ou use o PIX gerado anteriormente.' },
+        { status: 409 }
+      );
     }
 
     // Insert order in Supabase

@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { supabase } from '@/app/lib/supabase';
 import { stripe } from '@/app/lib/stripe';
 import { sendMetaEventWithName } from '@/app/lib/meta-conversions';
-import { CHECKOUT_PRODUCTS, ORDER_BUMP, calculateTotal } from '@/app/lib/checkout-products';
+import { CHECKOUT_PRODUCTS, ORDER_BUMP, ORDER_BUMP_WHATSAPP, calculateTotal } from '@/app/lib/checkout-products';
 import { validateCPF, validateEmail, validatePhone, validateName, cleanCPF, cleanPhone } from '@/app/lib/validators';
 import { randomUUID } from 'crypto';
 
@@ -33,9 +33,10 @@ export async function POST(request: NextRequest) {
     const clientIp = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || request.headers.get('x-real-ip') || null;
     const clientUserAgent = request.headers.get('user-agent') || null;
 
-    const orderBumpsData = orderBumps.includes('kit-impressao')
-      ? [{ id: ORDER_BUMP.id, name: ORDER_BUMP.name, amount: ORDER_BUMP.priceInCents }]
-      : [];
+    const orderBumpsData = [
+      ...(orderBumps.includes('kit-impressao') ? [{ id: ORDER_BUMP.id, name: ORDER_BUMP.name, amount: ORDER_BUMP.priceInCents }] : []),
+      ...(orderBumps.includes('kit-whatsapp') ? [{ id: ORDER_BUMP_WHATSAPP.id, name: ORDER_BUMP_WHATSAPP.name, amount: ORDER_BUMP_WHATSAPP.priceInCents }] : []),
+    ];
 
     // Cria Customer no Stripe (para salvar cartão para one-click upsell)
     const customer = await stripe.customers.create({

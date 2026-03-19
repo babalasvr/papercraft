@@ -71,3 +71,56 @@ Guarde essas informações. Qualquer dúvida, é só responder aqui! 😊`;
     console.error('[WhatsApp] Falha ao enviar:', error);
   }
 }
+
+export interface SendWhatsAppMaterialParams {
+  phone: string;
+  name: string;
+}
+
+export async function sendWhatsAppMaterial(params: SendWhatsAppMaterialParams) {
+  const apiUrl = process.env.EVOLUTION_API_URL;
+  const apiKey = process.env.EVOLUTION_API_KEY;
+  const instance = process.env.EVOLUTION_INSTANCE;
+  const materialUrl = process.env.WHATSAPP_MATERIAL_URL;
+
+  if (!apiUrl || !apiKey || !instance) {
+    console.warn('[WhatsApp] Evolution API não configurada — pulando envio do material');
+    return;
+  }
+
+  const { phone, name } = params;
+  const firstName = name.split(' ')[0];
+
+  const cleanedPhone = phone.replace(/\D/g, '');
+  const brazilPhone = cleanedPhone.startsWith('55') ? cleanedPhone : `55${cleanedPhone}`;
+
+  const message = materialUrl
+    ? `🎨 *Papercraft Brasil*\n\nOlá, ${firstName}! 🎉\n\nAqui está o seu material exclusivo que você adicionou na compra:\n👉 ${materialUrl}\n\nQualquer dúvida é só chamar aqui! 😊`
+    : `🎨 *Papercraft Brasil*\n\nOlá, ${firstName}! 🎉\n\nSeu material exclusivo já está sendo preparado e será enviado em breve!\n\nQualquer dúvida é só chamar aqui! 😊`;
+
+  try {
+    const response = await fetch(`${apiUrl}/message/sendText/${instance}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'apikey': apiKey,
+      },
+      body: JSON.stringify({
+        number: brazilPhone,
+        text: message,
+      }),
+    });
+
+    if (!response.ok) {
+      const err = await response.text();
+      console.error('[WhatsApp] Erro ao enviar material:', err);
+      return;
+    }
+
+    const data = await response.json();
+    console.log('[WhatsApp] Material enviado:', data?.key?.id);
+    return data;
+  } catch (error) {
+    console.error('[WhatsApp] Falha ao enviar material:', error);
+  }
+}

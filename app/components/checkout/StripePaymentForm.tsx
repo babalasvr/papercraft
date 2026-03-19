@@ -10,10 +10,11 @@ const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
 type Props = {
   clientSecret: string;
   displayAmount: string;
+  returnUrl: string;
   onSuccess: () => void;
 };
 
-function CardForm({ displayAmount, onSuccess }: { displayAmount: string; onSuccess: () => void }) {
+function CardForm({ displayAmount, returnUrl, onSuccess }: { displayAmount: string; returnUrl: string; onSuccess: () => void }) {
   const stripe = useStripe();
   const elements = useElements();
   const [isLoading, setIsLoading] = useState(false);
@@ -27,7 +28,9 @@ function CardForm({ displayAmount, onSuccess }: { displayAmount: string; onSucce
 
     const result = await stripe.confirmPayment({
       elements,
-      confirmParams: {},
+      confirmParams: {
+        return_url: returnUrl,
+      },
       redirect: 'if_required',
     });
 
@@ -87,7 +90,7 @@ function CardForm({ displayAmount, onSuccess }: { displayAmount: string; onSucce
   );
 }
 
-export default function StripePaymentForm({ clientSecret, displayAmount, onSuccess }: Props) {
+export default function StripePaymentForm({ clientSecret, displayAmount, returnUrl, onSuccess }: Props) {
   return (
     <Elements
       stripe={stripePromise}
@@ -106,7 +109,7 @@ export default function StripePaymentForm({ clientSecret, displayAmount, onSucce
         },
       }}
     >
-      <CardForm displayAmount={displayAmount} onSuccess={onSuccess} />
+      <CardForm displayAmount={displayAmount} returnUrl={returnUrl} onSuccess={onSuccess} />
     </Elements>
   );
 }

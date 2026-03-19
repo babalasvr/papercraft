@@ -2,6 +2,7 @@
 
 import { Loader2 } from 'lucide-react';
 import OrderBumpCard from './OrderBumpCard';
+import OrderBumpWhatsAppCard from './OrderBumpWhatsAppCard';
 import PixQrCode from './PixQrCode';
 import StripePaymentForm from './StripePaymentForm';
 
@@ -19,11 +20,14 @@ type StripeData = {
 type Props = {
   orderBumpChecked: boolean;
   onOrderBumpChange: (checked: boolean) => void;
+  orderBumpWhatsAppChecked: boolean;
+  onOrderBumpWhatsAppChange: (checked: boolean) => void;
   onSubmitPix: () => void;
   onSubmitCard: () => void;
   isLoading: boolean;
   pixData: PixData | null;
   stripeData: StripeData | null;
+  stripeReturnUrl: string;
   isActive: boolean;
   paymentTab: 'pix' | 'card';
   onPaymentTabChange: (tab: 'pix' | 'card') => void;
@@ -34,11 +38,14 @@ type Props = {
 export default function StepPagamento({
   orderBumpChecked,
   onOrderBumpChange,
+  orderBumpWhatsAppChecked,
+  onOrderBumpWhatsAppChange,
   onSubmitPix,
   onSubmitCard,
   isLoading,
   pixData,
   stripeData,
+  stripeReturnUrl,
   isActive,
   paymentTab,
   onPaymentTabChange,
@@ -69,10 +76,11 @@ export default function StepPagamento({
         <h2 className="font-semibold text-white text-lg">Pagamento</h2>
       </div>
 
-      {/* Order Bump — só aparece antes de gerar qualquer pagamento */}
+      {/* Order Bumps — só aparecem antes de gerar qualquer pagamento */}
       {!pixData && !stripeData && (
-        <div className="mb-5">
+        <div className="mb-5 space-y-3">
           <OrderBumpCard checked={orderBumpChecked} onChange={onOrderBumpChange} />
+          <OrderBumpWhatsAppCard checked={orderBumpWhatsAppChecked} onChange={onOrderBumpWhatsAppChange} />
         </div>
       )}
 
@@ -147,6 +155,7 @@ export default function StepPagamento({
           <StripePaymentForm
             clientSecret={stripeData.clientSecret}
             displayAmount={stripeData.displayAmount}
+            returnUrl={stripeReturnUrl}
             onSuccess={onCardSuccess}
           />
         ) : (

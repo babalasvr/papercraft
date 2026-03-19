@@ -294,7 +294,7 @@ export default function CheckoutForm() {
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_1fr_380px] gap-5">
           {/* Mobile: Summary primeiro */}
           <div className="lg:hidden order-1">
-            <OrderSummary product={product} orderBumps={orderBumps} paymentMethod="pix" hideTrustBadges />
+            <OrderSummary product={product} orderBumps={allOrderBumps} paymentMethod="pix" hideTrustBadges />
           </div>
 
           {/* Step 1 */}
@@ -335,7 +335,7 @@ export default function CheckoutForm() {
 
           {/* Desktop: Summary sidebar */}
           <div className="hidden lg:block order-3">
-            <OrderSummary product={product} orderBumps={orderBumps} paymentMethod="pix" />
+            <OrderSummary product={product} orderBumps={allOrderBumps} paymentMethod="pix" />
           </div>
         </div>
 

@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import { CheckoutProduct, ORDER_BUMP, formatPrice, calculateTotal } from '@/app/lib/checkout-products';
+import { CheckoutProduct, ORDER_BUMP, ORDER_BUMP_WHATSAPP, formatPrice, calculateTotal } from '@/app/lib/checkout-products';
 import TrustBadges from './TrustBadges';
 
 type Props = {
@@ -13,8 +13,9 @@ type Props = {
 
 export default function OrderSummary({ product, orderBumps, paymentMethod, hideTrustBadges }: Props) {
   const hasBump = orderBumps.includes('kit-impressao');
+  const hasWhatsApp = orderBumps.includes('kit-whatsapp');
   const total = calculateTotal(product, orderBumps);
-  const itemCount = 1 + (hasBump ? 1 : 0);
+  const itemCount = 1 + (hasBump ? 1 : 0) + (hasWhatsApp ? 1 : 0);
 
   return (
     <div className="space-y-4">
@@ -44,7 +45,7 @@ export default function OrderSummary({ product, orderBumps, paymentMethod, hideT
           </div>
         </div>
 
-        {/* Order bump */}
+        {/* Order bump - Kit Impressão */}
         {hasBump && (
           <div className="flex items-center gap-3 py-3 border-b border-gray-700/50">
             <div className="w-12 h-12 bg-orange-500/20 rounded-lg flex items-center justify-center text-lg">
@@ -53,6 +54,19 @@ export default function OrderSummary({ product, orderBumps, paymentMethod, hideT
             <div className="flex-1">
               <p className="text-white text-sm font-medium">{ORDER_BUMP.name}</p>
               <p className="text-orange-400 text-sm font-semibold">{formatPrice(ORDER_BUMP.priceInCents)}</p>
+            </div>
+          </div>
+        )}
+
+        {/* Order bump - WhatsApp */}
+        {hasWhatsApp && (
+          <div className="flex items-center gap-3 py-3 border-b border-gray-700/50">
+            <div className="w-12 h-12 bg-green-500/20 rounded-lg flex items-center justify-center text-lg">
+              📲
+            </div>
+            <div className="flex-1">
+              <p className="text-white text-sm font-medium">{ORDER_BUMP_WHATSAPP.name}</p>
+              <p className="text-green-400 text-sm font-semibold">{formatPrice(ORDER_BUMP_WHATSAPP.priceInCents)}</p>
             </div>
           </div>
         )}
